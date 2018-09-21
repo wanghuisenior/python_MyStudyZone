@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include 'static_files.html' %}
+    <link href="/static/frame/css/main.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body>
+<div style="margin-left: 20px;margin-right: 20px;padding-top: 5px">
+    <div class="crumbs">
+        <ul id="breadcrumbs" class="breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a href="#" onclick="showAtRight('home')">
+                    控制台
+                </a>
+            </li>
+            <li class="current">
+                <a href="#" title="">
+                    应用列表
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="container">    <div class="row row-bg">
+        <div class="col-sm-6 col-md-3 hidden-xs">
+            <div class="statbox widget box box-shadow">
+                <a href="" style="text-decoration: none;">
+                    <div class="widget-content">
+                        <div class="visual yellow">
+                            <i class="icon-dollar">
+                            </i>
+                        </div>
+                        <div class="title">
+                            标题
+                        </div>
+                        <div class="value">
+                            获取值
+                        </div>
+                        <a class="more" href="">
+                            查看更多
+                            <i class="pull-right icon-angle-right">
+                            </i>
+                        </a>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <i class="icon-home">home</i>
+        <i class="icon-edit">home</i>
+
+    </div>
+</div>
+
+</div>
+</body>
+</html>
