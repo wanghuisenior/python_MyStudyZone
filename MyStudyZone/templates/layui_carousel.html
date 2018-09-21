@@ -1,116 +1,151 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>轮播组件 - layui</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>轮播组件 - layui</title>
 
-<link rel="stylesheet" href="/static/layui-v2.4.3/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/layui-v2.4.3/layui/css/layui.css">
 
-<style>
-body{padding: 20px;}
+    <style>
+        body {
+            padding: 20px;
+        }
 
-/* 为了区分效果 */
-div[carousel-item]>*{text-align: center; line-height: 280px; color: #fff;}
-div[carousel-item]>*:nth-child(2n){background-color: #009688;}
-div[carousel-item]>*:nth-child(2n+1){background-color: #5FB878;}
+        /* 为了区分效果 */
+        div[carousel-item] > * {
+            text-align: center;
+            line-height: 280px;
+            color: #fff;
+        }
 
-#test2 div[carousel-item]>*{line-height: 120px;}
-</style>
+        div[carousel-item] > *:nth-child(2n) {
+            background-color: #009688;
+        }
+
+        div[carousel-item] > *:nth-child(2n+1) {
+            background-color: #5FB878;
+        }
+
+        #test2 div[carousel-item] > * {
+            line-height: 120px;
+        }
+    </style>
 </head>
 <body>
-
+<div style="font-size: 20px">
+    <span>条目区域可以放上文字列表、图片等任意内容 </span><br>
+    <span>在HTML结构中，只需要简单地注意这两项： </span><br>
+    <span>1) 外层元素的 class="layui-carousel" 用来标识为一个轮播容器</span><br>
+    <span>2) 内层元素的属性 carousel-item 用来标识条目</span><br>
+    <span>而 id 则用于carousel模块建造实例的元素指向，剩下的工作，就是按照你的实际需求，给方法设置不同的基础参数了。</span><br>
+</div>
 <div class="layui-carousel" id="test1" lay-filter="test1">
-  <div carousel-item>
-    <div>条目1</div>
-    <div>条目2</div>
-    <div>条目3</div>
-    <div>条目4</div>
-  </div>
+    <div carousel-item>
+        <div>条目1</div>
+        <div>条目2</div>
+        <div>条目3</div>
+        <div>条目4</div>
+    </div>
 </div>
 
 <br>
 
 <div class="layui-carousel" id="test2">
-  <div carousel-item>
-    <div>条目1</div>
-    <div>条目2</div>
-  </div>
+    <div carousel-item>
+        <div>条目1</div>
+        <div>条目2</div>
+    </div>
 </div>
 
 <br>
 
 <div class="layui-carousel" id="test3">
-  <div carousel-item>
-    <div>条目1</div>
-    <div>条目2</div>
-    <div>条目3</div>
-    <div>条目4</div>
-  </div>
+    <div carousel-item>
+        <div>条目1</div>
+        <div>条目2</div>
+        <div>条目3</div>
+        <div>条目4</div>
+    </div>
 </div>
 
 <br>
 
 <div class="layui-carousel" id="test4">
-  <div carousel-item>
-    <div><img src="http://s2.mogucdn.com/mlcdn/c45406/170714_2f9k4a3lgdfb80cie2g7aaba8l4ag_778x440.jpg_900x9999.v1c7E.70.webp"></div>
-    <div><img src="http://s10.mogucdn.com/mlcdn/c45406/170710_3a6jf5f0j24bgcc3i3f36el2a2ckj_778x440.jpg_900x9999.v1c7E.70.webp"></div>
-    <div><img src="http://s10.mogucdn.com/mlcdn/c45406/170714_5e8867724c4bfae8ka6l3a5274h0h_778x440.jpg_900x9999.v1c7E.70.webp"></div>
-    <div><img src="http://s3.mogucdn.com/mlcdn/c45406/170609_83i077ikhb3023kch5gah5b2il9k3_778x440.jpg_900x9999.v1c7E.70.webp"></div>
-    <div><img src="http://s10.mogucdn.com/mlcdn/c45406/170714_8d301bj507l9la1cjccbabg433beh_778x440.jpg_900x9999.v1c7E.70.webp"></div>
-    <div><img src="http://s10.mogucdn.com/mlcdn/c45406/170710_4kaiaee4j39899b08abc685j2ehk1_778x440.jpg_900x9999.v1c7E.70.webp"></div>
-    <div><img src="http://s10.mogucdn.com/mlcdn/c45406/170710_31a9gb225bga4agf4c9b25a8c8924_778x440.jpg_900x9999.v1c7E.70.webp"></div>
-  </div>
+    <div carousel-item>
+        <div><img
+                src="http://s2.mogucdn.com/mlcdn/c45406/170714_2f9k4a3lgdfb80cie2g7aaba8l4ag_778x440.jpg_900x9999.v1c7E.70.webp">
+        </div>
+        <div><img
+                src="http://s10.mogucdn.com/mlcdn/c45406/170710_3a6jf5f0j24bgcc3i3f36el2a2ckj_778x440.jpg_900x9999.v1c7E.70.webp">
+        </div>
+        <div><img
+                src="http://s10.mogucdn.com/mlcdn/c45406/170714_5e8867724c4bfae8ka6l3a5274h0h_778x440.jpg_900x9999.v1c7E.70.webp">
+        </div>
+        <div><img
+                src="http://s3.mogucdn.com/mlcdn/c45406/170609_83i077ikhb3023kch5gah5b2il9k3_778x440.jpg_900x9999.v1c7E.70.webp">
+        </div>
+        <div><img
+                src="http://s10.mogucdn.com/mlcdn/c45406/170714_8d301bj507l9la1cjccbabg433beh_778x440.jpg_900x9999.v1c7E.70.webp">
+        </div>
+        <div><img
+                src="http://s10.mogucdn.com/mlcdn/c45406/170710_4kaiaee4j39899b08abc685j2ehk1_778x440.jpg_900x9999.v1c7E.70.webp">
+        </div>
+        <div><img
+                src="http://s10.mogucdn.com/mlcdn/c45406/170710_31a9gb225bga4agf4c9b25a8c8924_778x440.jpg_900x9999.v1c7E.70.webp">
+        </div>
+    </div>
 </div>
 
 
 <script src="/static/layui-v2.4.3/layui/layui.js"></script>
 <script>
-layui.use('carousel', function(){
-  var carousel = layui.carousel;
+    layui.use('carousel', function () {
+        var carousel = layui.carousel;
 
-  //建造实例
-  carousel.render({
-    elem: '#test1'
-    ,index: 2
-    //,full: true
-    ,arrow: 'always'
-    //,autoplay: false
-    //,indicator: 'outside'
-    //,trigger: 'hover'
-  });
+        //建造实例
+        carousel.render({
+            elem: '#test1', //指向容器选择器，如：elem: '#id'。也可以是DOM对象
+            //width:'600px',    //设定轮播容器宽度，支持像素和百分比 默认值'600px'
+            //height:'280px',    //设定轮播容器高度，支持像素和百分比，支持像素和百分比 默认值'280px'
+            //full:false        //是否全屏轮播	 默认值false
+            //anim:'default'        //轮播切换动画方式，可选值为：default（左右切换）updown（上下切换）fade（渐隐渐显切换）	 默认值 'default'
+            //autoplay:'default'        //是否自动切换	，默认值 true
+            //interval:3000        //自动切换的时间间隔，单位：ms（毫秒），不能低于800	，默认值 3000
+            index: 2,               //初始开始的条目索引	默认值 0
+            arrow: 'always',       //切换箭头默认显示状态，可选值为：hover（悬停显示）always（始终显示）none（始终不显示）	默认值 'hover'
+            indicator: 'inside',       //指示器位置，可选值为：inside（容器内部）outside（容器外部）none（不显示），默认值 'inside'
+            //trigger: 'hover'        //指示器的触发事件 ，默认值 'click'
+        });
 
-  //事件
-  carousel.on('change(test1)', function(res){
-    console.log(res)
-  });
+        //监听轮播切换事件
+        carousel.on('change(test1)', function (obj) { //test1来源于对应HTML容器的 lay-filter="test1" 属性值
+            console.log('第一个轮播图切换了：当前条目的元素对象', obj.item); //当前条目的元素对象
+            console.log('第一个轮播图切换了：当前条目的索引', obj.index); //当前条目的索引
+            console.log('第一个轮播图切换了：上一个条目的索引', obj.prevIndex); //上一个条目的索引
+        });
 
-  carousel.render({
-    elem: '#test2'
-    ,interval: 1800
-    //,full: true
-    ,anim: 'fade'
-    ,height: '120px'
-  });
+        //建造其他的实例
+        carousel.render({
+            elem: '#test2',
+            interval: 1800,
+            anim: 'fade',
+            height: '120px',
+        });
 
-  carousel.render({
-    elem: '#test3'
-    //,full: true
-    ,arrow: 'always'
-    //,autoplay: false
-    //,indicator: 'outside'
-    //,trigger: 'hover'
-    ,anim: 'updown'
-    //,full: true
-  });
+        carousel.render({
+            elem: '#test3',
+            arrow: 'always',
+            anim: 'updown'
+        });
 
-  carousel.render({
-    elem: '#test4'
-    ,width: '778px'
-    ,height: '440px'
-    ,interval: 5000
-  });
-});
+        carousel.render({
+            elem: '#test4'
+            , width: '778px'
+            , height: '440px'
+            , interval: 5000
+        });
+    });
 </script>
 </body>
 </html>

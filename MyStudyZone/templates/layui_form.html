@@ -19,6 +19,11 @@
     </style>
 </head>
 <body>
+<h2><br>layui 针对各种表单元素做了较为全面的UI支持，你无需去书写那些 UI 结构，
+    <br>只需要写 HTML 原始的 input、select、textarea 这些基本的标签即可。
+    <br>我们在 UI上的渲染只要求一点，你必须给表单体系所在的父元素加上class="layui-form"，一切的工作都会在你加载完form模块后，自动完成。
+</h2>
+<hr>
 
 <form class="layui-form layui-form-pane1" action="" lay-filter="first">
     <div class="layui-form-item">
@@ -192,7 +197,6 @@
 <!-- <script src="../build/lay/dest/layui.all.js"></script> -->
 
 <script>
-
     layui.use('form', function () {
         var form = layui.form;
 
@@ -260,56 +264,6 @@
 
     });
 
-</script>
-
-
-<form id="test">
-    <input type="radio" value="girl" disabled>
-    <input type="checkbox" name="love[a]">
-    <input type="checkbox" name="love[b]">
-    <input value="1">
-    <select name="quiz">
-        <option value="">请选择问题</option>
-        <option disabled value="你工作的第一个城市">你工作的第一个城市</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你最喜欢的老师">你最喜欢的老师</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号" selected>你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-        <option value="你的工号">你的工号</option>
-    </select>
-    <button>Go</button>
-</form>
-<script>
-    layui.use('jquery', function () {
-        var $ = layui.jquery;
-        var submit = function () {
-            return false;
-        };
-        $('#test').on('submit', function () {
-            return false
-        });
-        $('#test').on('submit', function () {
-            return true
-        });
-    });
 </script>
 </body>
 </html>

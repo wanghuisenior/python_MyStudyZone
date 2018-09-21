@@ -445,18 +445,19 @@
     layui.use(['element', 'form'], function () {
         var element = layui.element;
 
-        element.on('tab(test)', function (data) {
-            console.log(this, data);
+        element.on('tab(test)', function (obj) {
+            console.log('点击了lay-filter="test"的tab页', obj);
         });
 
         element.on('nav(test)', function (elem) {
-            console.log(elem)
+            console.log('点击侧边栏',elem)
         });
 
-        element.on('collapse(test)', function (data) {
-            console.log(data);
+        element.on('collapse(test)', function (obj) {
+            console.log('导航折叠触发',obj);
         });
     });
 </script>
 </body>
 </html>
+,
