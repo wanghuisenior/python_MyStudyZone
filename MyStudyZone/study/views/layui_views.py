@@ -8,10 +8,13 @@
 import json
 
 from django.core import serializers
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse
 from django.shortcuts import render
 
 from study import models
+from study.models import User
+from study.utils.LazyEncoder import LazyEncoder
 
 
 def layui_home(request):
@@ -82,6 +85,9 @@ def layui_responsive(request):
 
 def layui_table(request):
     # 表格
+    # for i in range(101,500):
+    #     models.User.objects.create(user_name='测试用户' + str(i), user_tel='1853082503' + str(i), user_email='test' + str(i) + '@qq.com')
+
     return render(request, 'layui_table.html')
 
 
@@ -124,118 +130,35 @@ def layui_admin_grid(request):
 
 
 def layui_admin_table(request):
-    print(request.GET)
     if request.GET:
-        print('get不为空')
-        users = models.User.objects.all()
-        print(serializers.serialize('json', users))
-
-        data = {
-            "code": 0
-            , "msg": ""
-            , "count": 3000000
-            , "data": [{
-                "id": "10001"
-                , "username": "杜甫"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "点击此处，显示更多。当内容超出时，点击单元格会自动显示更多内容。"
-                , "experience": "7"
-                , "ip": "192.168.0.8"
-                , "logins": 0
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10002"
-                ,
-                "username": "李白"
-                ,
-                "email": "xianxin@layui.com"
-                ,
-                "sex": "男"
-                ,
-                "city": "浙江杭州"
-                ,
-                "sign": "君不见，黄河之水天上来，奔流到海不复回。 君不见，高堂明镜悲白发，朝如青丝暮成雪。 人生得意须尽欢，莫使金樽空对月。 天生我材必有用，千金散尽还复来。 烹羊宰牛且为乐，会须一饮三百杯。 岑夫子，丹丘生，将进酒，杯莫停。 与君歌一曲，请君为我倾耳听。(倾耳听 一作：侧耳听) 钟鼓馔玉不足贵，但愿长醉不复醒。(不足贵 一作：何足贵；不复醒 一作：不愿醒/不用醒) 古来圣贤皆寂寞，惟有饮者留其名。(古来 一作：自古；惟 通：唯) 陈王昔时宴平乐，斗酒十千恣欢谑。 主人何为言少钱，径须沽取对君酌。 五花马，千金裘，呼儿将出换美酒，与尔同销万古愁。"
-                ,
-                "experience": "9"
-                ,
-                "ip": "192.168.0.8"
-                ,
-                "logins": "106"
-                ,
-                "joinTime": "2016-10-14"
-                ,
-                "LAY_CHECKED": 'true'
-            }, {
-                "id": "10003"
-                , "username": "王勃"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "8"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10004"
-                , "username": "李清照"
-                , "email": "xianxin@layui.com"
-                , "sex": "女"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "6"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10005"
-                , "username": "冰心"
-                , "email": "xianxin@layui.com"
-                , "sex": "女"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "64"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10006"
-                , "username": "贤心"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "65"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10007"
-                , "username": "贤心"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "49"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10008"
-                , "username": "贤心"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "5"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }]
-        }
-        return HttpResponse(data)
+        return_data = {}
+        page, limit = 1, 10
+        for i in list(request.GET):
+            page = json.loads(i)['page']
+            limit = json.loads(i)['limit']
+        print('==', page, limit)
+        try:
+            users = models.User.objects.all()
+            # 分页实现
+            paginator = Paginator(users, limit)
+            try:
+                user_list = paginator.page(page).object_list
+            except PageNotAnInteger:
+                user_list = paginator.page(1).object_list
+            except EmptyPage:
+                user_list = paginator.page(paginator.num_pages)
+            return_data['code'] = 0
+            return_data['msg'] = '查询到了数据'
+            return_data['count'] = len(users)
+            return_data['data'] = list()
+            for user in user_list:
+                return_data['data'].append({'id': user.user_id, 'user_name': user.user_name, 'user_tel': user.user_tel,
+                                            'user_email': user.user_email, 'create_time': user.create_time,
+                                            'update_time': user.update_time, 'user_info': user.user_info})
+        except User.DoesNotExist:
+            return_data['code'] = 1
+            return_data['msg'] = '出错啦'
+        return HttpResponse(json.dumps(return_data, cls=LazyEncoder))
     else:
         print('get空')
         return render(request, 'admin/layui_admin_table.html')

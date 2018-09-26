@@ -10,7 +10,7 @@
 
     <style>
         body {
-            padding: 20px; /*overflow-y: scroll;*/
+            padding: 10px; /*overflow-y: scroll;*/
         }
     </style>
 </head>
@@ -21,32 +21,23 @@
     <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
     <button class="layui-btn" data-type="isAll">验证是否全选</button>
 </div>
-<!-- 第一个表格,使用js加载-->
-<table id="test" lay-filter="test"></table>
+
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-{% for user in users %}
-
-{% endfor %}
 
 <script type="text/html" id="usernameTpl">
-    <a href="" class="layui-table-link">{{ use.username }}</a>
+    <a href="" class="layui-table-link">{{ d.user_name }}</a>
 </script>
 
-<script type="text/html" id="switchTpl">
-    <input type="checkbox" name="yyy" lay-skin="switch" lay-text="女|男">
-</script>
-
-<script type="text/html" id="checkboxTpl">
-    <input type="checkbox" name="" title="锁定" checked>
-</script>
 
 <script type="text/html" id="LAY_table_tpl_email">
-    <span { if(!d.activate){ }}style="color:#999">{{ d.email }}</span>
+    <span { if(!d.activate){ }}style="color:#999" { } }}>{{ d.email }}</span>
 </script>
+<!-- 表格 -->
+<table id="test" lay-filter="test"></table>
 
 <table id="test2" lay-filter="test2"></table>
 
@@ -181,171 +172,85 @@
         //渲染
         table.render({
             elem: '#test',
-            height: 350,
+            height: 380,
             url: '{% url 'layui_admin_table' %}',
+            contentType: 'application/json',
             //size: 'sm'
-            page: {},
-            limit: 30,
+            page: { //自定义分页支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                layout: ['count', 'prev', 'page', 'next', 'skip', 'limit'] //自定义分页布局
+                //,curr: 5 //设定初始在第 5 页
+                , groups: 1 //只显示 1 个连续页码
+                , first: false //不显示首页
+                , last: false //不显示尾页
+
+            },
+            //where:{'name':'ffff'},
+            limit: 10,
             toolbar: '#toolbarDemo',
-            cols: [[{type: 'checkbox', fixed: 'left'}
-                , {field: 'id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true}
-                , {field: 'username', title: '用户名', width: 120, edit: 'text', templet: '#usernameTpl'}
-                , {field: 'email', title: '邮箱', width: 150}
-                , {field: 'sex', title: '性别', width: 80, edit: 'text', sort: true}
-                , {field: 'city', title: '城市', width: 100}
-                , {field: 'sign', title: '签名'}
-                , {field: 'experience', title: '积分', width: 80, sort: true}
-                , {field: 'ip', title: 'IP', width: 120}
-                , {field: 'logins', title: '登入次数', width: 100, sort: true}
-                , {field: 'joinTime', title: '加入时间', width: 120}
-                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+            cols: [[{type: 'checkbox', fixed: 'left'},
+                {field: 'id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: false},
+                {field: 'user_name', title: '用户名', width: 120},
+                {field: 'user_tel', title: '电话', edit: 'text', width: 150},
+                {field: 'user_email', title: '邮箱', width: 150},
+                {
+                    field: 'create_time', title: '加入时间', width: 180, templet: function (d) {
+                        return '哇哈哈：' + '<span style="color: #c00;">' + layui.util.toDateString(d.create_time, 'yyyy-MM-dd') + '</span>'
+                    }
+                },
+                {field: 'update_time', title: '最近更新时间', width: 120},
+                {field: 'user_info', title: '签名', width: 222},
+                {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 120},
             ]]
         });
-        var json = {
-            "code": 0
-            ,"msg": ""
-            , "count": 3000000
-            , "data": [{
-                "id": "10001"
-                , "username": "杜甫"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "点击此处，显示更多。当内容超出时，点击单元格会自动显示更多内容。"
-                , "experience": "7"
-                , "ip": "192.168.0.8"
-                , "logins": 0
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10002"
-                ,
-                "username": "李白"
-                ,
-                "email": "xianxin@layui.com"
-                ,
-                "sex": "男"
-                ,
-                "city": "浙江杭州"
-                ,
-                "sign": "君不见，黄河之水天上来，奔流到海不复回。 君不见，高堂明镜悲白发，朝如青丝暮成雪。 人生得意须尽欢，莫使金樽空对月。 天生我材必有用，千金散尽还复来。 烹羊宰牛且为乐，会须一饮三百杯。 岑夫子，丹丘生，将进酒，杯莫停。 与君歌一曲，请君为我倾耳听。(倾耳听 一作：侧耳听) 钟鼓馔玉不足贵，但愿长醉不复醒。(不足贵 一作：何足贵；不复醒 一作：不愿醒/不用醒) 古来圣贤皆寂寞，惟有饮者留其名。(古来 一作：自古；惟 通：唯) 陈王昔时宴平乐，斗酒十千恣欢谑。 主人何为言少钱，径须沽取对君酌。 五花马，千金裘，呼儿将出换美酒，与尔同销万古愁。"
-                ,
-                "experience": "9"
-                ,
-                "ip": "192.168.0.8"
-                ,
-                "logins": "106"
-                ,
-                "joinTime": "2016-10-14"
-                ,
-                "LAY_CHECKED": true
-            }, {
-                "id": "10003"
-                , "username": "王勃"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "8"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10004"
-                , "username": "李清照"
-                , "email": "xianxin@layui.com"
-                , "sex": "女"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "6"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10005"
-                , "username": "冰心"
-                , "email": "xianxin@layui.com"
-                , "sex": "女"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "64"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10006"
-                , "username": "贤心"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "65"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10007"
-                , "username": "贤心"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "49"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10008"
-                , "username": "贤心"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "5"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }]
-        }
         table.render({
-            elem: '#test2'
-            //, url: 'json/table/demo1.json'
-            , data: json
-            , contentType: 'application/json'
-            , page: { //详细参数可参考 laypage 组件文档
-                curr: 5
-                , groups: 1
-                , first: false
-                , last: false
-                , layout: ['limit', 'prev', 'page', 'next', 'count'] //自定义分页布局
-            }
-            , height: 300
-            , cellMinWidth: 80
-            , cols: [[
-                {type: 'numbers'}
-                , {type: 'radio'}
-                , {field: 'id', title: 'ID', unresize: true, sort: true}
-                , {field: 'username', title: '用户名', templet: '#usernameTpl'}
-                , {field: 'email', title: '邮箱', edit: 'select'}
-                , {field: 'sex', title: '性别', edit: 'switch', templet: '#switchTpl', minWidth: 85, align: 'center'}
-                , {field: 'lock', title: '是否锁定', templet: '#checkboxTpl', minWidth: 110, align: 'center'}
-                , {field: 'city', title: '城市'}
+            elem: '#test2',
+            url: '{% url 'layui_admin_table' %}',
+            contentType: 'application/json',
+            page: { //详细参数可参考 laypage 组件文档
+                curr: 1,
+                groups: 1,
+                first: false,
+                last: false,
+                layout: ['prev', 'page', 'next', 'count', 'limit'] //自定义分页布局
+            },
+            height: 300,
+            cellMinWidth: 80,
+            cols: [[
+                {type: 'numbers'},
+                {type: 'radio'},
+                //{field: 'id', title: 'ID', unresize: true, sort: false},
+                {field: 'user_name', title: '用户名'},
+                {field: 'user_email', title: '邮箱', edit: 'select'},
+                {
+                    field: 'sex', title: '性别', edit: 'switch', templet: function (d) {
+                        return '<input type="checkbox" name="yyy" lay-skin="switch" lay-text="女1111|男">'
+                    }, minWidth: 85, align: 'center'
+                },
+                {
+                    field: 'lock',
+                    title: '是否锁定',
+                    templet: '<div><input type="checkbox" name="" title="锁定" checked></div>',
+                    minWidth: 110,
+                    align: 'center'
+                },
+                {field: 'user_info', title: '签名'}
             ]]
         });
 
 
         //监听表格行点击
         table.on('tr', function (obj) {
-            console.log(obj)
+            console.log('aaaaaa', obj)
         });
 
         //监听表格复选框选择
         table.on('checkbox(test)', function (obj) {
-            console.log(obj)
+            console.log('bbbbbbbbbbb', obj)
         });
 
         //监听表格单选框选择
         table.on('radio(test2)', function (obj) {
-            console.log(obj)
+            console.log('cccccccccccccc', obj)
         });
 
         //监听单元格编辑

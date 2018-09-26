@@ -19,6 +19,8 @@ from study.models import User
 import datetime
 from datetime import date
 
+from study.utils.LazyEncoder import LazyEncoder
+
 
 def index(request):
     return render(request, 'index.html')
@@ -51,13 +53,6 @@ def bootstrap_table(request):
             return render(request, 'bootstrap_table.html')
 
 
-class LazyEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, datetime.datetime):
-            return obj.strftime('%Y-%m-%d %H:%M:%S')
-        elif isinstance(obj, date):
-            return obj.strftime('%Y-%m-%d')
-        return super().default(obj)
 
 
 def del_users(request):
