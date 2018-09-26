@@ -1,0 +1,82 @@
+{% extends "user/base.html" %}
+<style type="text/css">
+    {# 设置table每一行的height #}
+    .layui-table-cell {
+        height: auto;
+        line-height: 28px;
+    }
+</style>
+{% block content %}
+    <div class=" layui-fluid">
+        <blockquote class="layui-elem-quote">
+            <h1>用户管理</h1>
+        </blockquote>
+        {# 查询用户 #}
+        <form class="layui-form layui-form-pane" action="{% url 'search' %}" method="get">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="user_name" lay-verify="required|title" required placeholder="请输入用户名"
+                           autocomplete="off"
+                           class="layui-input">
+                </div>
+                <input type="submit" class="layui-btn" value="搜索">
+            </div>
+        </form>
+        {# 显示所有用户列表 #}
+        <table class="layui-table">
+            <colgroup>
+                <!--指定列宽 -->
+                <col width="100">
+                <col width="120">
+                <col width="120">
+                <col width="120">
+                <col width="200">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>姓名</th>
+                <th>手机</th>
+                <th>邮箱</th>
+                <th>创建时间</th>
+                <th>图片</th>
+                <th>签名</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.user_name }}</td>
+                    <td>{{ user.user_tel }}</td>
+                    <td>{{ user.user_email }}</td>
+                    <td>{{ user.create_time|date:"Y-m-d" }}</td>
+                    <td>
+                        <img src="{{ student.t_image }}" height="50px">
+                    </td>
+                    <td>{{ user.user_info }}</td>
+
+
+                    <td>
+                        {# 修改按钮 #}
+                        <a href="/get/{{ user.user_id }}" class="layui-btn layui-btn-normal">
+                            <i class="layui-icon">&#xe642;</i>修改
+                        </a>
+                        {# 删除按钮 #}
+                        <a href="/delete/{{ user.user_id }}" class="layui-btn layui-btn-danger">
+                            <i class="layui-icon">&#xe640;</i>删除
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {# 添加用户 #}
+        <a href="/addPage" class="layui-btn layui-btn-warm">
+            <i class="layui-icon">&#xe654;</i> 添加
+        </a>
+    </div>
+{% endblock %}

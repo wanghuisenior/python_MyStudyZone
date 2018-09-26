@@ -8,7 +8,6 @@
 from django.shortcuts import render
 
 
-
 def href(request):
     return render(request, 'href.html')
 

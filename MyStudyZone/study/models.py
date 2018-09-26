@@ -30,6 +30,7 @@ class User(models.Model):
     # authors = models.ManyToManyField(Author)  # 多对多，会生成中间表book_authors
     # publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)  # 一对多，将字段定义在多的端中
 
+
 # 基本查询
 # exact：表示判等
 #

@@ -22,10 +22,29 @@
 <h2><br>layui 针对各种表单元素做了较为全面的UI支持，你无需去书写那些 UI 结构，
     <br>只需要写 HTML 原始的 input、select、textarea 这些基本的标签即可。
     <br>我们在 UI上的渲染只要求一点，你必须给表单体系所在的父元素加上class="layui-form"，一切的工作都会在你加载完form模块后，自动完成。
+    <br>依赖加载模块：form （请注意：如果不加载form模块，select、checkbox、radio等将无法显示，并且无法使用form相关功能）
 </h2>
 <hr>
-
+<form class="layui-form layui-form-pane" action="">
+    <h2>
+        通过追加 layui-form-pane 的class，来设定表单的方框风格。
+        内部结构都一样，值得注意的是 复选框/开关/单选框 这些组合在该风格下需要额外添加 pane属性（否则会看起来比较别扭），如：</h2>
+    <div class="layui-form-item" pane>
+        <label class="layui-form-label">单选框</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="男" title="男">
+            <input type="radio" name="sex" value="女" title="女" checked>
+        </div>
+    </div>
+</form>
 <form class="layui-form layui-form-pane1" action="" lay-filter="first">
+    <div class="layui-form-item" pane>
+        <label class="layui-form-label">单选框</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="男" title="男">
+            <input type="radio" name="sex" value="女" title="女" checked>
+        </div>
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">输入框</label>
         <div class="layui-input-block">
@@ -47,7 +66,7 @@
                    class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" pane>
         <label class="layui-form-label">密码</label>
         <div class="layui-input-inline">
             <input type="password" name="password" lay-verify="required|pass" placeholder="请输入密码" autocomplete="off"
@@ -231,7 +250,7 @@
 
         //事件监听
         form.on('select', function (data) {
-            console.log('select: ', this, data);
+            console.log('select标签被选中了: ', this, data);
         });
 
         form.on('select(quiz)', function (data) {
@@ -261,7 +280,6 @@
             alert(JSON.stringify(data.field));
             return false;
         });
-
     });
 
 </script>

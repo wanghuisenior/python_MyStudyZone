@@ -1,0 +1,5 @@
+1
+  File "E:\python_MyStudyZone\MyStudyZone\study\urls\user_urls.py", line 12, in <module>
+    path('user_manage', user_views.user_manage, name='user_manage'),
+TypeError: 'list' object is not callable
+解决： 导入包错误from django.urls import path

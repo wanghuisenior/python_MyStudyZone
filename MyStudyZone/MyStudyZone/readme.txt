@@ -13,4 +13,6 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)  # 开发时创建的静�
 python manage.py makemigrations
 python manage.py migrate
 
-路由分发：需要将自己创建的views文件夹添加到
+对queryset进行序列化
+from django.core import serializers
+serializers.serialize('json', queryset)

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/layui-v2.4.3/layui/css/layui.css">
+    <script src="/static/layui-v2.4.3/layui/layui.js"></script>
+    <script>
+        //layui初始化放在页面顶部，加载速度会更快
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+    </script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <div class="layui-logo">layui 后台布局</div>
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="javascript:void(0);" onclick="ShowAtRight('wahah')">控制台</a>
+            </li>
+            <li class="layui-nav-item"><a href="">商品管理</a></li>
+            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd class="layui-this"><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    管理员
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退出</a></li>
+        </ul>
+    </div>
+    <div class="layui-side layui-bg-cyan">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+
+        <div class="layui-side-scroll">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0);" onclick="ShowAtRight('{% url 'layui_element' %}')">常用元素</a>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">我被展开了</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">选项1</a></dd>
+                        <dd><a href="javascript:;">选项2</a></dd>
+                        <dd><a href="">跳转</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">产品</a></li>
+                <li class="layui-nav-item"><a href="">大数据</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">系统管理</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:void(0);"
+                               onclick="ShowAtRight('{% url 'user_manage' %}')">用户管理</a>
+                        </dd>
+                        <dd><a href="">个人资料</a></dd>
+                    </dl>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <iframe id="main_iframe" width="100%" height="600" src="" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        这里是底部固定区域
+    </div>
+</div>
+<script>
+    function ShowAtRight(url) {
+        document.getElementById("main_iframe").src = url;
+    }
+
+    // 计算页面的实际高度，iframe自适应会用到
+    function calcPageHeight(doc) {
+        var cHeight = Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
+        var sHeight = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
+        return Math.max(cHeight, sHeight)
+    }
+
+    //根据ID获取iframe对象
+    var main_iframe = document.getElementById('main_iframe')
+    main_iframe.onload = function () {
+        //解决打开高度太高的页面后再打开高度较小页面滚动条不收缩
+        main_iframe.style.height = '0px';
+        var iDoc = main_iframe.contentDocument || main_iframe.document
+        var height = calcPageHeight(iDoc)
+        if (height < 850) {
+            height = 850;
+        }
+        main_iframe.style.height = height + 'px'
+    }
+
+</script>
+</body>
+</html>

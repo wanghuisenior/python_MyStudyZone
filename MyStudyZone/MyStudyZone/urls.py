@@ -32,4 +32,5 @@ urlpatterns = [
     path('', default_views.href, name='href'),
     path('', include('study.urls.bootstrap_urls')),
     path('', include('study.urls.layui_urls')),
+    path('', include('study.urls.user_urls')),
 ]
