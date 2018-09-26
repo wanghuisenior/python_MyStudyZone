@@ -9,7 +9,6 @@ Desktop.ini
 *.egg
 *.egg-info
 dist
-build
 #django
 *.xml
 *.iml

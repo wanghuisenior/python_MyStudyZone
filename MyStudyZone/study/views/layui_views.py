@@ -130,7 +130,7 @@ def layui_admin_table(request):
         users = models.User.objects.all()
         print(serializers.serialize('json', users))
 
-        json = {
+        data = {
             "code": 0
             , "msg": ""
             , "count": 3000000
@@ -235,8 +235,7 @@ def layui_admin_table(request):
                 , "joinTime": "2016-10-14"
             }]
         }
-        return HttpResponse(json)
-    # context = {'users': users}
+        return HttpResponse(data)
     else:
         print('get空')
         return render(request, 'admin/layui_admin_table.html')
