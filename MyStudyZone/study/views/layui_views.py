@@ -85,8 +85,6 @@ def layui_responsive(request):
 
 def layui_table(request):
     # 表格
-    # for i in range(101,500):
-    #     models.User.objects.create(user_name='测试用户' + str(i), user_tel='1853082503' + str(i), user_email='test' + str(i) + '@qq.com')
 
     return render(request, 'layui_table.html')
 
@@ -132,13 +130,19 @@ def layui_admin_grid(request):
 def layui_admin_table(request):
     if request.GET:
         return_data = {}
-        page, limit = 1, 10
-        for i in list(request.GET):
-            page = json.loads(i)['page']
-            limit = json.loads(i)['limit']
-        print('==', page, limit)
+        # for i in list(request.GET):
+        #     page = json.loads(i)['page']
+        #     limit = json.loads(i)['limit']
         try:
-            users = models.User.objects.all()
+            page = request.GET.get('page', 1),  # 请求第几页的数据
+            limit = request.GET.get('limit', 10)  # 该页有几条数据
+            export = request.GET.get('export', False)  # 当前是否为导出excel表的标志
+            sort_key = request.GET.get('key', None)  # 点击表头上的排序，传递过来，根据哪个字段进行排序
+            sort_order = request.GET.get('order', None)  # 排序方式，asc；desc
+            print('GET请求内容:', request.GET)
+            print('请求页码', page, ';请求条数:', limit, ';是否导出:', export, ';排序字段:', sort_key, ';排序方式:', sort_order)
+            print('***********************************************************************************************')
+            users = models.User.objects.get_queryset().order_by('create_time')
             # 分页实现
             paginator = Paginator(users, limit)
             try:
@@ -151,7 +155,7 @@ def layui_admin_table(request):
             return_data['msg'] = '查询到了数据'
             return_data['count'] = len(users)
             return_data['data'] = list()
-            for user in user_list:
+            for user in users if export else user_list:
                 return_data['data'].append({'id': user.user_id, 'user_name': user.user_name, 'user_tel': user.user_tel,
                                             'user_email': user.user_email, 'create_time': user.create_time,
                                             'update_time': user.update_time, 'user_info': user.user_info})
@@ -160,5 +164,4 @@ def layui_admin_table(request):
             return_data['msg'] = '出错啦'
         return HttpResponse(json.dumps(return_data, cls=LazyEncoder))
     else:
-        print('get空')
         return render(request, 'admin/layui_admin_table.html')

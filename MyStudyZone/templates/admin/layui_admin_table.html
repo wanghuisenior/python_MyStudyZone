@@ -15,19 +15,32 @@
     </style>
 </head>
 <body>
-
+<div class="layui-btn-container">
+    <button class="layui-btn" data-type="table_reload">表格重载(传递参数)</button>
+    <button class="layui-btn" data-type="table_exportFile1">导出表格内自定义数据集合</button>
+    <button class="layui-btn" data-type="table_exportFile2">直接导出自定义数据</button>
+</div>
 <div class="layui-btn-group">
     <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
     <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
     <button class="layui-btn" data-type="isAll">验证是否全选</button>
 </div>
 
-
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+<script type="text/html" id="toolbarDemo">
+    <!-- 自定义顶部工具栏模板选择器-->
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="edit">编辑</button>
+    </div>
 </script>
+<script type="text/html" id="barDemo">
+    <!-- 每行后面的操作工具栏-->
+    <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
 
+</script>
 <script type="text/html" id="usernameTpl">
     <a href="" class="layui-table-link">{{ d.user_name }}</a>
 </script>
@@ -40,7 +53,7 @@
 <table id="test" lay-filter="test"></table>
 
 <table id="test2" lay-filter="test2"></table>
-
+<table id="demo"></table>
 <table class="layui-table" lay-data="{width:800, height: 300, url:'json/table/demo2.json', page: true, limit: 6}">
     <thead>
     <tr>
@@ -82,45 +95,38 @@
     </thead>
 </table>
 
-<table id="demo"></table>
-
 
 <div class="layui-btn-group">
     <button class="layui-btn" data-type="parseTable">转化为数据表格</button>
 </div>
 
-<table class="layui-table" lay-skin="line" lay-filter="parse-table-demo">
+<table lay-filter="parse-table-demo">
     <thead>
     <tr>
-        <th lay-data="{checkbox:true}"></th>
-        <th lay-data="{field:'username', width:200}">昵称</th>
-        <th lay-data="{field:'joinTime', width:150}">加入时间</th>
+        <th lay-data="{field:'username', width:100}">昵称</th>
+        <th lay-data="{field:'experience', width:80, sort:true}">积分</th>
         <th lay-data="{field:'sign'}">签名</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td></td>
         <td>贤心1</td>
-        <td>2016-11-28</td>
+        <td>66</td>
         <td>人生就像是一场修行a</td>
     </tr>
     <tr>
-        <td></td>
         <td>贤心2</td>
-        <td>2016-11-29</td>
+        <td>88</td>
         <td>人生就像是一场修行b</td>
     </tr>
     <tr>
-        <td></td>
         <td>贤心3</td>
-        <td>2016-11-30</td>
+        <td>33</td>
         <td>人生就像是一场修行c</td>
     </tr>
     </tbody>
 </table>
-
-<table class="layui-table" lay-filter="parse-table-demo">
+<table lay-filter="parse-table-demo">
     <thead>
     <tr>
         <td rowspan="2" lay-data="{field:'louceng'}">楼层</td>
@@ -159,53 +165,69 @@
     </tbody>
 </table>
 
-<script type="text/html" id="toolbarDemo">
-    <i class="layui-icon" data-type="add">&#xe654;</i>
-    <i class="layui-icon" data-type="delete">&#xe640;</i>
-</script>
 
 <script src="/static/layui-v2.4.3/layui/layui.js" charset="utf-8"></script>
 <script>
+    var download_data = [];
     layui.use('table', function () {
         var table = layui.table;
-
-        //渲染
-        table.render({
+        //table外定义一个变量,存储所有用户信息
+        //渲染，这里接收实例对象是为了方便表格的重载
+        var tableIns = table.render({
             elem: '#test',
             height: 380,
             url: '{% url 'layui_admin_table' %}',
-            contentType: 'application/json',
-            //size: 'sm'
-            page: { //自定义分页支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-                layout: ['count', 'prev', 'page', 'next', 'skip', 'limit'] //自定义分页布局
-                //,curr: 5 //设定初始在第 5 页
-                , groups: 1 //只显示 1 个连续页码
-                , first: false //不显示首页
-                , last: false //不显示尾页
-
+            title: '用户表',//定义 table 的大标题（在文件导出等地方会用到）
+            text: {
+                none: '暂无相关数据' //自定义文本，如空数据时的异常提示, 默认：无数据。
             },
-            //where:{'name':'ffff'},
-            limit: 10,
+            even: true,//开启隔行背景 默认false
+            //contentType: 'application/json', //发送到服务端的内容编码类型 我们不需要发送json
+            //size: 'sm'
+            //page: { //自定义分页支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+            //layout: ['count', 'prev', 'page', 'next', 'skip', 'limit'], //自定义分页布局
+            //curr: 5, //设定初始在第 5 页
+            //groups: 1, //只显示 1 个连续页码
+            //first: false, //不显示首页
+            //last: false //不显示尾页
+
+            //},
+            //where:{'name':'ffff'}, //在url路径中传递别的参数
+            page: true,
+            //limits: [3, 5, 10], //每页条数的选择项，默认：[10,20,30,40,50,60,70,80,90]。
+            limit: 10,//每页默认显示的数量
             toolbar: '#toolbarDemo',
-            cols: [[{type: 'checkbox', fixed: 'left'},
-                {field: 'id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: false},
+            cols: [[{type: 'checkbox', fixed: 'left', LAY_CHECKED: true},//LAY_CHECKED: true 默认已选中状态
+                {field: 'id', title: 'id', width: 80, fixed: 'left', unresize: true, sort: false},
                 {field: 'user_name', title: '用户名', width: 120},
                 {field: 'user_tel', title: '电话', edit: 'text', width: 150},
                 {field: 'user_email', title: '邮箱', width: 150},
                 {
-                    field: 'create_time', title: '加入时间', width: 180, templet: function (d) {
+                    field: 'create_time', title: '加入时间', width: 180,sort:true, templet: function (d) {
                         return '哇哈哈：' + '<span style="color: #c00;">' + layui.util.toDateString(d.create_time, 'yyyy-MM-dd') + '</span>'
                     }
                 },
                 {field: 'update_time', title: '最近更新时间', width: 120},
                 {field: 'user_info', title: '签名', width: 222},
-                {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 120},
-            ]]
+                {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 160},
+            ]],
+            done: function (data, page, count) {
+                //表格加载完成后，获取全部数据等待导出
+                if (download_data.length < 1) {
+                    $.get("layui_admin_table", {'export': true}, function (res) {
+                        if (res.code == 0) {
+                            download_data = res.data;
+                            console.log('download_data长度',download_data.length)
+                        }
+                    }, 'json');
+                }
+            }
         });
+
         table.render({
             elem: '#test2',
             url: '{% url 'layui_admin_table' %}',
-            contentType: 'application/json',
+            //contentType: 'application/json',
             page: { //详细参数可参考 laypage 组件文档
                 curr: 1,
                 groups: 1,
@@ -215,6 +237,11 @@
             },
             height: 300,
             cellMinWidth: 80,
+            //若需要“列显示隐藏”、“导出”、“打印”等功能，则必须开启该参数
+            toolbar: true, //仅开启工具栏，不显示左侧模板
+            //toolbar: 'default', //让工具栏左侧显示默认的内置模板
+            //toolbar: '#toolbarDemo', //指向自定义工具栏模板选择器
+            defaultToolbar: ['filter', 'print', 'exports'],//自由配置头部工具栏右侧的图标 筛选 导出 打印(可去掉或者排序)
             cols: [[
                 {type: 'numbers'},
                 {type: 'radio'},
@@ -234,223 +261,178 @@
                     align: 'center'
                 },
                 {field: 'user_info', title: '签名'}
-            ]]
+            ]],
+            done: function (data, page, count) {//数据渲染完的回调。你可以借此做一些其它的操作
+                console.log('表格加载完成', data, page, count)
+            }
         });
 
-
-        //监听表格行点击
-        table.on('tr', function (obj) {
-            console.log('aaaaaa', obj)
+        //监听行单击事件
+        table.on('row(test)', function (obj) {
+            //console.log(obj.tr) //得到当前行元素对象
+            console.log('点击了一行', obj.data) //得到当前行数据
+            //obj.del(); //删除当前行
+            //obj.update(fields) //修改当前行数据
         });
-
+        //监听行双击事件
+        table.on('rowDouble(test)', function (obj) {
+            console.log('双击了') //得到当前行数据
+        });
         //监听表格复选框选择
         table.on('checkbox(test)', function (obj) {
-            console.log('bbbbbbbbbbb', obj)
+            console.log('监听表格复选框选择', obj)
         });
 
         //监听表格单选框选择
         table.on('radio(test2)', function (obj) {
-            console.log('cccccccccccccc', obj)
+            console.log('监听表格单选框选择', obj)
         });
 
         //监听单元格编辑
         table.on('edit(test2)', function (obj) {
-            var value = obj.value //得到修改后的值
-                , data = obj.data //得到所在行所有键值
-                , field = obj.field; //得到字段
+            var value = obj.value, //得到修改后的值
+                data = obj.data, //得到所在行所有键值
+                field = obj.field; //得到字段
+            console.log(value)
+
 
         });
 
-        //监听工具条
-        table.on('tool(test)', function (obj) {
+        //监听头部工具栏事件
+        table.on('toolbar(test)', function (obj) {//注：toolbar 是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'add':
+                    layer.msg('添加');
+                    break;
+                case 'delete':
+                    layer.msg('删除');
+                    break;
+                case 'edit':
+                    layer.msg('编辑');
+                    break;
+            }
+            ;
+        });
+        //监听每行右侧工具栏事件
+        table.on('tool(test)', function (obj) {//注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var data = obj.data;
-            if (obj.event === 'del') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del();
-                    layer.close(index);
-                });
-            } else if (obj.event === 'edit') {
-                layer.prompt({
-                    formType: 2
-                    , value: data.username
-                }, function (value, index) {
-                    obj.update({
-                        username: value
+            switch (obj.event) {
+                case 'detail':
+                    layer.msg('查看');
+                    break;
+                case 'delete':
+                    layer.confirm('真的删除行么', function (index) {
+                        console.log(data)
+                        obj.del(); //只删除页面数据，并不删除数据库数据
+                        layer.close(index);//
                     });
-                    layer.close(index);
-                });
+                    break;
+                case 'edit':
+                    layer.prompt({
+                        formType: 2,//1弹出密码框，2表示弹出文本域输入框，其他表示弹出文本输入框，
+                        value: data.user_name
+                    }, function (value, index) {
+                        console.log('修改', value)
+                        obj.update({
+                            username: value
+                        });
+                        layer.close(index);
+                    });
+                    break;
             }
         });
-
-        //监听排序
+        //监听行中工具条点击事件
         table.on('sort(test)', function (obj) {
             console.log(this, obj.field, obj.type)
-
             //return;
             //服务端排序
             table.reload('test', {
-                initSort: obj
-                //,page: {curr: 1} //重新从第一页开始
-                , where: { //重新请求服务端
-                    key: obj.field //排序字段
-                    , order: obj.type //排序方式
+                initSort: obj,
+                //page: {curr: 1}, //重新从第一页开始
+                where: { //重新请求服务端
+                    key: obj.field, //排序字段
+                    order: obj.type //排序方式
                 }
             });
         });
-
-        //直接赋值数据
-        table.render({
-            elem: '#demo'
-            //,width: 900
-            //,height: 274
-            , cols: [[ //标题栏
-                {type: 'checkbox', LAY_CHECKED: true}
-                , {field: 'id', title: 'ID', width: 80, sort: true}
-                , {type: 'space', width: 100} //空列
-                , {field: 'username', title: '用户名', width: 120}
-                , {field: 'email', title: '邮箱', width: 150}
-                , {field: 'sign', title: '签名', width: 150}
-                , {field: 'sex', title: '性别', width: 80}
-                , {field: 'city', title: '城市', width: 100}
-                , {field: 'experience', title: '积分', width: 80, sort: true}
-            ]]
-            , data: [{
-                "id": "10001"
-                , "username": "杜甫"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "116"
-                , "ip": "192.168.0.8"
-                , "logins": "108"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10002"
-                , "username": "李白"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "12"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-                , "LAY_CHECKED": true
-            }, {
-                "id": "10003"
-                , "username": "王勃"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "65"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10004"
-                , "username": "贤心"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "666"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10005"
-                , "username": "贤心"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "86"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10006"
-                , "username": "贤心"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "12"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10007"
-                , "username": "贤心"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "16"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }, {
-                "id": "10008"
-                , "username": "贤心"
-                , "email": "xianxin@layui.com"
-                , "sex": "男"
-                , "city": "浙江杭州"
-                , "sign": "人生恰似一场修行"
-                , "experience": "106"
-                , "ip": "192.168.0.8"
-                , "logins": "106"
-                , "joinTime": "2016-10-14"
-            }]
-
-            , skin: 'row' //表格风格
-            , even: true
-            //,size: 'lg' //尺寸
-
-            , page: true //是否显示分页
-            , limits: [3, 5, 10]
-            , limit: 3 //每页默认显示的数量
-            //,loading: false //请求数据时，是否显示loading
-        });
-
-
+        //表格查询条件
+        var tableWhere = {city: '', activity: '', interval: ''};
         var $ = layui.jquery, active = {
             getCheckData: function () {
-                var checkStatus = table.checkStatus('test')
-                    , data = checkStatus.data;
+                var checkStatus = table.checkStatus('test'), data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
-            }
-            , getCheckLength: function () {
+            },
+            getCheckLength: function () {
                 var checkStatus = table.checkStatus('test')
                     , data = checkStatus.data;
                 layer.msg('选中了：' + data.length + ' 个');
-            }
-            , isAll: function () {
+            },
+            isAll: function () {
                 var checkStatus = table.checkStatus('test');
                 layer.msg(checkStatus.isAll ? '全选' : '未全选')
-            }
-            , parseTable: function () {
+            },
+            parseTable: function () {
+                console.log('转换静态表格')
                 table.init('parse-table-demo', {
                     limit: 3
                 });
-            }
-            , add: function () {
-                table.addRow('test')
-            }
-            , delete: function () {
-                layer.confirm('确认删除吗？', function (index) {
-                    table.deleteRow('test')
-                    layer.close(index);
+            },
+            table_reload: function () {
+                //很多时候，你需要对表格进行重载。比如数据全局搜索。
+                //这里的表格重载是指对表格重新进行渲染，包括数据请求和基础参数的读取
+                tableIns.reload({
+                    where: { //设定异步数据接口的额外参数，任意设
+                        aaaaaa: 'xxx'
+                        , bbb: 'yyy'
+                        //…
+                    },
+                    page: {
+                        curr: 22 //重新从第 1 页开始
+                    },
+                    done: function () {
+                        //将查询后的结果保存在一个变量里，等待点击导出按钮时使用
+                        //筛选的where不一致时说明用户改变了修改条件，这时候我才需要重新获取全部数据
+                        console.log('点击表格重载，完成了,原来的参数',this.where)
+                        if (tableWhere.city != this.where.city || tableWhere.activity != this.where.activity || tableWhere.interval != this.where.interval) {
+                            $.ajax({
+                                type: 'POST',
+                                url: 'layui_admin_table',
+                                data: this.where,
+                                success: function (res) {
+                                    if (res.code > 0) {
+                                        downDatas = res.data;
+                                    }
+                                }
+                            });
+                            tableWhere = this.where;
+                        }
+
+                    }
                 });
+            },
+            table_exportFile1: function () {
+                //导出任意数据
+                //尽管 table 的工具栏内置了数据导出按钮，但有时你可能需要通过方法去导出任意数据，那么可以借助以下方法：
+                //语法：table.exportFile(id, data, type)
+                console.log('导出所有数据download_data', download_data.length,'条')
+                table.exportFile(tableIns.config.id, download_data, 'xls'); //data 为该实例中的任意数量的数据
+            },
+            table_exportFile2: function () {
+                table.exportFile(['名字', '性别', '年龄'], [
+                    ['张三', '男', '20'],
+                    ['李四', '女', '18'],
+                    ['王五', '女', '19']
+                ], 'csv'); //默认导出 csv，也可以为：xls
             }
         };
         $('i').on('click', function () {
+            console.log('i 被点击了')
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
         $('.layui-btn').on('click', function () {
+            console.log('.layui-btn 被点击了')
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });

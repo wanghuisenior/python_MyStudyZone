@@ -24,7 +24,7 @@ SECRET_KEY = 'k=^#q22(y&#xgpv0ta^_zh+^35*=s6q2b1rzo12b4ko!*ta8d3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -79,7 +79,7 @@ DATABASES = {
         'NAME': 'aaa',  # 数据库名字
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
+        'HOST': '192.168.16.198',
         'PORT': '3306',
     }
 }

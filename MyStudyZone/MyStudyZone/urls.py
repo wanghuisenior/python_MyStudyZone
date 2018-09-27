@@ -33,4 +33,6 @@ urlpatterns = [
     path('', include('study.urls.bootstrap_urls')),
     path('', include('study.urls.layui_urls')),
     path('', include('study.urls.user_urls')),
+    path('db_test_add', default_views.db_test_add, name='db_test_add'),
+
 ]
