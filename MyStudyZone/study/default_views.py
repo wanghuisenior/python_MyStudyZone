@@ -22,3 +22,7 @@ def db_test_add(request):
                                    user_info='我的个性签名我的个性签名我的个性签名我的个性签名我的个性签名我的个性签名我的个性签名我的个性签名我的个性签名我的个性签名我的个性签名' + str(
                                        i))
     return HttpResponse('添加数据成功')
+
+
+def test(request):
+    return render(request, 'admin/onelevel.html')

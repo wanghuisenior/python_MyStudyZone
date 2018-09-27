@@ -4,33 +4,27 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>LayUI 后台布局</title>
+    <title>KIT ADMIN</title>
     <link rel="stylesheet" href="/static/layui-v2.4.3/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="./plugins/font-awesome/css/font-awesome.min.css" media="all">
     <link rel="stylesheet" href="/static/layui-v2.4.3/build/css/app.css" media="all">
-    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
 </head>
 
 <body>
 <div class="layui-layout layui-layout-admin kit-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">LayUI 后台布局</div>
+        <div class="layui-logo">KIT ADMIN</div>
         <div class="layui-logo kit-logo-mobile">K</div>
-        <ul class="layui-nav layui-layout-left kit-nav">
+        <ul class="layui-nav layui-layout-left kit-nav" kit-one-level>
             <li class="layui-nav-item"><a href="javascript:;">控制台</a></li>
             <li class="layui-nav-item"><a href="javascript:;">商品管理</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">邮件管理</a></dd>
-                    <dd><a href="javascript:;">消息管理</a></dd>
-                    <dd><a href="javascript:;">授权管理</a></dd>
-                </dl>
-            </li>
         </ul>
         <ul class="layui-nav layui-layout-right kit-nav">
+            <li class="layui-nav-item"><a href="javascript:;" id="pay"><i class="fa fa-gratipay" aria-hidden="true"></i>
+                捐赠我</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="http://m.zhengjinfan.cn/images/0.jpg" class="layui-nav-img"> 管理员
+                    <img src="http://m.zhengjinfan.cn/images/0.jpg" class="layui-nav-img"> Van
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;">基本资料</a></dd>
@@ -51,14 +45,9 @@
                     <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 基本元素</span></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" data-url="layui_admin_table" data-icon="fa-user" data-title="表单"
-                               kit-target data-id='2' kit-target>
-                                <i class="layui-icon">&#xe6c6;</i><span>数据表格</span></a>
-                        </dd>
-                        <dd>
                             <a href="javascript:;" kit-target
-                               data-options="{url:'layui_admin_grid',icon:'&#xe6c6;',title:'grid',id:'1'}">
-                                <i class="layui-icon">&#xe6c6;</i><span> 栅格布局</span></a>
+                               data-options="{url:'test.html',icon:'&#xe6c6;',title:'表格',id:'1'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 表格</span></a>
                         </dd>
                         <dd>
                             <a href="javascript:;" data-url="form.html" data-icon="fa-user" data-title="表单" kit-target
@@ -114,23 +103,39 @@
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->
+        2017 &copy;
         <a href="http://kit.zhengjinfan.cn/">kit.zhengjinfan.cn/</a> MIT license
 
     </div>
 </div>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1264021086'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1264021086%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+</script>
 <script src="/static/layui-v2.4.3/layui/layui.js"></script>
 <script>
     var message;
     layui.config({
         base: 'static/layui-v2.4.3/build/js/'
     }).use(['app', 'message'], function () {
-        var app = layui.app, $ = layui.jquery, layer = layui.layer;
+        var app = layui.app,
+            $ = layui.jquery,
+            layer = layui.layer;
         //将message设置为全局以便子页面调用
         message = layui.message;
         //主入口
         app.set({
-            type: 'iframe',
+            type: 'iframe'
         }).init();
+        $('#pay').on('click', function () {
+            layer.open({
+                title: false,
+                type: 1,
+                content: '<img src="/build/images/pay.png" />',
+                area: ['500px', '250px'],
+                shadeClose: true
+            });
+        });
     });
 </script>
 </body>
