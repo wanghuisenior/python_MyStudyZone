@@ -79,7 +79,9 @@ DATABASES = {
         'NAME': 'aaa',  # 数据库名字
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '192.168.16.198',
+        # 'HOST': '192.168.16.198',
+        # 'HOST': '127.0.0.1',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }

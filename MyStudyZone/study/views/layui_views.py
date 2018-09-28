@@ -127,19 +127,26 @@ def layui_admin_grid(request):
     return render(request, 'admin/layui_admin_grid.html')
 
 
+def layui_admin_layer(request):
+    return render(request, 'admin/layui_admin_layer.html')
+
+
 def layui_admin_table(request):
     if request.GET:
         return_data = {}
         # for i in list(request.GET):
         #     page = json.loads(i)['page']
         #     limit = json.loads(i)['limit']
+        print('GET请求内容:', request.GET)
         try:
-            page = request.GET.get('page', 1),  # 请求第几页的数据
-            limit = request.GET.get('limit', 10)  # 该页有几条数据
+            # page = request.GET['page'] if not None else 1  # 请求第几页的数据  !!!此处不能用get函数获取page不知道为什么
+            # limit = request.GET['limit'] if not None else 10 # 该页有几条数据
+            page = request.GET.get('page', 1)
+            limit = request.GET.get('limit', 10)
+            print(page, limit)
             export = request.GET.get('export', False)  # 当前是否为导出excel表的标志
             sort_key = request.GET.get('key', None)  # 点击表头上的排序，传递过来，根据哪个字段进行排序
             sort_order = request.GET.get('order', None)  # 排序方式，asc；desc
-            print('GET请求内容:', request.GET)
             print('请求页码', page, ';请求条数:', limit, ';是否导出:', export, ';排序字段:', sort_key, ';排序方式:', sort_order)
             print('***********************************************************************************************')
             users = models.User.objects.get_queryset().order_by('create_time')
@@ -147,10 +154,13 @@ def layui_admin_table(request):
             paginator = Paginator(users, limit)
             try:
                 user_list = paginator.page(page).object_list
+                print('分页成功')
             except PageNotAnInteger:
                 user_list = paginator.page(1).object_list
+                print('PageNotAnInteger')
             except EmptyPage:
                 user_list = paginator.page(paginator.num_pages)
+                print('EmptyPage')
             return_data['code'] = 0
             return_data['msg'] = '查询到了数据'
             return_data['count'] = len(users)

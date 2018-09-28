@@ -65,8 +65,11 @@
                             <i class="layui-icon">&#xe642;</i>修改
                         </a>
                         {# 删除按钮 #}
-                        <a href="/delete/{{ user.user_id }}" class="layui-btn layui-btn-danger">
+                        <a href="/delete_user_by_id/{{ user.user_id }}" class="layui-btn layui-btn-danger">
                             <i class="layui-icon">&#xe640;</i>删除
+                        </a>
+                        <a href="delete_user_by_id1?user_id={{ user.user_id }}" class="layui-btn layui-btn-danger">
+                            <i class="layui-icon">&#xe640;</i>删除没有重定向
                         </a>
                     </td>
                 </tr>

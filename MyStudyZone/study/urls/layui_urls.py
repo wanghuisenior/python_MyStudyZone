@@ -38,4 +38,5 @@ urlpatterns = [
     path('layui_main', layui_views.layui_main, name='layui_main'),
     path('layui_admin_grid', layui_views.layui_admin_grid, name='layui_admin_grid'),
     path('layui_admin_table', layui_views.layui_admin_table, name='layui_admin_table'),
+    path('layui_admin_layer', layui_views.layui_admin_layer, name='layui_admin_layer'),
 ]
