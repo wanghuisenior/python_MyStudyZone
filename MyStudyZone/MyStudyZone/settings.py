@@ -124,5 +124,5 @@ DATETIME_FORMAT = 'Y-m-d H:i:s'
 
 STATIC_URL = '/static/'
 # 图片上传的路径
-MEDIA_ROOT=os.path.join(BASE_DIR,"static/media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "static/media")
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)  # 开发时创建的静态目录
