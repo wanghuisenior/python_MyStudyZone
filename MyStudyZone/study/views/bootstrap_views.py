@@ -8,6 +8,7 @@
 import json
 import uuid
 
+from PIL import Image
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
@@ -53,8 +54,6 @@ def bootstrap_table(request):
             return render(request, 'bootstrap_table.html')
 
 
-
-
 def del_users(request):
     res = dict()
     ids = request.POST.getlist('ids[]')
@@ -72,13 +71,17 @@ def del_users(request):
 
 
 def create_or_update_user(request):
-    print(request.POST)
     res = dict()
     user_id = request.POST.get('user_id')
     user_name = request.POST.get('user_name')
     user_tel = request.POST.get('user_tel')
     user_email = request.POST.get('user_email_header') + '@' + request.POST.get('user_email_footer')
     user_info = request.POST.get('user_info')
+    ############################
+    # 获取到上传的图片文件
+    image = request.FILES.get('image')
+    print(image.name, image.size)
+    ############################
     try:
         if user_id:  # user_id不为空，修改数据
             user = models.User.objects.get(user_id=user_id)
@@ -88,6 +91,8 @@ def create_or_update_user(request):
         user.user_tel = user_tel
         user.user_email = user_email
         user.user_info = user_info
+        if image:
+            user.image = image
         user.save()
         res['is_success'] = True
     except User.DoesNotExist:
