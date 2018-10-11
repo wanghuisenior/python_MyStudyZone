@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/static/itchat_usage/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/itchat_usage/bootstrap-table.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="/static/itchat_usage/jquery-2.0.3.js"></script>
+    <script type="text/javascript" src="/static/itchat_usage/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/itchat_usage/bootstrap-table.js"></script>
+    <script type="text/javascript" src="/static/itchat_usage/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="/static/itchat_usage/echarts.common.min.js"></script>
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+<button onclick="login()">登陆</button>
+<script>
+    function display_pie_chart(data) {
+        var pie_chart = echarts.init(document.getElementById("pie_chart"));
+        var option = {
+            title: {
+                text: '微信好友性别分析',
+            },
+            legend: {
+                top: '30',
+                data: ['男', '女', '未指定']
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            series: [
+                {
+                    name: '性别',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: convert2name_value_style(data)
+                }
+            ]
+        }
+        pie_chart.setOption(option)
+    }
+
+    function login() {
+        $.getJSON('wechat_login', function (res) {
+
+            $('#table').bootstrapTable('destroy');
+            $('#table').bootstrapTable({
+                data: res,
+                pagination: true,
+                columns: [{
+                    field: 'NickName',
+                    title: '昵称'
+                }, {
+                    field: 'RemarkName',
+                    title: '备注'
+                }, {
+                    field: 'Sex',
+                    title: '性别'
+                }, {
+                    field: 'Province',
+                    title: '省份'
+                }, {
+                    field: 'Signature',
+                    title: '个性签名'
+                }]
+            });
+            /////////////////////////////
+            var sex_data = {}
+            for (var index in res) {
+                var sex = res[index]['Sex']
+                if (sex_data.hasOwnProperty(sex)) {
+                    sex_data[sex] += 1
+                } else sex_data[sex] = 1
+            }
+            display_pie_chart(sex_data)
+        })
+    }
+
+    function convert2name_value_style(dic) {
+        var ret_data = []
+        for (var d in dic) {
+            ret_data.push({'name': d, 'value': dic[d]})
+        }
+        return ret_data;
+    }
+</script>
+<div>
+    <table id="table"></table>
+    <div id="pie_chart" style="width:500px;height:500px; border: 1px black solid"></div>
+    <div id="worldcloud_chart" style="width:500px;height:500px; border: 1px gold solid"></div>
+</div>
+</body>
+</html>

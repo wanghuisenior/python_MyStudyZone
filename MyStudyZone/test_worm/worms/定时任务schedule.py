@@ -5,11 +5,14 @@
  @email: wanghui@zih718.com
  @time: 2018/10/11 16:00
 """
+import time
+
 import schedule
 
 
 def task():
     print('test')
+    time.sleep(2)
 
 
 schedule.every(3).seconds.do(task)
