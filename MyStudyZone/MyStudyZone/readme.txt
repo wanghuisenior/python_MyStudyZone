@@ -1,5 +1,5 @@
 创建app  (添加到installed apps)
-python manage.py startapp testApp
+python manage.py startapp test_worm
 
 依赖文件生成
 pip freeze > requirements.txt
