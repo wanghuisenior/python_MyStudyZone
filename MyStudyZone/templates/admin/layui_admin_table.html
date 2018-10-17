@@ -18,15 +18,20 @@
 <div class=" layui-fluid">
 
 
-    <form class="layui-form layui-form-pane" action="{% url 'search' %}" method="get">
+    <form class="layui-form layui-form-pane" action="{% url 'layui_admin_table' %}" method="get">
         <div class="layui-form-item">
             <label class="layui-form-label">用户名</label>
             <div class="layui-input-inline">
+                <!--
                 <input type="text" name="user_name" lay-verify="required|title" required placeholder="请输入用户名"
                        autocomplete="off"
                        class="layui-input">
+                -->
+                <input type="text" name="user_name" lay-verify="required|title" placeholder="请输入用户名"
+                       autocomplete="off"
+                       class="layui-input">
             </div>
-            <input type="submit" class="layui-btn" value="搜索">
+            <button class="layui-btn" data-type="table_reload">搜索(传递参数)</button>
         </div>
     </form>
     <div class="layui-btn-container">

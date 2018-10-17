@@ -17,7 +17,7 @@ def index(request):
 
 
 def wechat_login(request):
-    itchat.auto_login()
+    itchat.auto_login(hotReload=True)  # 这里若抛出异常，把itchat.pkl删除再重新来一遍试试
     friends = itchat.get_friends(update=True)[1:]
     friend_list = []
     for item in friends:
