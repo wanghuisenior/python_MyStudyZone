@@ -17,5 +17,8 @@ urlpatterns = [
     path('delete_user_by_id/<uuid:user_id>', user_views.delete_user_by_id, name='delete'),
     #将id作为请求参数传递
     path('delete_user_by_id1', user_views.delete_user_by_id1),
-
+    path('del_users', user_views.del_users, name='del_users'),
+    path('create_or_update_user', user_views.create_or_update_user, name='create_or_update_user'),
+    path('get_user_names', user_views.get_user_names, name='get_user_names'),
+    path('update_user_info', user_views.update_user_info, name='update_user_info'),
 ]

@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <title>bootstrap_table</title>
     {% include 'static_files.html' %}
+    <style>
+        .toast-center-center {
+            top: 50%;
+            left: 50%;
+            margin-top: -100px;
+            margin-left: -150px;
+        }
+    </style>
+    <script type="text/javascript">
+        toastr.options.positionClass = 'toast-center-center';
+        toastr.options.closeButton = true;
+        toastr.options.debug = false;
+        toastr.options.progressBar = true;
+
+    </script>
 </head>
 <body>
 <div class="panel-body" style="padding-bottom:0px;">
@@ -161,10 +176,10 @@
                 columns: [{
                     checkbox: true
                 }, {
-                    //field: 'user_name',  //使用HttpResponse(json.dumps(user_list, cls=LazyEncoder))方式返回数据
-                    //title: '用户名'
-                    field: "fields.user_name",//使用HttpResponse(serializers.serialize("json", users, cls=LazyEncoder))方式返回数据
+                    field: 'user_name',  //使用HttpResponse(json.dumps(user_list, cls=LazyEncoder))方式返回数据
                     title: '用户名',
+                    //field: "fields.user_name",//使用HttpResponse(serializers.serialize("json", users, cls=LazyEncoder))方式返回数据
+                    //title: '用户名',
                     editable: {
                         type: 'text',
                         title: '用户名',
@@ -173,13 +188,13 @@
                         }
                     }
                 }, {
-                    field: "fields.user_tel",
+                    field: "user_tel",
                     title: '电话'
                 }, {
-                    field: "fields.user_email",
+                    field: "user_email",
                     title: '邮箱'
                 }, {
-                    field: "fields.image",
+                    field: "image",
                     title: '图片',
                     formatter: function (value, row, index) {
                         var image = '<a class = "view"  href="javascript:void(0)"><img style="width:300;height:40px;"  src="' + '/static/media/' + value + '" /></a>';
@@ -187,14 +202,18 @@
                         return image
                     }
                 }, {
-                    field: "fields.create_time",
+                    field: "create_time",
                     title: '创建时间',
                     formatter: function (value, row, index) {
                         return new Date(value).Format("yyyy-MM-dd");
                     }
 
                 }, {
-                    field: "fields.update_time",
+                    field: "user_info",
+                    title: '备注',
+                    visible: false              //当visible为false的时候，初始化结束的表格将不会有该列
+                }, {
+                    field: "update_time",
                     title: '上次更新时间',
                     visible: false              //当visible为false的时候，初始化结束的表格将不会有该列
                 }, {
@@ -207,9 +226,17 @@
                     events: operateEvents
                 }],
                 onEditableSave: function (field, row, oldValue, $el) {
-                    console.log(field, row)
-                    $.post("", row, function (result) {
+                    var d = {}
+                    d[field] = row.yw_name
+                    $.post("update_user_info", row, function (result) {
                         //use toastr to display a toast for info, success, warning or error
+                        if (result == 200) {
+                            toastr.success('修改成功！', '', {timeOut: 300})
+                        } else if (result == 404) {
+                            toastr.error('失败,用户不存在！')
+                        } else {
+                            toastr.error('未知异常！' + result)
+                        }
                     });
                 },
                 onLoadSuccess: function (data) { //加载成功时执行
@@ -339,15 +366,22 @@
             console.log('修改')
         },
         'click .edit': function (e, value, row, index) {
-            $('#user_id').val(row['pk'])
+            console.log(row)
+            {#$('#user_id').val(row['pk'])#}
+            {#$('#action').val('edit')#}
+            {#$('#user_name').val(row['fields']['user_name'])#}
+            {#$('#user_tel').val(row['fields']['user_tel'])#}
+            {#$('#user_email_header').val(row['fields']['user_email'].split('@')[0])#}
+            {#$('#user_email_footer').val(row['fields']['user_email'].split('@')[1])#}
+            {#$('#user_info').val(row['fields']['user_info'])#}
+            $('#user_id').val(row['user_id'])
             $('#action').val('edit')
-            $('#user_name').val(row['fields']['user_name'])
-            $('#user_tel').val(row['fields']['user_tel'])
-            $('#user_email_header').val(row['fields']['user_email'].split('@')[0])
-            $('#user_email_footer').val(row['fields']['user_email'].split('@')[1])
-            $('#user_info').val(row['fields']['user_info'])
+            $('#user_name').val(row['user_name'])
+            $('#user_tel').val(row['user_tel'])
+            $('#user_email_header').val(row['user_email'].split('@')[0])
+            $('#user_email_footer').val(row['user_email'].split('@')[1])
+            $('#user_info').val(row['user_info'])
             $('#modal_user').modal('show');
-
         },
         'click .remove': function (e, value, row, index) {
             deleteTask([row])
