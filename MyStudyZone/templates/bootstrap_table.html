@@ -164,7 +164,14 @@
                     //field: 'user_name',  //使用HttpResponse(json.dumps(user_list, cls=LazyEncoder))方式返回数据
                     //title: '用户名'
                     field: "fields.user_name",//使用HttpResponse(serializers.serialize("json", users, cls=LazyEncoder))方式返回数据
-                    title: '用户名'
+                    title: '用户名',
+                    editable: {
+                        type: 'text',
+                        title: '用户名',
+                        validate: function (v) {
+                            if (!v) return '不能为空';
+                        }
+                    }
                 }, {
                     field: "fields.user_tel",
                     title: '电话'
@@ -199,6 +206,12 @@
                     formatter: operateFormatter,
                     events: operateEvents
                 }],
+                onEditableSave: function (field, row, oldValue, $el) {
+                    console.log(field, row)
+                    $.post("", row, function (result) {
+                        //use toastr to display a toast for info, success, warning or error
+                    });
+                },
                 onLoadSuccess: function (data) { //加载成功时执行
                     //console.log(data)
                 },
