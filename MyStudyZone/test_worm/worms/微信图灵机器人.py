@@ -23,24 +23,29 @@ def get_response(msg):
     try:
         r = requests.post(apiUrl, data=data).json()
         # 字典的get方法在字典没有'text'值的时候会返回None而不会抛出异常
-        return r.get('text')
+        print('机器人回复:', r.get('text'))
+        return '图灵智能机器人：' + r.get('text')
     # 为了防止服务器没有正常响应导致程序异常退出，这里用try-except捕获了异常
     # 如果服务器没能正常交互（返回非json或无法连接），那么就会进入下面的return
     except:
-        # 将会返回一个None
-        return
+        return '发生了意料之外的错误。'
 
 
-# 这里是我们在“1. 实现微信消息的获取”中已经用到过的同样的注册方法
+# 注册后才能获取到微信消息
 @itchat.msg_register(TEXT, PICTURE, RECORDING)
 def tuling_reply(msg):
-    myUserName = itchat.get_friends(update=True)[0]["UserName"]  ##获取自己的username
-    print('myUserName=', myUserName)
-    print('FromUserName=', msg['FromUserName'])  ##获取发消息的好友的username
+    my_username = itchat.get_friends(update=True)[0].UserName  ##获取自己的username
+    my_nickname = itchat.get_friends(update=True)[0].NickName
+    # print(my_username, my_nickname)
+    my_all_friends = itchat.get_friends(update=True)
+    for friend in my_all_friends:
+        if friend.UserName == msg['FromUserName']:
+            print('发送人：', friend.NickName, friend.RemarkName, ',内容：', msg['Text'])
+    for friend in my_all_friends:
+        if friend.UserName == msg['ToUserName']:
+            print('接收人：', friend.NickName, friend.RemarkName)
     # if not msg['FromUserName'] == myUserName:  ###如果不是自己发的
-    reply = '图灵智能机器人:' + get_response(msg['Text'])
-    print(reply)
-    return reply
+    return get_response(msg['Text'])
 
 
 # isGroupChat=True表示为群聊消息
@@ -58,7 +63,7 @@ def group_reply_text(msg):
     username = msg['User']['NickName']
     print('username=', msg['User']['NickName'])
     # rooms = itchat.get_chatrooms(update=True)[0:]
-    reply = '图灵智能机器人:' + remark_name + get_response(msg['Text'])
+    reply = remark_name + get_response(msg['Text'])
     print('question:', msg['Text'])
     print('reply:', reply)
     if chatroom_id != 'adc6286314e20fac2bb054163d3c704d1380dc1edf36b1e858ed508dc3614e69':
