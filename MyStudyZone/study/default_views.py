@@ -26,3 +26,7 @@ def db_test_add(request):
 
 def test(request):
     return render(request, 'admin/onelevel.html')
+
+
+def jquery_util_test(request):
+    return render(request, 'jquery_util_test.html')

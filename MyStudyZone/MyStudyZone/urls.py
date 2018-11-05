@@ -35,6 +35,7 @@ urlpatterns = [
     path('', include('study.urls.user_urls')),
     path('db_test_add', default_views.db_test_add, name='db_test_add'),
     path('test', default_views.test, name='test'),
+    path('jquery_util_test', default_views.jquery_util_test, name='jquery_util_test'),
     # 另一个app的url
     path('itchat/', include('testApp.urls.itchat_url')),
 
