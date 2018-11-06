@@ -57,5 +57,12 @@ def bootstrap_validator(request):
     return render(request, 'bootstrap_validator.html')
 
 
-def bootstrap_navbar(request):
-    return render(request, 'bootstrap_navbar.html')
+def bootstrap_tabledit(request):
+    print(request.method)
+    datas = {'id': '1', 'username': 'aaaa', 'email': 'aa@qq.com', 'avatar': 'aaaaaaaaaaaaaaaab'}
+    if request.method == 'POST':
+        print(request.POST)
+        return HttpResponse(json.dumps(datas))
+    else:
+
+        return render(request, 'bootstrap_tabledit.html',{'data':datas})

@@ -18,5 +18,5 @@ urlpatterns = [
     path('bootstrap_table', bootstrap_views.bootstrap_table, name='bootstrap_table'),
 
     path('bootstrap_validator', bootstrap_views.bootstrap_validator, name='bootstrap_validator'),
-    path('bootstrap_navbar', bootstrap_views.bootstrap_navbar, name='bootstrap_navbar'),
+    path('bootstrap_tabledit', bootstrap_views.bootstrap_tabledit, name='bootstrap_tabledit'),
 ]

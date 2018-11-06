@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="demo/stylesheets/style.css">
+    <script src="demo/vendor/modernizr.min.js"></script>
+  </head>
+  <body id="top">
+    
+    <div class="container">
+      <div class="container--inner">
+        <div class="intro">
+          <h1 class="intro__heading">flyLabel.js</h1>
+  
+        </div>
+
+        <div class="demo-section column-wrapper cf">
+          <div class="behavior-demo column--left">
+            <h1 class="behavior-demo__heading">Classic</h1>
+            <div class="fly-group">
+              <label for="classic" class="fly-label classic">Favorite Power Ranger</label>
+              <input type="text" name="classic" class="fly-input" placeholder="Favorite Power Ranger">
+            </div>
+          </div>
+          <div class="behavior-code column--right behavior-code--odd">
+            <pre>
+.classic {
+  opacity: 0;
+  top: 2em;
+  z-index: -1;
+}
+.classic.is-active {
+  opacity: 1;
+  top: 1em;
+  z-index: 1;
+}
+            </pre>
+          </div>
+        </div>
+
+        <div class="demo-section column-wrapper cf">
+          <div class="behavior-demo column--left">
+            <h1 class="behavior-demo__heading">Drop</h1>
+            <div class="fly-group">
+              <label for="drop" class="fly-label drop">First Name</label>
+              <input type="text" name="drop" class="fly-input" placeholder="First Name">
+            </div>
+          </div>
+          <div class="behavior-code column--right ">
+            <pre>
+.drop {
+  opacity: 0;
+  text-shadow: 0 0 25px blue;
+  transform: scale(11);
+  z-index: -1;
+}
+.drop.is-active {
+  opacity: 1;
+  text-shadow: 0 0 0 blue;
+  transform: scale(1);
+  z-index: 1;
+}
+            </pre>
+          </div>
+        </div>
+
+        <div class="demo-section column-wrapper cf">
+          <div class="behavior-demo column--left">
+            <h1 class="behavior-demo__heading">From Right</h1>
+            <div class="fly-group">
+              <label for="from-right" class="fly-label from-right">Last Name</label>
+              <input type="text" name="from-right" class="fly-input" placeholder="Last Name">
+            </div>
+          </div>
+          <div class="behavior-code column--right behavior-code--odd">
+            <pre>
+.from-right {
+  left: 5em;
+  opacity: 0;
+}
+.from-right.is-active {
+  left: 0%;
+  opacity: 1;
+}
+            </pre>
+          </div>
+        </div>
+
+        <div class="demo-section column-wrapper cf">
+          <div class="behavior-demo column--left">
+            <h1 class="behavior-demo__heading">Jiggle</h1>
+            <div class="fly-group">
+              <label for="jiggle" class="fly-label jiggle">Favorite Color</label>
+              <input type="text" name="jiggle" class="fly-input" placeholder="e.g. red, blue, etc.">
+            </div>
+          </div>
+          <div class="behavior-code column--right ">
+            <pre>
+.jiggle.is-active {
+  animation: JIGGLE .3s ease;
+  animation-iteration-count: 3;
+}
+            </pre>
+          </div>
+        </div>
+
+        <div class="demo-section column-wrapper cf">
+          <div class="behavior-demo column--left">
+            <h1 class="behavior-demo__heading">Select</h1>
+            <div class="fly-group">
+              <label for="select" class="fly-label classic">Secret Number</label>
+              <div class="select-wrapper">
+                <select name="select" class="fly-input">
+                  <option value="">Secret Number</option>
+                  <option value="4">4</option>
+                  <option value="8">8</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="23">23</option>
+                  <option value="42">42</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="behavior-code column--right behavior-code--odd">
+            <pre>
+.classic {
+  opacity: 0;
+  top: 2em;
+  z-index: -1;
+}
+.classic.is-active {
+  opacity: 1;
+  top: 1em;
+  z-index: 1;
+}
+            </pre>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <script src="demo/vendor/jquery.min.js"></script>
+    <script src="dist/flyLabel.min.js"></script>
+    <script>
+      if (Modernizr.input.placeholder) {
+        $('body').flyLabels();
+      }
+    </script>
+  </body>
+</html>

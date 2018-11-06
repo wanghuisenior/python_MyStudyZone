@@ -27,6 +27,14 @@
     <!-- fakeLoader-->
     <link rel="stylesheet" href="/static/loading/fakeLoader.js/fakeLoader.css">
     <script src="/static/loading/fakeLoader.js/fakeLoader.js"></script>
+    <!-- sweetalert-->
+    <script src="/static/alert/sweetalert/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/alert/sweetalert/sweetalert.css">
+    <!-- jQueryZdialog-->
+    <link type="text/css" rel="stylesheet" href="/static/alert/jQueryZdialog/css/zdialog.css"/>
+    <script type="text/javascript" src="/static/alert/jQueryZdialog/js/zdialog.js"></script>
+    <!--moment.js-->
+    <script type="text/javascript" src="/static/datepicker/moment.js/moment.js"></script>
     <style type="text/css">
         .panel-body.minHieht {
             min-height: 100px;
@@ -240,11 +248,10 @@
         </div>
         <div class="col-sm-6 col-xs-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">bootstrap使用Ladda实现加载中按钮，防止表单重复提交</div>
+                <div class="panel-heading">加载状态展示</div>
                 <div class="panel-body minHieht">
                     <button id="form-submit" class="btn btn-primary btn-lg ladda-button" data-style="expand-right" data-size="l"><span
                             class="ladda-label">Submit form</span></button>
-                    <a href="javascript:void(0);" id="saveGoods" class="btn btn-primary" onclick="$('#goodsForm').submit();">保存</a>
                     <button type="button" class="btn btn-success ladda-button" id="loadingButton" data-style="expand-right"
                             onclick="showLoading()">加载中
                     </button>
@@ -256,12 +263,30 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">使用moment.js轻松管理日期和时间</div>
+                <div class="panel-body minHieht">
+                    <button type="button" class="btn btn-success" onclick="alert1()">sweetalert弹窗</button>
+                    <button type="button" class="btn btn-success" onclick="alert2()">jQueryZdialog弹窗</button>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">提示框插件</div>
+                <div class="panel-body minHieht">
+                    <button type="button" class="btn btn-success" onclick="momentjs(1)">获取当前时间，并格式化</button>
+                    <button type="button" class="btn btn-success" onclick="alert2()">jQueryZdialog弹窗</button>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="container">
-    <h4 class="text-danger">更多功能及方法请查看插件源码，如：操作cookie，字符串截取等功能</h4>
-    <h5 class="text-primary">154306777@qq.com</h5>
 </div>
 <div id="bs_modal_alert" class="modal" style="z-index:9999;display: none;">
     <div class="modal-dialog modal-sm">
@@ -440,8 +465,87 @@
             spinner: "spinner1",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
             bgColor: "#2ecc71", //Hex, RGB or RGBA colors
             imagePath: "yourPath/customizedImage.gif" //If you want can you insert your custom image
-
         });
+    }
+
+    function alert1() {
+        swal("这是一条alert消息");
+    }
+
+    function alert2() {
+        //$.DialogByZ.Loading('image/loading.png')
+        $.DialogByZ.Alert({Title: "提示", Content: "您的请求失败", BtnL: "确定", FunL: alerts})
+        //$.DialogByZ.Confirm({Title: "", Content: "自动隐藏提示Tips弹窗插件</br>代码少使用方便", FunL: confirmL, FunR: Immediate})
+        //$.DialogByZ.Autofade({Content: "感谢您对我们的支持"})
+    }
+
+    function confirmL() {
+        $.DialogByZ.Close();
+        $.DialogByZ.Alert({Title: "提示", Content: "您要求稍后开通", BtnL: "确定"})
+    }
+
+    //
+    function alerts() {
+
+        $.DialogByZ.Close();
+    }
+
+    function Immediate() {
+        //location.href="http://www.baidu.com"
+        // window.open("http://www.baidu.com")
+        alert("取消");
+    }
+
+    function momentjs(i) {
+        switch (i) {
+            case 1:
+                console.log('获取当前时间对象', moment())
+                console.log('转化为Date对象', moment().toDate())
+                console.log('获取当前时间，并格式化', moment().format('YYYY-MM-DD HH:mm:ss'))
+                console.log('获取当前时间，并格式化', moment().format('YYYY年MM月DD日 HH:mm:ss'))
+                moment().hour() // 小时
+                moment().date() // 一个月里的第几天
+                moment().day() // 星期几
+                moment().dayOfYear() // 一年里的第几天
+                moment().week() // 一年里的第几周
+                moment().month() // 第几个月
+                moment().quarter() // 一年里的第几个季度
+                moment().year() // 年
+                moment().daysInMonth() // 当前月有多少天
+                moment().format('YYYY-MM')// 只获取年月
+                //操作
+                moment().add(7, 'days') // 之后的第7天。第2个参数还可以是 'months', 'years' 等。注意是复数。
+                moment().add(7, 'd')// 与上面一行代码的运行结果一样。
+                moment().subtract(1, 'months') // 上个月
+                moment().startOf('week') // 这周的第一天
+                moment().endOf('week')// 这周的最后一天
+                //======》创建moment对象
+                var t = moment("2018-10-31") // 1995-12-25
+                console.log('前一个月', t.subtract(1, 'months').format('YYYY-MM-DD HH:mm:ss'))
+                //查询
+                // 早于
+                moment('2010-10-20').isBefore('2010-10-21') // true
+                moment('2010-10-20').isBefore('2010-12-31', 'year') // false
+                moment('2010-10-20').isBefore('2011-01-01', 'year') // true
+
+                // 是否相等
+                moment('2010-10-20').isSame('2010-10-20') // true
+                moment('2010-10-20').isSame('2009-12-31', 'year')  // false
+                moment('2010-10-20').isSame('2010-01-01', 'year')  // true
+
+                // 晚于
+                moment('2010-10-20').isAfter('2010-10-19') // true
+                moment('2010-10-20').isAfter('2010-01-01', 'year') // false
+                moment('2010-10-20').isAfter('2009-12-31', 'year') // true
+
+                // 是否在时间范围内
+                moment('2010-10-20').isBetween('2010-10-19', '2010-10-25') // true
+                moment('2010-10-20').isBetween('2010-01-01', '2012-01-01', 'year') // false
+                moment('2010-10-20').isBetween('2009-12-31', '2012-01-01', 'year') // true
+
+                moment().isLeapYear() // 是否是闰年
+                break;
+        }
 
     }
 </script>

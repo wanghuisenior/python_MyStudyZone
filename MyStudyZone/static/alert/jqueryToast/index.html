@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Material Design风格jquery toast插件</title>
+<link href="css/toast.style.css" rel="stylesheet">
+</head>
+<body style="background-color:#252525">
+
+<a href="#" style="color:#fff" onclick="addToast()">点击显示Toast</a>
+
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script> 
+<script src="js/toast.script.js"></script> 
+<script>
+            function addToast(){
+                $.Toast("test", "this is a test message.", "success", {
+                	stack: true,
+                    has_icon:true,
+                    has_close_btn:true,
+                    fullscreen:false,
+                    timeout:3000,
+                    sticky:false,
+                    has_progress:true,
+                    rtl:false,
+                });
+            }
+        </script>
+</body>
+</html>
