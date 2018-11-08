@@ -17,118 +17,118 @@ from study.models import User
 from study.utils.LazyEncoder import LazyEncoder
 
 
-def layui_home(request):
-    return render(request, 'layui_home.html')
+def layui_href(request):
+    return render(request, 'layui_admin/layui_href.html')
+
+
+def layui_admin_index(request):
+    return render(request, 'layui_admin/layui_admin_index.html')
 
 
 def layui_grid(request):
-    return render(request, 'layui_grid.html')
+    return render(request, 'layui_admin/layui_grid.html')
 
 
 def layui_button(request):
-    return render(request, 'layui_button.html')
+    return render(request, 'layui_admin/layui_button.html')
 
 
 def layui_carousel(request):
     # 轮播组件
-    return render(request, 'layui_carousel.html')
+    return render(request, 'layui_admin/layui_carousel.html')
 
 
 def layui_admin1(request):
-    return render(request, 'layui_admin1.html')
+    return render(request, 'layui_admin/layui_admin1.html')
 
 
 def layui_code(request):
     # 代码修饰器
-    return render(request, 'layui_code.html')
+    return render(request, 'layui_admin/layui_code.html')
 
 
 def layui_element(request):
     # 常用元素
-    return render(request, 'layui_element.html')
+    return render(request, 'layui_admin/layui_element.html')
 
 
 def layui_form(request):
     # 表单
-    return render(request, 'layui_form.html')
+    return render(request, 'layui_admin/layui_form.html')
 
 
 def layui_laydate(request):
     # 时间选择器
-    return render(request, 'layui_laydate.html')
+    return render(request, 'layui_admin/layui_laydate.html')
 
 
 def layui_layedit(request):
     # 富文本编辑器
-    return render(request, 'layui_layedit.html')
+    return render(request, 'layui_admin/layui_layedit.html')
 
 
 def layui_layer(request):
     # 弹出层
-    return render(request, 'layui_layer.html')
+    return render(request, 'layui_admin/layui_layer.html')
 
 
 def layui_laypage(request):
     # 分页
-    return render(request, 'layui_laypage.html')
+    return render(request, 'layui_admin/layui_laypage.html')
 
 
 def layui_rate(request):
     # 评分
-    return render(request, 'layui_rate.html')
+    return render(request, 'layui_admin/layui_rate.html')
 
 
 def layui_responsive(request):
     # 评分
-    return render(request, 'layui_responsive.html')
+    return render(request, 'layui_admin/layui_responsive.html')
 
 
 def layui_table(request):
     # 表格
 
-    return render(request, 'layui_table.html')
+    return render(request, 'layui_admin/layui_table.html')
 
 
 def layui_tree(request):
     # 表格
-    return render(request, 'layui_tree.html')
+    return render(request, 'layui_admin/layui_tree.html')
 
 
 def layui_upload(request):
     # 表格
-    return render(request, 'layui_upload.html')
+    return render(request, 'layui_admin/layui_upload.html')
 
 
 def layui_util(request):
     # 表格
-    return render(request, 'layui_util.html')
+    return render(request, 'layui_admin/layui_util.html')
 
 
-def layui_index(request):
+def layui_mytest(request):
     # 表格
-    return render(request, 'layui_index.html')
+    return render(request, 'layui_admin/layui_mytest.html')
 
 
 # admin后台框架
 ###########################################################3
-def layui_login(request):
-    return render(request, 'admin/login.html')
-
-
-def layui_admin(request):
-    return render(request, 'admin/layui_admin.html')
+def layui_admin_login(request):
+    return render(request, 'layui_admin/layui_admin_login.html')
 
 
 def layui_main(request):
-    return render(request, 'admin/main.html')
+    return render(request, 'layui_admin/main.html')
 
 
 def layui_admin_grid(request):
-    return render(request, 'admin/layui_admin_grid.html')
+    return render(request, 'layui_admin/layui_admin_grid.html')
 
 
 def layui_admin_layer(request):
-    return render(request, 'admin/layui_admin_layer.html')
+    return render(request, 'layui_admin/layui_admin_layer.html')
 
 
 def layui_admin_table(request):
@@ -174,4 +174,4 @@ def layui_admin_table(request):
             return_data['msg'] = '出错啦'
         return HttpResponse(json.dumps(return_data, cls=LazyEncoder))
     else:
-        return render(request, 'admin/layui_admin_table.html')
+        return render(request, 'layui_admin/layui_admin_table.html')

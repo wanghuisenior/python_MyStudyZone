@@ -57,9 +57,13 @@ def del_users(request):
     res = dict()
     ids = request.POST.getlist('ids[]')
     try:
-        for user_id in ids:
-            models.User.objects.get(user_id=user_id).delete()
-        res['is_success'] = True
+        if len(ids) == 0:
+            res['is_success'] = False
+            res['error_msg'] = '失败，未选择用户'
+        else:
+            for user_id in ids:
+                models.User.objects.get(user_id=user_id).delete()
+            res['is_success'] = True
     except User.DoesNotExist:
         res['is_success'] = False
         res['error_msg'] = '用户不存在'
@@ -123,12 +127,38 @@ def get_user_names(request):
 
 def update_user_info(request):
     print('update_user_info')
+    user_id = request.POST.get('user_id', None)
+    if user_id:
+        try:
+            user_dic = {}
+            user_dic['user_name'] = request.POST.get('user_name', '')
+            user_dic['user_tel'] = request.POST.get('user_tel', '')
+            models.User.objects.filter(user_id=user_id).update(**user_dic)
+            # user = models.User.objects.get(user_id=request.POST['user_id'])
+            # user.user_name = request.POST['user_name']
+            # user.save()
+        except User.DoesNotExist:
+            print('不存在')
+            return HttpResponse(404)
+        except Exception as e:
+            print('失败')
+            return HttpResponse(json.dumps(e.args))
+        return HttpResponse(200)
+    else:
+        return HttpResponse('internal error')
+
+
+def test_user_available(request):
+    # bootstrap validator中 ，查看用户名是否可用
+    valid = True if len(models.User.objects.filter(user_name=request.GET.get('username', None))) == 0 else False
+    return HttpResponse(json.dumps({'valid': valid}))
+
+
+def create_user(request):
+    print('user_views.create_user', request.POST)
     try:
-        user = models.User.objects.get(user_id=request.POST['user_id'])
-        user.user_name = request.POST['user_name']
-        user.save()
-    except User.DoesNotExist:
-        return HttpResponse(404)
-    except Exception as e:
-        return HttpResponse(json.dumps(e))
+        models.User.objects.create(user_name=request.POST.get('username', ''), user_tel=request.POST.get('phone', 0),
+                                   user_email=request.POST.get('email', ''))
+    except RuntimeError:
+        return HttpResponse(0)
     return HttpResponse(200)

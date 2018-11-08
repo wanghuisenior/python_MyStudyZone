@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <title>欢迎进入后台管理系统</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link href="/static/frame/css/main.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/static/frame/css/fontawesome/font-awesome.min.css">
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="/static/frame/css/fontawesome/font-awesome-ie7.min.css">
+    <![endif]-->
+    <!--[if IE 8]>
+      <link href="/static/frame/css/ie8.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <script type="text/javascript" src="/static/frame/js/jquery-2.0.3.js"></script><!--这个原生js必须放在最前面 -->
+    <script type="text/javascript" src="/static/bootstrap-3.3.7-dist/js/bootstrap.js">
+    </script>
+    <script type="text/javascript" src="/static/frame/js/breakpoints.js">
+    </script>
+    <script type="text/javascript" src="/static/frame/js/jquery.cookie.min.js">
+    </script>
+    <script type="text/javascript" src="/static/frame/js/jquery.slimscroll.min.js">
+    </script>
+    <script type="text/javascript" src="/static/frame/js/jquery.slimscroll.horizontal.min.js">
+    </script>
+    <script type="text/javascript" src="/static/frame/js/app.js">
+    </script>
+    <script type="text/javascript" src="/static/frame/js/plugins.js">
+    </script>
+    <script type="text/javascript" src="/static/frame/js/plugins.form-components.js">
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#sidebar-content ul li").click(function () {
+                $('.sidebar-fixed li').removeClass('current');
+                $(this).addClass('current');
+            });
+            App.init();
+            Plugins.init();
+            FormComponents.init();
+            $("#kzt").trigger('click');///默认点击
+        });
+    </script>
+    <style>
+        html {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+<header class="header navbar navbar-fixed-top" role="banner" id="head">
+    <div class="">
+        <ul class="nav navbar-nav">
+            <li class="nav-toggle">
+                <a href="javascript:void(0);" title="">
+                    <i class="icon-reorder">
+                    </i>
+                </a>
+            </li>
+        </ul>
+        <a class="navbar-brand" href="#" onclick="ShowRight('home')">
+            <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Me
+            </strong>
+            Admin
+        </a>
+        <a href="#" class="toggle-sidebar bs-tooltip" data-placement="bottom"
+           data-original-title="隐藏导航栏">
+            <i class="icon-reorder">
+            </i>
+        </a>
+        <ul class="nav navbar-nav navbar-left hidden-xs hidden-sm">
+            <li>
+                <a href="#">
+                    控制台
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown user">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-male">
+                    </i>
+                    <span class="username">
+                {% if username %}
+                    {{ username }}
+                {% endif %}
+              </span>
+                    <i class="icon-caret-down small">
+                    </i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#" onclick="ShowRight('personal_info_manage')"> <i class="icon-user">
+                        </i>
+                            我的资料
+                        </a>
+                    </li>
+
+                    <li class="divider">
+                    </li>
+                    <li>
+                        <a href="logout">
+                            <i class="icon-key">
+                            </i>
+                            退出
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</header>
+<div id="container">
+    <div id="sidebar" class="sidebar-fixed">
+        <div id="sidebar-content">
+            <ul id="nav">
+                <li class="current">
+                    <a href="#" id="kzt" onclick="ShowAtRight('{% url 'confirm_with_bs' %}')">
+                        <i class="icon-dashboard">
+                        </i>
+                        基于BS的提示控件
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="ShowAtRight('{% url 'bootstrap_grid' %}')">
+                        <i class="icon-bar-chart">
+                        </i>
+                        栅格布局
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="ShowAtRight('{% url 'bootstrap_table' %}')">
+                        <i class="icon-bar-chart">
+                        </i>
+                        数据表格
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="ShowAtRight('{% url 'bootstrap_table_edit' %}')">
+                        <i class="icon-bar-chart">
+                        </i>
+                        表格行内编辑
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="ShowAtRight('{% url 'bootstrap_validator' %}')">
+                        <i class="icon-bar-chart">
+                        </i>
+                        表单验证插件
+                    </a>
+                </li>
+                <!-- 活动菜单显示-->
+                <li class="current">
+                    <a href="javascript:void(0);">
+                        <i class="icon-desktop"></i>
+                        一级
+                    </a>
+
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#"
+                               onclick="  ShowRight('{{ y.3 }}')"
+                            >
+                                <i class="icon-angle-right"></i>
+                                二级
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="#" onclick="ShowRight('{{ z.3 }}')">
+                                        <i class="icon-gamepad"></i>
+                                        哈哈
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+
+            </ul>
+            <div class="sidebar-title">
+            <span>
+              提示
+            </span>
+            </div>
+            <div class="sidebar-widget align-center">
+                <div class="btn-group" data-toggle="buttons" id="theme-switcher">
+                    <label class="btn active">
+                        <input type="radio" name="theme-switcher" data-theme="bright">
+                        <i class="icon-sun">
+                        </i>
+                        白天
+                    </label>
+                    <label class="btn">
+                        <input type="radio" name="theme-switcher" data-theme="dark">
+                        <i class="icon-moon">
+                        </i>
+                        夜晚
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div id="divider" class="resizeable">
+        </div>
+    </div>
+    <div id="content" style="height: 100%;overflow: auto">
+        <iframe id="main_iframe" width="100%" height="600" src="" frameborder="0" scrolling="no"></iframe>
+    </div>
+</div>
+<script>
+    function ShowAtRight(url) {
+        document.getElementById("main_iframe").src = url;
+    }
+
+    // 计算页面的实际高度，iframe自适应会用到
+    function calcPageHeight(doc) {
+        var cHeight = Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
+        var sHeight = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
+        return Math.max(cHeight, sHeight)
+    }
+
+    //根据ID获取iframe对象
+    var main_iframe = document.getElementById('main_iframe')
+    main_iframe.onload = function () {
+        //解决打开高度太高的页面后再打开高度较小页面滚动条不收缩
+        main_iframe.style.height = '0px';
+        var iDoc = main_iframe.contentDocument || main_iframe.document
+        var height = calcPageHeight(iDoc)
+        if (height < 850) {
+            height = 850;
+        }
+        main_iframe.style.height = height + 'px'
+    }
+</script>
+
+</body>
+
+</html>

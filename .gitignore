@@ -8,7 +8,6 @@ Desktop.ini
 *.so
 *.egg
 *.egg-info
-dist
 #django
 *.xml
 *.iml

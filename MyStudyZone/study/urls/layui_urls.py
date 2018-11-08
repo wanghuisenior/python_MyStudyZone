@@ -13,7 +13,7 @@ from study.views import layui_views
 # 在Ajax中的使用
 # "{% url 'add_or_update_user' %}"
 urlpatterns = [
-    path('layui_home', layui_views.layui_home, name='layui_home'),
+    path('layui_href', layui_views.layui_href, name='layui_href'),
     path('layui_grid', layui_views.layui_grid, name='layui_grid'),
     path('layui_admin1', layui_views.layui_admin1, name='layui_admin1'),
     path('layui_button', layui_views.layui_button, name='layui_button'),
@@ -31,10 +31,10 @@ urlpatterns = [
     path('layui_tree', layui_views.layui_tree, name='layui_tree'),
     path('layui_upload', layui_views.layui_upload, name='layui_upload'),
     path('layui_util', layui_views.layui_util, name='layui_util'),
-    path('layui_index', layui_views.layui_index, name='layui_index'),
+    path('layui_mytest', layui_views.layui_mytest, name='layui_mytest'),
     # admin 框架
-    path('layui_login', layui_views.layui_login, name='layui_login'),
-    path('layui_admin', layui_views.layui_admin, name='layui_admin'),
+    path('layui_admin_login', layui_views.layui_admin_login, name='layui_admin_login'),
+    path('layui_admin_index', layui_views.layui_admin_index, name='layui_admin_index'),
     path('layui_main', layui_views.layui_main, name='layui_main'),
     path('layui_admin_grid', layui_views.layui_admin_grid, name='layui_admin_grid'),
     path('layui_admin_table', layui_views.layui_admin_table, name='layui_admin_table'),

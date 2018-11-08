@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BootstrapValidator demo</title>
+    <link href="/static/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="/static/frame/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/formvalidate/bootstrapValidator/css/bootstrapValidator.css"/>
+    <script type="text/javascript" src="/static/formvalidate/bootstrapValidator/js/bootstrapValidator.js"></script>
+    <style>
+        body {
+            padding: 20px
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <!-- form: -->
+        <div class="col-md-8">
+            <form id="defaultForm" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Full name</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="firstName" placeholder="First name"/>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="lastName" placeholder="Last name"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">用户名</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="username"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">手机号</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="phone"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">邮箱</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="email"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">密码</label>
+                    <div class="col-md-5">
+                        <input type="password" class="form-control" name="password"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">确认密码</label>
+                    <div class="col-md-5">
+                        <input type="password" class="form-control" name="confirmPassword"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">性别</label>
+                    <div class="col-md-5">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="gender" value="male"/> 男
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="gender" value="female"/> 女
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="gender" value="other"/> Other
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">生日</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="birthday"/> (YYYY/MM/DD)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Languages</label>
+                    <div class="col-md-5">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="languages[]" value="english"/> English
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="languages[]" value="french"/> French
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="languages[]" value="german"/> German
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="languages[]" value="russian"/> Russian
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="languages[]" value="other"/> Other
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" id="captchaOperation"></label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" name="captcha"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <button type="submit" class="btn btn-primary">按钮type=submit</button>
+                        <button type="button" class="btn btn-info" id="validateBtn">按钮type=button</button>
+                        <button type="button" class="btn btn-info" id="resetBtn">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- :form -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Generate a simple captcha
+        function randomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        };
+        $('#captchaOperation').html([randomNumber(1, 10), '+', randomNumber(1, 10), '='].join(' '));
+
+        $('#defaultForm').bootstrapValidator({
+            /**
+             * 生效规则（三选一）
+             * enabled 字段值有变化就触发验证
+             * disabled,submitted 当点击提交时验证并展示错误信息
+             */
+            live: 'enabled',
+            /**
+             * 为每个字段指定通用错误提示语
+             */
+            message: 'This value is not valid',
+            /**
+             * 指定验证后验证字段的提示字体图标。（默认是bootstrap风格）
+             * Bootstrap 版本 >= 3.1.0
+             * 也可以使用任何自定义风格，只要引入好相关的字体文件即可
+             * 默认样式
+             .form-horizontal .has-feedback .form-control-feedback {
+                top: 0;
+                right: 15px;
+             }
+             * 自定义该样式覆盖默认样式
+             .form-horizontal .has-feedback .form-control-feedback {
+                top: 0;
+                right: -15px;
+             }
+             .form-horizontal .has-feedback .input-group .form-control-feedback {
+                top: 0;
+                right: -30px;
+             }
+             */
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            /**
+             * 指定提交的按钮，例如：'.submitBtn' '#submitBtn'
+             * 当表单验证不通过时，该按钮为disabled
+             */
+            submitButtons: 'button[type="submit"]',
+            fields: {
+                firstName: {
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空'
+                        }
+                    }
+                },
+                lastName: {
+                    validators: {
+                        notEmpty: {
+                            message: '我也不能为空'
+                        }
+                    }
+                },
+                username: {
+                    message: 'The username is not valid',
+                    //threshold: 4,//有4字符以上才进行验证,  并没有什么卵用
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        },
+                        stringLength: {
+                            min: 4,
+                            max: 10,
+                            message: '长度不对4-10位'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\.]+$/,
+                            message: '格式不对，字母数字点号下划线'
+                        },
+                        remote: { //看看用户名是否存在了(是否可用)// 返回值必须是json {'valid':True}
+                            //type: 'POST'//请求方式
+                            url: 'test_user_available',
+                            //data:{username:function(){return $('#username').val();}},
+                            delay: 1000,//使用延时异步调用服务端方法，即在文本框输入值静止后1秒后调用远程服务端方法，如果不使用此属性，那么每输入一个字符都将调用该方法，浪费通信资源
+                            message: '用户名已存在',
+
+                        },
+                        different: {
+                            field: 'password',
+                            message: '用户名和密码不能相同'
+                        }
+                    }
+                },
+                phone: {
+                    validators: {
+                        notEmpty: {message: '空空如何'},//
+                        regexp: {
+                            regexp: /^(0|86|17951)?(1)(3[0-9]|4[0-9]|5[0-9]|7[0-9]|8[0-9])[0-9]{8}$/,
+                            message: '手机号不合法'
+                        },
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {message: '空了'},//
+                        regexp: {
+                            regexp: /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/,
+                            message: '格式不对'
+                        },
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        identical: {
+                            field: 'confirmPassword',
+                            message: '密码不一致'
+                        },
+                        different: {
+                            field: 'username',
+                            message: '不能和用户名一样'
+                        }
+                    }
+                },
+                confirmPassword: {
+                    validators: {
+                        notEmpty: {
+                            message: '确认密码不能为空'
+                        },
+                        identical: {
+                            field: 'password',
+                            message: '两次输入的密码不一样啊   法大师傅'
+                        },
+                    }
+                },
+                birthday: {
+                    validators: {
+                        date: {
+                            format: 'YYYY/MM/DD',
+                            message: '日期不合法'
+                        }
+                    }
+                },
+                gender: {
+                    validators: {
+                        notEmpty: {
+                            message: '请选择性别'
+                        }
+                    }
+                },
+                'languages[]': {
+                    validators: {
+                        notEmpty: {
+                            message: '至少选一种语言'
+                        }
+                    }
+                },
+                'programs[]': {
+                    validators: {
+                        choice: {
+                            min: 2,
+                            max: 4,
+                            message: '请选2到4种你精通的开发语言'
+                        }
+                    }
+                },
+                captcha: {
+                    validators: {
+                        callback: {
+                            message: '答案错了',
+                            callback: function (value, validator) {
+                                var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
+                                return value == sum;
+                            }
+                        }
+                    }
+                }
+            },
+            /**
+             * submitHandler: function(validator, form, submitButton) {
+             *   //validator: 表单验证实例对象
+             *   //form  jq对象  指定表单对象
+             *   //submitButton  jq对象  指定提交按钮的对象
+             * }
+             * 在ajax提交表单时很实用
+             *   submitHandler: function(validator, form, submitButton) {
+             // 使用ajax提交表单
+             $.post(form.attr('action'), form.serialize(), function(result) {
+                // .自定义回调逻辑
+                }, 'json');
+             }
+             *
+             */
+            //submitHandler: null,
+            submitHandler: function (validator, form, submitButton) {
+                console.log('aaaaaaaaaa')
+                $.post('test', form.serialize(), function (result) {
+                    //  {
+                    //      valid: true,          // false if the account is not found
+                    //      username: 'Username', // null if the account is not found
+                    //  }
+                    if (result.valid == true || result.valid == 'true') {
+                        window.location.reload();
+
+                        // Or use Javascript to update your page, such as showing the account name
+                        // $('#welcome').html('Hello ' + result.username);
+                    } else {
+                        // The account is not found
+                        // Show the errors
+                        $('#errors').html('The account is not found').removeClass('hide');
+                        // Enable the submit buttons
+                        $('#loginForm').bootstrapValidator('disableSubmitButtons', false);
+                    }
+                }, 'json');
+            },
+
+            /**
+             * 为每个字段设置统一触发验证方式（也可在fields中为每个字段单独定义），默认是live配置的方式，数据改变就改变
+             * 也可以指定一个或多个（多个空格隔开） 'focus blur keyup'
+             */
+            //trigger: null,
+        }).on('success.form.bv', function (e) {
+            //这里在表单提交的时候都会执行
+            //如果需要在点击type=button 的按钮时执行改ajax操作，这里的 on('success.form.bv', function (e){})不写在下面的点击事件中写ajax
+            e.preventDefault();//阻止表单提交
+            var $form = $(e.target);// 获取到form实例
+            var bv = $form.data('bootstrapValidator');//获取 BootstrapValidator 实例
+            // 使用ajax提交表单，而不是 submit提交
+            $.post('create_user', $form.serialize(), function (result) {
+                if (result == 200) {
+                    alert('成功了')
+                    window.location.href = '/bootstrap_validator'
+                } else {
+                    alert('失败')
+                }
+            });
+        });
+        // Validate the form manually
+        $('#validateBtn').click(function () {
+            // 点击type=button的按钮，
+            var bv = $('#defaultForm').data('bootstrapValidator');
+            bv.validate();
+            if (bv.isValid()) {
+                $.post('create_user', $('#defaultForm').serialize(), function (result) {
+                    if (result == 200) {
+                        alert('成功啊啊啊啊')
+                        window.location.href = '/bootstrap_validator'
+                    } else {
+                        alert('失败八八八八')
+                    }
+                });
+            }
+            //$('#defaultForm').bootstrapValidator('validate');
+        });
+
+        $('#resetBtn').click(function () {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+        });
+    });
+</script>
+</body>
+</html>

@@ -11,8 +11,8 @@ from django.shortcuts import render
 from study import models
 
 
-def href(request):
-    return render(request, 'href.html')
+def index(request):
+    return render(request, 'index.html')
 
 
 def db_test_add(request):
@@ -25,7 +25,7 @@ def db_test_add(request):
 
 
 def test(request):
-    return render(request, 'admin/onelevel.html')
+    return render(request, 'layui_admin/onelevel.html')
 
 
 def jquery_util_test(request):

@@ -21,4 +21,6 @@ urlpatterns = [
     path('create_or_update_user', user_views.create_or_update_user, name='create_or_update_user'),
     path('get_user_names', user_views.get_user_names, name='get_user_names'),
     path('update_user_info', user_views.update_user_info, name='update_user_info'),
+    path('test_user_available', user_views.test_user_available, name='test_user_available'),
+    path('create_user', user_views.create_user, name='create_user'),
 ]

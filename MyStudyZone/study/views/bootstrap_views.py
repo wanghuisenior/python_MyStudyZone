@@ -23,16 +23,16 @@ from datetime import date
 from study.utils.LazyEncoder import LazyEncoder
 
 
-def index(request):
-    return render(request, 'index.html')
+def bootstrap_index(request):
+    return render(request, 'bootstrap_admin/bootstrap_index.html')
 
 
-def icons(request):
-    return render(request, 'icons.html')
+def confirm_with_bs(request):
+    return render(request, 'bootstrap_admin/confirm_with_bs.html')
 
 
 def bootstrap_grid(request):
-    return render(request, 'bootstrap_grid.html')
+    return render(request, 'bootstrap_admin/bootstrap_grid.html')
 
 
 def bootstrap_table(request):
@@ -50,19 +50,24 @@ def bootstrap_table(request):
             # print(request.GET)
             # return HttpResponse(serializers.serialize("json", users, cls=LazyEncoder))
         else:  # GET请求,请求内容为空，说明是点击跳转页面
-            return render(request, 'bootstrap_table.html')
+            return render(request, 'bootstrap_admin/bootstrap_table.html')
 
 
 def bootstrap_validator(request):
-    return render(request, 'bootstrap_validator.html')
+    return render(request, 'bootstrap_admin/bootstrap_validator.html')
 
 
-def bootstrap_tabledit(request):
-    print(request.method)
-    datas = {'id': '1', 'username': 'aaaa', 'email': 'aa@qq.com', 'avatar': 'aaaaaaaaaaaaaaaab'}
-    if request.method == 'POST':
-        print(request.POST)
-        return HttpResponse(json.dumps(datas))
-    else:
-
-        return render(request, 'bootstrap_tabledit.html',{'data':datas})
+def bootstrap_table_edit(request):
+    if request.method == 'GET':
+        if request.GET:  # get请求不为空
+            print('get请求不为空', request.GET)
+            users = models.User.objects.all()
+            user_list = []
+            for user in users:
+                user_list.append(
+                    {'user_id': user.user_id, 'user_name': user.user_name, 'user_tel': user.user_tel, 'user_email': user.user_email,
+                     'image': user.image, 'user_info': user.user_info, 'create_time': user.create_time, 'update_time': user.update_time})
+            return HttpResponse(json.dumps(user_list, cls=LazyEncoder))
+        else:
+            print('get请求空')
+            return render(request, 'bootstrap_admin/bootstrap_table_edit.html')

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Tiny editable jQuery Bootstrap spreadsheet from MindMup</title>
+
+    <link href="/static/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/bootstrap-table/bootstrap-table.css" rel="stylesheet" type="text/css"/>
+    <script src="/static/frame/js/jquery-1.10.2.min.js"></script>
+    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <script src="/static/bootstrap-table/bootstrap-table.js"></script>
+    <script src="/static/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+</head>
+<body>
+<div class="container" style="padding-top: 20px">
+    <div class="row">
+        <table id="tb_test"></table>
+    </div>
+</div>
+
+<script>
+
+    $('#tb_test').bootstrapTable({
+        url: 'bootstrap_table_edit',
+        uniqueId: 'user_id',
+        striped: true,                      //是否显示行间隔色
+        pagination: true,                   //是否显示分页（*）
+        search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        showRefresh: true,                  //是否显示刷新按钮
+
+        columns: [{
+            field: 'user_id',
+            title: 'id',
+            visible: false
+        }, {
+            field: 'user_name',
+            title: '用户名'
+        }, {
+            field: 'user_tel',
+            title: '电话'
+        }, {
+            field: 'user_email',
+            title: '邮箱'
+        },],
+        onDblClickCell: function (field, value, row, $element) {
+            if (field == 'user_tel') {
+                $element[0].innerHTML = "<input id='inputCell' type='text'  name='inputCell' value='" + value + "'>";
+            }
+            $("#inputCell").focus();
+            $("#inputCell").blur(function () {
+                var newValue = $("#inputCell").val();
+                row[field] = newValue;
+                $(this).remove();
+                $('#tb_test').bootstrapTable('updateCell', {//
+                    index: $element[0].parentElement.rowIndex - 1,
+                    field: field,
+                    value: newValue
+                });
+                if (value != newValue) {
+                    $.post("update_user_info", row, function (result) {
+                        //use toastr to display a toast for info, success, warning or error
+                        if (result == 200) {
+                            toastr.success('修改成功！', '', {timeOut: 800})
+                        } else if (result == 404) {
+                            toastr.error('失败,指标不存在！')
+                        } else if (result == 0) {
+                            toastr.error('未知异常！')
+                        }
+                    });
+                }
+            });
+        },
+
+        onLoadSuccess: function (result) {
+            //console.log(result, result)
+        },
+        onLoadError: function (err) {
+            console.log('err')
+        }
+    });
+</script>
+
+</body>
+</html>

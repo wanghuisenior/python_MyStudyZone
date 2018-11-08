@@ -29,7 +29,7 @@ from study import default_views
 urlpatterns = [
     # 路由分发
     # path('', default_views.index, name='index'),  # 主页
-    path('', default_views.href, name='href'),
+    path('', default_views.index, name='index'),
     path('', include('study.urls.bootstrap_urls')),
     path('', include('study.urls.layui_urls')),
     path('', include('study.urls.user_urls')),
