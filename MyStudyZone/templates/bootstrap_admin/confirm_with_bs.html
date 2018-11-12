@@ -1,72 +1,1123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
-    />
-    <title>icons</title>
-    {% include 'bootstrap_admin/static_files.html' %}
-    <link href="/static/frame/css/main.css" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>jquery-confirm | 功能强大的jQuery对话框和确认框插件 </title>
+
+    <link rel="stylesheet" href="http://libs.baidu.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/alert/jqueryConfirm/css/jquery-confirm.css"/>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+
+    <script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/alert/jqueryConfirm/js/jquery-confirm.js"></script>
+
+
+    <style type="text/css">
+        .space10 {
+            height: 10px;
+        }
+
+        body {
+            font-family: Segoe UI, Frutiger, Frutiger Linotype, Dejavu Sans, Helvetica Neue, Arial, sans-serif;
+            position: relative;
+        }
+    </style>
+    <!--[if IE]>
+		<script src="http://libs.baidu.com/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
 </head>
 <body>
 <div style="margin-left: 20px;margin-right: 20px;padding-top: 5px">
-    <div class="crumbs">
-        <ul id="breadcrumbs" class="breadcrumb">
-            <li>
-                <i class="icon-home"></i>
-                <a href="#" onclick="showAtRight('home')">
-                    控制台
-                </a>
-            </li>
-            <li class="current">
-                <a href="#" title="">
-                    哇哈哈哈
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="page-header">
-        <div class="page-title">
-            <h3>
-                <bold>这里是控制台首页</bold>
-            </h3>
-            <span>早上好, 管理员!</span>
-        </div>
-        <ul class="page-stats">
-            哇哈哈
-        </ul>
-    </div>
+    <div class="container">
+        <br><br>
+        <button class="btn-lg btn-primary" onclick="window.open('confirm_with_bs'); target='blank'">在新标签页中打开
+        </button>
 
-    <div class="row row-bg">
-        <div class="col-sm-6 col-md-3 hidden-xs">
-            <div class="statbox widget box box-shadow">
-                <a href="" style="text-decoration: none;">
-                    <div class="widget-content">
-                        <div class="visual yellow">
-                            <i class="icon-dollar">
-                            </i>
-                        </div>
-                        <div class="title">
-                            标题
-                        </div>
-                        <div class="value">
-                            获取值
-                        </div>
-                        <a class="more" href="">
-                            查看更多
-                            <i class="pull-right icon-angle-right">
-                            </i>
-                        </a>
-                    </div>
-                </a>
+        <section id="usage">
+            <h2>Bootstrap Jquery-Confirm快速使用</h2>
+            <p><strong>依赖:</strong></p>
+            <ul>
+                <li>Bootstrap >= v2</li>
+                <li>jQuery library > v1.8</li>
+            </ul>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 id="alert">Alert</h4>
+                    <p>
+                        <i class="fa fa-info-circle"></i><code>$.alert()</code> 只有确认按钮.
+                    </p>
+                    <button class="example1 btn btn-primary">提示</button>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code class="js">$.alert({
+    title: '标题!',
+    content: '简单提示!',
+    confirm: function(){
+        $.alert('确认了!'); // shorthand.
+    }
+});
+</code></pre>
+                </div>
+                <div class="col-md-12">
+                    <h4 id="confirm">
+                        Confirm
+                    </h4>
+                    <p>
+                        <i class="fa fa-info-circle"></i><code>$.confirm()</code> 包含确认和取消按钮.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <button class="example2 btn btn-primary">点击提示</button>
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code class="js">$.confirm({
+    title: '确认吗!',
+    content: '是否创建任务!',
+    confirm: function(){
+        $.alert('已确认!');
+    },
+    cancel: function(){
+        $.alert('已取消!')
+    }
+});
+</code></pre>
+                </div>
+                <div class="col-md-6">
+                    <p>
+                        <a class="example2-1-1 btn btn-primary" href="http://www.baidu.com">跳转页面</a>
+                    </p>
+
+                    <span>HTML</span>
+                    <pre class="prettyprint linenums"><code class="html">&lt;a class="go" data-title="跳转?" href="http://www.baidu.com"&gt;跳转&lt;/a&gt;
+</code></pre>
+                    <span>Javascript</span>
+                    <pre class="prettyprint linenums"><code class="js">$('.example2-1-1').confirm(options); // 不需要写点击事件了
+</code></pre>
+                    <p>$('#id').confirm用来替代原本的confirm(). <br/>
+                        <i class="fa fa-info"></i> 默认点击确认按钮执行跳转，若定义的`options`中包含回调函数，将取消跳转并执行回调<br>
+                        使用<a href="#api-target">this.$target</a> 获取到点击的元素.</p>
+                </div>
+                <div class="col-md-12">
+                    <h4 id="dialog">
+                        Dialog
+                    </h4>
+                    <p>
+                        <i class="fa fa-info-circle"></i><code>$.dialog()</code> 同时隐藏确认和取消按钮. 显示 [x] 按钮
+                    </p>
+                    <button class="example2-1 btn btn-primary">example dialog</button>
+
+                    <div class="space10"></div>
+                    <pre class="prettyprint linenums"><code class="js">$.dialog({
+    title: 'Text content!',
+    content: 'Simple modal!',
+});
+</code></pre>
+                </div>
+                <div class="col-md-12">
+                    <h4 id="shorthand">用法小结</h4>
+                    <p>
+                        一个简单的弹窗接收两个字符串参数： 第一个是对话窗的内容 第二个是窗口标题 .<br>
+                        第二个是可选参数.
+                    </p>
+                    <pre class="prettyprint linenums"><code class="js">$.alert('Content here', 'Title here');
+$.confirm('A message', 'Title is optional');
+$.dialog('Just to let you know');
+</code></pre>
+                </div>
             </div>
+        </section>
+        <section id="customizing">
+            <h2>定制化</h2>
+            <div class="alert alert-info">
+                <p>
+                    <i class="fa fa-bookmark fa-fw"></i><strong>提示</strong>:
+                    <code>$.confirm()</code>, <code>$.dialog()</code> &amp; <code>$.alert()</code> 三个方法都是
+                    <code>jconfirm()</code>的别名.<br>
+                    三个方法都间接调用了 jconfirm 的基础函数
+                </p>
+            </div>
+            <div class="alert alert-warning">
+                <p>
+                    <i class="fa fa-info fa-fw"></i> <strong>ADVANCED: </strong> <code>this.$body</code> is the body div for
+                    jquery-confirm. You can find and alter any element at run time.
+                </p>
+            </div>
+
+            <h4 id="buttontext">自定义弹窗内按钮文字</h4>
+            <div class="section">
+                <p>改变弹窗内确认按钮和取消按钮的文字.</p>
+                <button class="example3 btn btn-primary">点击测试!</button>
+
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code class="html">$.confirm({
+    confirmButton: 'Yes i agree',
+    cancelButton: 'NO never !'
+});
+</code></pre>
+            </div>
+            <h4 id="buttonstyle">改变按钮样式</h4>
+            <div class="section">
+                <p>在按钮中应用你需要的样式.</p>
+                <p class="text-info">
+                    bootstrap可用的按钮样式有： <code>btn-primary</code> <code>btn-inverse</code> <code>btn-warning</code> <code>btn-info</code>
+                    <code>btn-danger</code> <code>btn-success</code>
+                </p>
+                <button class="btn btn-primary example3-1">info and danger!</button>
+                <button class="btn btn-primary example3-2">warning and success!</button>
+
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code class="html">$.confirm({
+    confirmButtonClass: 'btn-info',
+    cancelButtonClass: 'btn-danger'
+})
+</code></pre>
+            </div>
+
+
+            <h4 id="hide-elements">窗口内元素隐藏</h4>
+            <div class="section">
+                <p>隐藏Title/Content/Confirm Button/Cancel Button/Close 按钮，如果你不需要他们.</p>
+                <button class="btn btn-primary example-hide-1">No title</button>
+                <button class="btn btn-primary example-hide-5">No content</button>
+                <button class="btn btn-primary example-hide-2">No title + cancel Button</button>
+                <button class="btn btn-primary example-hide-3">No title + cancel/confirm Button</button>
+                <button class="btn btn-primary example-hide-4">No title + cancel/confirm Button + no close icon</button>
+
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code class="html">$.confirm({
+    title: false, // 隐藏标题.
+    content: false, // 隐藏内容.
+    cancelButton: false // 隐藏取消按钮.
+    confirmButton: false, // 隐藏确认按钮.
+    closeIcon: false, // 隐藏右上角关闭图表.
+});
+</code></pre>
+                <i class="fa fa-info-circle fa-fw"></i><strong>提示:</strong>
+                <br>
+                <p>
+                    如果确认按钮和取消按钮同时被隐藏了，则默认情况下显示关闭图标（dialog mode）<br>
+                    若要明确的设定关闭图标的隐藏或显示，使用 <code>closeIcon: true</code> 或 <code>closeIcon: false</code>.<br>
+                    隐藏两个按钮的快捷方式是使用 <code>$.dialog()</code>.
+                </p>
+            </div>
+
+            <h4 id="custom-width">自定义宽度</h4>
+            <div class="section">
+                <p>
+                    Jquery-confirm使用Bootstrap的网格系统进行布局. <br>
+                    你可以简单地提供列类来调整模态框的宽度.
+                </p>
+
+                <p class="text-info"><i class="fa fa-info-circle"></i>还可以设置响应布局. <a
+                        href="http://getbootstrap.com/examples/grid/" target="_empty">点击查看bootstrap布局文档</a></p>
+
+                <button class="btn btn-primary grid-1">col-md-6 col-md-offset-3</button>
+                <button class="btn btn-primary grid-2">col-md-4 col-md-offset-4 (default)</button>
+                <button class="btn btn-primary grid-3">col-md-4</button>
+                <button class="btn btn-primary grid-4">col-md-4 col-md-offset-8</button>
+                <button class="btn btn-primary grid-5">col-md-12</button>
+                <div class="space10"></div>
+                <script type="text/javascript">
+                    $('.grid-1').on('click', function () {
+                        $.confirm({
+                            columnClass: 'col-md-6 col-md-offset-3'
+                        }); // empty because its default.
+                    });
+                    $('.grid-2').on('click', function () {
+                        $.confirm({
+                            columnClass: 'col-md-4 col-md-offset-4'
+                        });
+                    });
+                    $('.grid-3').on('click', function () {
+                        $.confirm({
+                            columnClass: 'col-md-4'
+                        });
+                    });
+                    $('.grid-4').on('click', function () {
+                        $.confirm({
+                            columnClass: 'col-md-4 col-md-offset-8'
+                        });
+                    });
+                    $('.grid-5').on('click', function () {
+                        $.confirm({
+                            columnClass: 'col-md-12'
+                        });
+                    });
+                </script>
+                <pre class="prettyprint linenums"><code>$.confirm({
+    columnClass: 'col-md-4 col-md-offset-4'
+});
+$.confirm({
+    columnClass: 'col-md-4'
+});
+$.confirm({
+    columnClass: 'col-md-4 col-md-offset-8 col-xs-4 col-xs-offset-8'
+});</code></pre>
+            </div>
+
+            <h4 id="icons"><i class="fa fa-car"></i>自定义图标</h4>
+            <div class="section">
+                <p>根据对话内容自定义图标.<br>
+                    Read about Font Awesome <a href="http://fortawesome.github.io/Font-Awesome" target="_blank">here</a>.
+                </p>
+
+                <button class="btn btn-primary example21-1">使用 bootstrap glyphicon</button>
+                <button class="btn btn-primary example21-2">使用 font-awesome</button>
+                <button class="btn btn-primary example21-3">带动画的 font-awesome</button>
+                <script type="text/javascript">
+                    $('.example21-1').on('click', function () {
+                        $.confirm({
+                            icon: 'glyphicon glyphicon-heart',
+                            title: 'glyphicon'
+                        });
+                    });
+                    $('.example21-2').on('click', function () {
+                        $.confirm({
+                            icon: 'fa fa-warning',
+                            title: 'font-awesome'
+                        });
+                    });
+                    $('.example21-3').on('click', function () {
+                        $.alert({
+                            icon: 'fa fa-spinner fa-spin',
+                            title: '正在处理!',
+                            content: '请稍等...'
+                        });
+                    });
+                </script>
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code>$.confirm({
+    icon: 'glyphicon glyphicon-heart',
+    title: 'glyphicon'
+});
+$.confirm({
+    icon: 'fa fa-warning',
+    title: 'font-awesome'
+});
+$.alert({
+    icon: 'fa fa-spinner fa-spin',
+    title: 'Working!',
+    content: 'please wait..'
+});
+</code></pre>
+            </div>
+
+            <h4 id="close-icon">自定义关闭图标</h4>
+            <div class="section">
+                <p>
+                    jQuery confirm使用html内置符号作为关闭图标, 然而你也可以选择fa, glyphicon, zmdi等图标进行定制定制
+                </p>
+                <div class="alert alert-info">
+                    使用 $.dialog 将默认显示关闭图标.
+                </div>
+                <button class="example15-1-3-4 btn btn-primary">包含关闭图标</button>
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code>$.alert({
+    closeIcon: true
+});
+</code></pre>
+                <p>
+                    自定义关闭图标的样式.
+                </p>
+                <button class="example15-1-3-5 btn btn-primary">使用 glyphicon</button>
+                <button class="example15-1-3-6 btn btn-primary">使用 font awesome</button>
+                <script>
+                    $('.example15-1-3-4').click(function () {
+                        $.alert({
+                            closeIcon: true,
+                        });
+                    });
+                    $('.example15-1-3-5').click(function () {
+                        $.alert({
+                            closeIcon: true,
+                            closeIconClass: 'glyphicon glyphicon-remove',
+                        });
+                    });
+                    $('.example15-1-3-6').click(function () {
+                        $.alert({
+                            closeIcon: true,
+                            closeIconClass: 'fa fa-close'
+                        })
+                    });
+                </script>
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code>$.alert({
+    closeIcon: true,
+    closeIconClass: 'fa fa-close' // or 'glyphicon glyphicon-remove'
+});
+</code></pre>
+            </div>
+        </section>
+
+        <section id="animations">
+            <h2>对动画的支持</h2>
+            <p>
+                可以为打开和关闭事件设置不同的动画
+            </p>
+            <!--<h3 id="animation">ANIMATION!</h3>-->
+            <div class="section">
+                <p>2D 动画:</p>
+                <button class="example16 btn btn-primary">right</button>
+                <script type="text/javascript">
+                    $('.example16').on('click', function () {
+                        $.confirm({
+                            animation: 'right',
+                            closeAnimation: 'left',
+                        });
+                    });
+                </script>
+                <button class="example17 btn btn-primary">left</button>
+                <script type="text/javascript">
+                    $('.example17').on('click', function () {
+                        $.confirm({
+                            animation: 'left',
+                            closeAnimation: 'right',
+                        });
+                    });
+                </script>
+                <button class="example18 btn btn-primary">bottom</button>
+                <script type="text/javascript">
+                    $('.example18').on('click', function () {
+                        $.confirm({
+                            animation: 'bottom',
+                            closeAnimation: 'top'
+                        });
+                    });
+                </script>
+                <button class="example19 btn btn-primary">top</button>
+                <script type="text/javascript">
+                    $('.example19').on('click', function () {
+                        $.confirm({
+                            animation: 'top',
+                            closeAnimation: 'bottom'
+                        });
+                    });
+                </script>
+                <button class="example11 btn btn-primary">Rotate</button>
+                <script type="text/javascript">
+                    $('.example11').on('click', function () {
+                        $.confirm({
+                            animation: 'Rotate',
+                            closeAnimation: 'rotate'
+                        });
+                    });
+                </script>
+                <button class="example12 btn btn-primary">none</button>
+                <script type="text/javascript">
+                    $('.example12').on('click', function () {
+                        $.confirm({
+                            animation: 'none',
+                        });
+                    });
+                </script>
+                <button class="example13 btn btn-primary">opacity</button>
+                <script type="text/javascript">
+                    $('.example13').on('click', function () {
+                        $.confirm({
+                            animation: 'opacity'
+                        });
+                    });
+                </script>
+                <div class="space10"></div>
+                <p>3D 动画:</p>
+                <button class="example15 btn btn-primary">scale (default)</button>
+                <script type="text/javascript">
+                    $('.example15').on('click', function () {
+                        $.confirm({
+                            animation: 'scale',
+                            closeAnimation: 'zoom'
+                        });
+                    });
+                </script>
+                <button class="example14 btn btn-primary">zoom</button>
+                <script type="text/javascript">
+                    $('.example14').on('click', function () {
+                        $.confirm({
+                            animation: 'zoom',
+                            closeAnimation: 'scale'
+                        });
+                    });
+                </script>
+                <button class="example7 btn btn-primary">scaleY</button>
+                <script type="text/javascript">
+                    $('.example7').on('click', function () {
+                        $.confirm({
+                            animation: 'scaleY',
+                            closeAnimation: 'scaleX'
+                        })
+                    });
+                </script>
+                <button class="example8 btn btn-primary">scaleX</button>
+                <script type="text/javascript">
+                    $('.example8').on('click', function () {
+                        $.confirm({
+                            animation: 'scaleX',
+                            closeAnimation: 'scaleY'
+                        })
+                    });
+                </script>
+                <button class="example9 btn btn-primary">RotateY</button>
+                <script type="text/javascript">
+                    $('.example9').on('click', function () {
+                        $.confirm({
+                            animation: 'rotateY',
+                            closeAnimation: 'rotateYR'
+                        });
+                    });
+                </script>
+                <button class="example9-2 btn btn-primary">RotateYR</button>
+                <script type="text/javascript">
+                    $('.example9-2').on('click', function () {
+                        $.confirm({
+                            animation: 'rotateYR',
+                            closeAnimation: 'rotateY'
+                        });
+                    });
+                </script>
+                <button class="example10 btn btn-primary">RotateX</button>
+                <script type="text/javascript">
+                    $('.example10').on('click', function () {
+                        $.confirm({
+                            animation: 'rotateX',
+                            closeAnimation: 'rotateXR'
+                        });
+                    });
+                </script>
+                <button class="example10-2 btn btn-primary">RotateXR</button>
+                <script type="text/javascript">
+                    $('.example10-2').on('click', function () {
+                        $.confirm({
+                            animation: 'rotateXR',
+                            closeAnimation: 'rotateX'
+                        });
+                    });
+                </script>
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code>$.confirm({
+    animation: 'zoom',
+    closeAnimation: 'scale'
+});
+// 支持的动画api:
+// right, left, bottom, top, rotate, none, opacity, scale, zoom,
+// scaleY, scaleX, rotateY, rotateYR (reverse), rotateX, rotateXR (reverse)
+</code></pre>
+            </div>
+
+            <h4 id="animationbounce">弹跳效果</h4>
+            <div class="section">
+                <p>看上去比较酷炫的效果，然而并没有什么用.</p>
+                <button class="btn btn-primary example-bounce-1">没有弹性</button>
+                <button class="btn btn-primary example-bounce-2">1.5 弹性</button>
+                <button class="btn btn-primary example-bounce-3">2 弹性</button>
+                <button class="btn btn-primary example-bounce-4">2.5 弹性</button>
+                <script type="text/javascript">
+                    $('.example-bounce-1').on('click', function () {
+                        $.confirm({
+                            animationBounce: 1
+                        });
+                    });
+                    $('.example-bounce-2').on('click', function () {
+                        $.confirm({
+                            animationBounce: 1.5
+                        });
+                    });
+                    $('.example-bounce-3').on('click', function () {
+                        $.confirm({
+                            animationBounce: 2
+                        });
+                    });
+                    $('.example-bounce-4').on('click', function () {
+                        $.confirm({
+                            animationBounce: 2.5
+                        });
+                    });
+                </script>
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code class="html">$.confirm({
+        弹性: 1.5, // 默认值： 1.2 ，值为 1 则没有弹性.
+    });
+</code></pre>
+            </div>
+
+            <h4 id="animationspeed">动画速度</h4>
+            <div class="section">
+                <p>调整动画的持续时间.</p>
+                <button class="btn btn-primary example19-1">我太慢了</button>
+                <button class="btn btn-primary example19-2">我很快</button>
+                <div class="space10"></div>
+                <script type="text/javascript">
+                    $('.example19-1').on('click', function () {
+                        $.confirm({
+                            animationSpeed: 2000
+                        });
+                    });
+                    $('.example19-2').on('click', function () {
+                        $.confirm({
+                            animationSpeed: 200
+                        });
+                    });
+                </script>
+                <pre class="prettyprint linenums"><code>$.confirm({
+    animationSpeed: 2000 // 2 seconds
+});
+$.confirm({
+    animationSpeed: 200 // 0.2 seconds
+});
+</code></pre>
+            </div>
+        </section>
+
+        <section id="themes">
+            <h2>设置窗口的主题</h2>
+            <p>
+                Light &amp; Dark主题适合任意网站设计, <br>
+            </p>
+
+            <!--<h3 id="theme">THEMES</h3>-->
+            <div class="section">
+
+                <button class="btn btn-primary example4">Light theme</button>
+                <button class="btn btn-primary example5">Dark theme</button>
+                <button class="btn btn-primary example5-3">Supervan</button>
+                <button class="btn btn-primary example5-3-1">Material</button>
+                <button class="btn btn-primary example5-3-2">Bootstrap</button>
+                <div class="space10"></div>
+                <script type="text/javascript">
+                    $('.example4').on('click', function () {
+                        $.confirm({
+                            theme: 'white'
+                        });
+                    });
+                    $('.example5').on('click', function () {
+                        $.confirm({
+                            theme: 'black'
+                        });
+                    });
+                    $('.example5-3').on('click', function () {
+                        $.confirm({
+                            theme: 'supervan'
+                        });
+                    });
+                    $('.example5-3-1').on('click', function () {
+                        $.confirm({
+                            theme: 'material'
+                        });
+                    });
+                    $('.example5-3-2').on('click', function () {
+                        $.confirm({
+                            theme: 'bootstrap',
+                        });
+                    });
+                </script>
+                <pre class="prettyprint linenums"><code>$.confirm({
+    theme: 'white'
+});
+$.confirm({
+    theme: 'black'
+});
+$.confirm({
+    theme: 'supervan' // 'material', 'bootstrap'
+});
+</code></pre>
+            </div>
+        </section>
+
+        <section id="ajaxloading">
+            <h2>Ajax loading</h2>
+            <p>
+                使用jconfirm可以通过Ajax直接加载内容，而不需要额外的代码。. <br/>
+                有两种方法可以通过Ajax加载内容:
+            </p>
+            <ol>
+                <li>在字符串内容中传递准备好的URL<br/>
+                    如: <code>content: "URL:http://example.com/getData?id=1"</code>
+                </li>
+                <li>返回jQuery Ajax承诺的传递函数. <br/>
+                    如: <code>content: function(){ return $.get(...); }</code>
+                </li>
+            </ol>
+            <div class="alert alert-info">
+                在Ajax请求完成之前，确认和取消按钮都将变为不可用的状态.
+            </div>
+        </section>
+        <h4 id="urlprefix">使用 "URL:" 前缀</h4>
+        <div class="section">
+            <p>
+                使用url前缀是最简单的方式，但是它有一些限制，比如你不能更改Ajax请求的参数 method,dataType, 等. <br/>
+                这种方式需要你准备好你的url，附带"URL:"参数,如 "URL:http://example.com/file.extension". <br/>
+                请求完成后 将会执行<code>contentLoaded</code> 回调函数，参数： Data, Status & Xhr object.
+            </p>
+            <button class="btn btn-primary example18-1">Load from load_from_ajax.txt</button>
+            <a class="btn btn-default" href="/static/alert/jqueryConfirm/load_from_ajax.txt" target="new"><i
+                    class="fa fa-external-link"></i> view text.txt</a>
+            <div class="space10"></div>
+            <pre class="prettyprint linenums"><code>$.confirm({
+    content: 'url:/static/alert/jqueryConfirm/load_from_ajax.txt',
+    title: 'Title'
+});
+</code></pre>
+            <p>
+                <i class="fa fa-info fa-fw"></i> 在contentLoaded回调函数被调用之前已经设置好content内容
+            </p>
+            <button class="btn btn-primary example18-1-1">使用 contentLoaded 回调</button>
+            <div class="space10"></div>
+            <pre class="prettyprint linenums"><code>$.confirm({
+    content: 'url:/static/alert/jqueryConfirm/load_from_ajax.txt',
+    title: 'Title',
+    contentLoaded: function(data, status, xhr){
+        var self = this;
+        setTimeout(function(){
+            self.setContent('&lt;h1&gt;OK! the status is: ' + status + '&lt;/h1&gt;&lt;br&gt;' + self.content);
+            self.setTitle('title is redefined');
+        }, 2000);
+    }
+});
+</code></pre>
+            <script type="text/javascript">
+                $('.example18-1').on('click', function () {
+                    $.confirm({
+                        title: 'Title',
+                        content: 'url:/static/alert/jqueryConfirm/load_from_ajax.txt',
+                        animation: 'top',
+                        columnClass: 'col-md-6 col-md-offset-3',
+                        closeAnimation: 'top'
+                    });
+                });
+                $('.example18-1-1').on('click', function () {
+                    $.confirm({
+                        title: 'Title',
+                        content: 'url:/static/alert/jqueryConfirm/load_from_ajax.txt',
+                        contentLoaded: function (data, status, xhr) {
+                            var self = this;
+                            setTimeout(function () {
+                                self.setContent('<h1>OK! the status is: ' + status + '</h1><br>' + self.content); // concat content
+                                self.setTitle('重新设置了标题');
+                            }, 2000);
+                        },
+                        animation: 'top',
+                        columnClass: 'col-md-6 col-md-offset-3',
+                        closeAnimation: 'top'
+                    });
+                });
+            </script>
         </div>
-        <i class="icon-home">home</i>
-        <i class="icon-edit">home</i>
+        <h4 id="ajaxpromise">使用 Ajax promise</h4>
+        <div class="section">
+            <p>
+                此选项提供对Ajax选项的完全控制，以及将插入哪些数据
+                内容采用一个返回jQuery promise 的函数（$.ajax，$.GET，$.POST等）.
+                在这个例子中，请求一个JSON对象，并且其中的一部分被设置为内容。
+            </p>
+            <button class="btn btn-primary example18-2">Load from bower.json</button>
+            <a class="btn btn-default" href="/static/alert/jqueryConfirm/bower.json" target="new"><i class="fa fa-external-link"></i> view
+                bower.json</a>
+            <div class="space10"></div>
+            <script type="text/javascript">
+                $('.example18-2').on('click', function () {
+                    $.confirm({
+                        title: 'Title',
+                        content: function () {
+                            // because `this` is unreachable in jquery ajax callbacks
+                            var jc = this;
+
+                            return $.ajax({
+                                url: '/static/alert/jqueryConfirm/bower.json',
+                                dataType: 'json',
+                                method: 'get'
+                            }).done(function (response) {
+                                jc.setContent('Description: ' + response.description);
+                                jc.setContent(jc.content + '<br>Version: ' + response.version); // appending
+                                jc.setTitle(response.name);
+                            }).fail(function () {
+                                jc.setContent('出错了啊.');
+                            });
+                        },
+                        confirmButton: '添加一条数据',
+                        confirm: function () {
+                            this.setContent(this.content + '<h4>我被添加了.</h4>');
+                            return false;
+                        }
+                    });
+                });
+            </script>
+            <pre class="prettyprint linenums"><code>$.confirm({
+    content: function () {
+        var self = this;
+        return $.ajax({
+            url: 'bower.json',
+            dataType: 'json',
+            method: 'get'
+        }).done(function (response) {
+            self.setContent('Description: ' + response.description);
+            self.setContent(self.content + '&lt;br&gt;Version: ' + response.version); // appending
+            self.setTitle(response.name);
+        }).fail(function(){
+            self.setContent('Something went wrong.');
+        });
+    },
+    confirm: function(){
+        this.setContent( this.content + '&lt;h4&gt;Adding a new sentence.&lt;/h4&gt;');
+        return false; // prevent modal from closing
+    }
+});
+</code></pre>
+        </div>
+
+        <section>
+            <h2 id="autoclose">自动关闭</h2>
+            <p>
+                如果用户在指定时间内未响应，则进行操作. <br>
+                This comes in handly when the user is about to do something critical. <br/>
+                当用户将要做一些关键的事情时，这是恰好发生的。<br/>
+                这个<code>autoClose</code> 选项 接收一个字符串参数，如 <code>'confirm|4000'</code>表示4秒后自动执行某事件
+                <br>
+                <i class="fa fa-info"></i> 自动关闭实例效果
+            </p>
+            <div class="section">
+                <button class="btn btn-primary example20">自动确认.</button>
+                <button class="btn btn-primary example21">自动关闭.</button>
+                <script type="text/javascript">
+                    $('.example20').on('click', function () {
+                        $.confirm({
+                            title: '确认注销吗?',
+                            content: '响应超时, 十秒钟后将自动登出.',
+                            autoClose: 'confirm|10000',
+                            confirm: function () {
+                                $.alert('已确认');
+                            },
+                            cancel: function () {
+                                $.alert('已取消');
+                            }
+                        });
+                    });
+                    $('.example21').on('click', function () {
+                        $.confirm({
+                            title: '删除用户吗?',
+                            content: '如未响应，本对话框将在6秒钟后取消.',
+                            autoClose: 'cancel|6000',
+                            confirm: function () {
+                                $.alert('已确认');
+                                return false;
+                            },
+                            cancel: function () {
+                                $.alert('已取消');
+                            }
+                        });
+                    });
+                </script>
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code>
+$.confirm({
+    title: 'Logout?',
+    content: 'Your time is out, you will be automatically logged out in 10 seconds.',
+    autoClose: 'confirm|10000',
+    confirm: function(){
+        alert('confirmed');
+    },
+    cancel:function(){
+        alert('canceled');
+    }
+});
+$.confirm({
+    title: 'Delete user?',
+    content: 'This dialog will automatically trigger \'cancel\' in 6 seconds if you don\'t respond.',
+    autoClose: 'cancel|6000',
+    confirm: function(){
+        alert('confirmed');
+    },
+    cancel:function(){
+        alert('canceled');
+    }
+});
+</code></pre>
+            </div>
+        </section>
+
+        <section id="backgrounddismiss">
+            <h2>
+                点击背景隐藏对话框
+            </h2>
+            <div class="section">
+                <p>
+                    用户点击对话框外面的背景是否可以关闭对话框. <br/>
+                </p>
+                <div class="alert alert-info">
+                    用户点击对话框外背景，则触发取消按钮.
+                </div>
+                <button class="btn btn-primary example22">允许点击背景隐藏对话框</button>
+                <button class="btn btn-primary example23">不允许点击背景隐藏</button>
+
+                <script type="text/javascript">
+                    $('.example22').on('click', function () {
+                        $.confirm({
+                            backgroundDismiss: true,
+                            content: '点击对话框之外的背景，将关闭本对话框!'
+                        });
+                    });
+                    $('.example23').on('click', function () {
+                        $.confirm({
+                            backgroundDismiss: false,
+                            content: '点击对话框外的背景，对话框将颤抖，表明不允许隐藏.'
+                        });
+                    });
+                </script>
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code>$.confirm({
+    backgroundDismiss: true,
+    content: 'Click outside the dialog, and i shall close!'
+});
+$.confirm({
+    backgroundDismiss: false,
+    content: 'Click outside the dialog, and i will shake it off like taylor swift.'
+});
+</code></pre>
+            </div>
+        </section>
+
+        <section id="keyboardactions">
+            <h2>
+                捕获键盘动作
+            </h2>
+            <p>
+                在jquery-confirm dialog中激活键盘事件. <br>
+                ENTER按钮触发 <code>confirm();</code>事件 &amp; ESC 触发 <code>cancel();</code>事件
+            </p>
+
+            <div class="section">
+                <button class="btn btn-primary example22-1">设置捕获键盘事件</button>
+                <script type="text/javascript">
+                    $('.example22-1').on('click', function () {
+                        $.confirm({
+                            keyboardEnabled: true,
+                            content: '点击 ESC 或 ENTER 按键，查看效果.',
+                            cancel: function () {
+                                $.alert('已取消');
+                            },
+                            confirm: function () {
+                                $.alert('已确认');
+                            }
+                        });
+                    });
+                </script>
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code>$.confirm({
+    keyboardEnabled: true,
+    content: 'Press ESC or ENTER to see it in action.',
+    cancel: function(){
+        $.alert('canceled');
+    },
+    confirm: function(){
+        $.alert('confirmed');
+    }
+});
+</code></pre>
+            </div>
+            <h4 id="keyboardactions-config">自定义键盘按钮</h4>
+            <div class="section">
+                <p>
+                    取人按钮和取消按钮接收数字键盘按键对应的数字, 如 65 代表 'A' 或 66 代表 'B'.
+                </p>
+                <div class="alert alert-info">
+                    <i class="fa fa-info"></i> 如果对话框中有文本输入框，在用户输入时将聚焦到输入框中，这时 ENTER & SPACE 按钮将不触发任何事件。
+                </div>
+                <div class="alert alert-warning">
+                    <i class="fa fa-warning"></i> 此时使用自定义键盘 确认 或 取消 按键，如 'A' 或 'B' 这样当你在对话框输入对应按键时仍然可以触发对话框事件，起到关闭或确认按钮的作用
+                </div>
+                <button class="btn btn-primary example22-2">使用自定义键盘按钮触发事件</button>
+                <script type="text/javascript">
+                    $('.example22-2').on('click', function () {
+                        $.confirm({
+                            keyboardEnabled: true,
+                            content: '按下 "A" 来确认 或 "B" 来取消. <input type="text" class="form-control" placeholder="捕获输入框中输入的a或b，同样可以触发取消事件"/>',
+                            confirmKeys: [65],
+                            cancelKeys: [66],
+                            cancel: function () {
+                                $.alert('canceled');
+                            },
+                            confirm: function () {
+                                $.alert('confirmed');
+                            }
+                        });
+                    });
+                </script>
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code>$.confirm({
+    keyboardEnabled: true,
+    content: 'Press "A" to confirm or "B" to cancel. &lt;input type="text" placeholder="typing a or b will close the modal"/&gt;',
+    confirmKeys: [65],
+    cancelKeys: [66],
+    cancel: function () {
+        $.alert('canceled');
+    },
+    confirm: function () {
+        $.alert('confirmed');
+    }
+});
+</code></pre>
+            </div>
+        </section>
+
+        <section id="callbacks">
+            <h2>回调</h2>
+            <div class="section">
+                <p>
+                    对模态框进行更多的控制，主要用于模态框元素的绑定事件。. <br>
+                    <i class="fa fa-info fa-fw"></i>
+                    contentLoaded 回调函数 is called when data from <code>URL prefix</code> in content is used.
+                </p>
+                <button class="btn btn-primary example22-1-1">使用回调函数</button>
+                <script type="text/javascript">
+                    $('.example22-1-1').on('click', function () {
+                        $.confirm({
+                            content: '假设这是一个复杂的表单，你必须在窗体或任何元素上附加事件。\n <br>' +
+                            '<button type="button" class="examplebutton">我是附加事件按钮</button>',
+                            onOpen: function () {
+                                alert('模态框打开前触发onOpen()函数');
+                                // find the input element and attach events to it.
+                                // NOTE: `this.$content` is the jquery object for content.
+                                this.$content.find('button.examplebutton').click(function () {
+                                    alert('点击了模态框中的按钮！');
+                                });
+                            },
+                            onClose: function () {
+                                alert('模态框关闭前触发onClose()函数');
+                            },
+                            onAction: function (action) {
+                                // action is either 'confirm', 'cancel' or 'close'
+                                alert(action + ' 按钮被点击');
+                            }
+                        });
+                    });
+                </script>
+                <div class="space10"></div>
+                <pre class="prettyprint linenums"><code>$.confirm({
+    content: 'Imagine this is a complex form and you have to attach events all over the form or any element &lt;br&gt;' +
+             '&lt;button type="button" class="examplebutton"&gt;I\'ve events attached!&lt;/button&gt;',
+    onOpen: function(){
+        alert('after the modal is opened/rendered');
+        // find the input element and attach events to it.
+        // NOTE: `this.$content` is the jquery object for content.
+        this.$content.find('button.examplebutton').click(function(){
+            alert('I\'ve powers!');
+        });
+    },
+    onClose: function(){
+        alert('before the modal is closed');
+    },
+    onAction: function(action){
+        // action is either 'confirm', 'cancel' or 'close'
+        alert(action + ' was clicked');
+    }
+});
+</code></pre>
+            </div>
+            <h4>onOpen()函数</h4>
+            <div class="section" id="onOpen">
+                <p>
+                    这个函数在模态框打开前触发. 如果你使用URL前缀通过url加载内容，你需要在内容加载完毕后使用contentLoaded 回调函数
+                </p>
+            </div>
+            <h4>onClose()函数</h4>
+            <div class="section" id="onClose">
+                <p>
+                    无论通过何种方式关闭了模态框，这个函数都将被触发.
+                </p>
+            </div>
+            <h4>onAction()函数</h4>
+            <div class="section" id="onAction">
+                <p>
+                    当确认/取消按钮或者关闭图标被点击的时候会触发.这个onAction()函数传递一个字符串参数（被点击的按钮）.
+                </p>
+            </div>
+        </section>
+
+        <br>
+        <br>
+        <br>
+        <br>
 
     </div>
 </div>
+<script type="text/javascript">
+    $('.example1').on('click', function () {
+        $.alert({
+            title: '提示!',
+            content: '简单提示内容!',
+            confirm: function () {
+                $.alert('确认了!');
+            }
+        });
+    });
+    $('.example2').on('click', function () {
+        $.confirm({
+            title: '确认吗!',
+            content: '是否创建任务!',
+            confirm: function () {
+                $.alert('已确认!');
+            },
+            cancel: function () {
+                $.alert('已取消!');
+            }
+        });
+    });
+    $('.example2-1-1').confirm({
+        content: "即将跳转至百度<br> You can access the clicked element by <code>this.$target</code>",
+    });
+    $('.example2-1').on('click', function () {
+        $.dialog({
+            title: '添加成功!',
+            content: '操作完成，请返回!'
+        });
+    });
+    $('.example3').confirm({
+        title: '确认吗!',
+        content: '是否创建任务?',
+        confirmButton: '我同意',
+        cancelButton: '你休想 !'
+    })
+    $('.example3-1').confirm({
+        confirmButtonClass: 'btn-info',
+        cancelButtonClass: 'btn-danger'
+    });
+    $('.example3-2').confirm({
+        confirmButtonClass: 'btn-warning',
+        cancelButtonClass: 'btn-success'
+    });
+
+    $('.example-hide-1').confirm({
+        title: false,
+        content: 'Hide the title.'
+    });
+
+    $('.example-hide-2').confirm({
+        title: false,
+        content: 'Hide the cancel button &amp; title.',
+        cancelButton: false
+    });
+
+    $('.example-hide-3').confirm({
+        title: false,
+        content: 'Hide both the buttons &amp; title.',
+        cancelButton: false,
+        confirmButton: false
+
+    });
+    $('.example-hide-4').confirm({
+        title: false,
+        content: '你隐藏了所有的元素，此时 backgroundDismiss 设置为true，你就可以点击页面关闭窗口',
+        cancelButton: false,
+        confirmButton: false,
+        backgroundDismiss: true,
+        closeIcon: false
+
+    });
+    $('.example-hide-5').confirm({
+        content: false
+    });
+
+
+</script>
 </body>
 </html>
 

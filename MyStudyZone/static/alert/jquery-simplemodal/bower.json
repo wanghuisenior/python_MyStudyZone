@@ -1,0 +1,35 @@
+{
+    "name": "simplemodal.js",
+    "description": "A simple modal window",
+    "version": "1.0",
+    "author": {
+        "name": "Marco Dell'Anna"
+    },
+    "keywords": [
+        "javascript",
+        "window modal",
+        "modal"
+    ],
+    "main": [
+        "./Source/simple-modal.js",
+        "./Source/assets/css/simplemodal.css",
+        "./Source/assets/images/loader.gif"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/plasm/simplemodal.git"
+    },
+    "readme": "README.md",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+        }
+    ],
+    "ignore": [
+        "Demos",
+        "README.md",
+        "logotipo.png",
+        "package.yml"
+    ]
+}

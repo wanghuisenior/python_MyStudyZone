@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="author" content="helang.love@qq.com">
     <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
     <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
 
@@ -35,6 +36,15 @@
     <script type="text/javascript" src="/static/alert/jQueryZdialog/js/zdialog.js"></script>
     <!--moment.js-->
     <script type="text/javascript" src="/static/datepicker/moment.js/moment.js"></script>
+    <!--dayjs-->
+    {#    <script src="https://unpkg.com/dayjs@1.7.7/dayjs.min.js"></script>#}
+    <script src="/static/datepicker/dayjs-master/dayjs.min.js"></script>
+    <!--bootstrap waitingfor-->
+    <script src="/static/loading/bootstrap-waitingfor-master/build/bootstrap-waitingfor.js"></script>
+
+    <!--bootstrap eModal-->
+    <script src="/static/alert/bootstrap_eModal-master/dist/eModal.js"></script>
+
     <style type="text/css">
         .panel-body.minHieht {
             min-height: 100px;
@@ -67,7 +77,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">基本说明</div>
                 <div class="panel-body">
@@ -75,7 +85,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6 col-md-6 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">获取浏览器类型</div>
                 <div class="panel-body minHieht">
@@ -87,7 +97,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6 col-md-6 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">判断浏览终端</div>
                 <div class="panel-body minHieht">
@@ -99,7 +109,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6 col-md-6 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">获取随机数</div>
                 <div class="panel-body minHieht">
@@ -113,7 +123,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6 col-md-6 col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">浏览器对象常用操作</div>
                 <div class="panel-body minHieht">
@@ -179,7 +189,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">序列化表单数据为JSON格式(快速获取表单值)</div>
                 <div class="panel-body minHieht">
@@ -231,7 +241,7 @@
     <h2 class="text-primary">一些好用的三方库
     </h2>
     <div class="row">
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6 col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">全站进度条插件</div>
                 <div class="panel-body minHieht">
@@ -246,7 +256,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6 col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">加载状态展示</div>
                 <div class="panel-body minHieht">
@@ -259,26 +269,42 @@
                     <button type="button" class="btn btn-success" onclick="showPerfectLoading()">动态设置</button>
                     <button type="button" class="btn btn-success" onclick="showLoading1()">动态设置</button>
                     <button type="button" class="btn btn-success" onclick="showLoading2()">fakeLoader</button>
+                    <br><br>
+                    <button type="button" class="btn btn-success" onclick="show_bootstrap_waitingfor(1)">waitingfor</button>
+                    <button type="button" class="btn btn-success" onclick="show_bootstrap_waitingfor(2)">waitingfor</button>
+                    <button type="button" class="btn btn-success" onclick="show_bootstrap_waitingfor(3)">waitingfor</button>
+                    <button type="button" class="btn btn-success" onclick="show_bootstrap_waitingfor(4)">waitingfor</button>
 
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6 col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading"> 提示框插件</div>
                 <div class="panel-body minHieht">
                     <button type="button" class="btn btn-success" onclick="alert1()">sweetalert弹窗</button>
                     <button type="button" class="btn btn-success" onclick="alert2()">jQueryZdialog弹窗</button>
+                    <br><br>
+                    <button type="button" class="btn btn-success" onclick="bs_eMoadl(1)">BS eModal简单弹窗</button>
+                    <button type="button" class="btn btn-success" onclick="bs_eMoadl(2)">BS eModal弹窗</button>
+                    <button type="button" class="btn btn-success" onclick="bs_eMoadl(3)">BS eModal ajax弹窗</button>
+                    <br><br>
+                    <button type="button" class="btn btn-success" onclick="bs_eMoadl(4)">BS eModal prompt弹窗</button>
+                    <button type="button" class="btn btn-success" onclick="bs_eMoadl(5)">BS eModal iframe弹窗</button>
+                    <button type="button" class="btn btn-success" onclick="bs_eMoadl(6)">BS eModal弹窗</button>
 
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-6 col-md-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">使用moment.js轻松管理日期和时间</div>
+                <div class="panel-heading">使用moment.js / dayjs 轻松管理日期和时间</div>
                 <div class="panel-body minHieht">
-                    <button type="button" class="btn btn-success" onclick="momentjs(1)">获取当前时间，并格式化</button>
-
+                    <button type="button" class="btn btn-success" onclick="date_operator(1)">momentjs获取当前时间，并格式化</button>
+                    <br><br>
+                    <button type="button" class="btn btn-success" onclick="date_operator(2)">dayjs获取当前时间，并格式化</button>
+                    <br><br>
+                    区别：用法差不多，dayjs比moment.js轻量一些
                 </div>
             </div>
         </div>
@@ -467,6 +493,39 @@
         });
     }
 
+    function show_bootstrap_waitingfor(i) {
+        switch (i) {
+            case 1:
+                waitingDialog.show();
+                setTimeout(function () {
+                    waitingDialog.hide();
+                }, 2000);
+                break;
+            case 2:
+                waitingDialog.show('自定义提示内容');
+                setTimeout(function () {
+                    waitingDialog.hide();
+                }, 2000);
+                break;
+            case 3:
+                waitingDialog.show('自定义提示内容', {dialogSize: 'sm', progressType: 'warning'});
+                setTimeout(function () {
+                    waitingDialog.hide();
+                }, 2000);
+                break;
+            case 4:
+                waitingDialog.show('隐藏后回调', {
+                    onHide: function () {
+                        alert('Callback!');
+                    }
+                });
+                setTimeout(function () {
+                    waitingDialog.hide();
+                }, 2000);
+                break;
+        }
+    }
+
     function alert1() {
         swal("这是一条alert消息");
     }
@@ -476,6 +535,70 @@
         $.DialogByZ.Alert({Title: "提示", Content: "您的请求失败", BtnL: "确定", FunL: alerts})
         //$.DialogByZ.Confirm({Title: "", Content: "自动隐藏提示Tips弹窗插件</br>代码少使用方便", FunL: confirmL, FunR: Immediate})
         //$.DialogByZ.Autofade({Content: "感谢您对我们的支持"})
+    }
+
+    function bs_eMoadl(index) {
+        //use eModal to display a modal for alert, ajax, prompt, confirm or iframe
+
+        switch (index) {
+            case 1:
+                eModal.alert('使用alert未通过验证！');
+                break;
+            case 2:
+                eModal.confirm('确认吗confirm?', '自定义标题')
+                    .then(function () {
+                        alert('确认咯')
+                    }, function () {
+                        alert('取消了')
+                    });
+                break;
+            case 3:
+                //使用ajax加载内容，加载成功，则显示加载出的内容，加载失败，显示错误信息
+                //eModal.ajax('/jquery_util_ajx_test', '我是ajax标题')
+                //    .then(function (ajaxOnLoadCallback, a, b) {
+                //       console.log(ajaxOnLoadCallback)
+                //       alert('ajaxOnLoadCallback')
+                //    });
+
+                var options = {
+                    url: "jquery_util_ajx_test",
+                    title: 'Header title',
+                    size: eModal.size.sm,
+                    subtitle: 'smaller text header',
+                    buttons: [
+                        {
+                            text: 'OK', style: 'info', close: true, click: function () {
+                                console.log('AAAAAAAAAAAA')
+                            }
+                        },
+                        {
+                            text: 'KO', style: 'danger', close: true, click: function () {
+                                console.log('BBBBBBBBBBB')
+                            }
+                        }
+                    ],
+                };
+
+                eModal.ajax(options);
+                break;
+            case 4:
+                eModal.prompt('prompt使用', '输入密码')
+                break;
+            case 5:
+                eModal.iframe('https://www.baidu.com/', 'iframe标题')
+                break;
+            case 6:
+                eModal.setEModalOptions({
+                    //loadingHtml: '<span class="fa fa-circle-o-notch fa-spin fa-3x text-primary"></span><span class="h4">Loading</span>',
+                    loadingHtml: '<p><i class="fa fa-spin fa-spinner"></i> Loading...</p>',
+                });
+                eModal.ajax('/jquery_util_ajx_test', '我是ajax标题')
+                    .then(function (ajaxOnLoadCallback, a, b) {
+                        console.log(ajaxOnLoadCallback)
+                        alert('ajaxOnLoadCallback')
+                    });
+                break;
+        }
     }
 
     function confirmL() {
@@ -495,7 +618,7 @@
         alert("取消");
     }
 
-    function momentjs(i) {
+    function date_operator(i) {
         switch (i) {
             case 1:
                 console.log('获取当前时间对象', moment())
@@ -520,7 +643,7 @@
                 moment().endOf('week')// 这周的最后一天
                 //======》创建moment对象
                 var t = moment("2018-10-31") // 1995-12-25
-                console.log('前一个月', t.subtract(1, 'months').format('YYYY-MM-DD HH:mm:ss'))
+                console.log(t.format('YYYY-MM-DD HH:mm:ss'), '前一个月', t.subtract(1, 'months').format('YYYY-MM-DD HH:mm:ss'))
                 //查询
                 // 早于
                 moment('2010-10-20').isBefore('2010-10-21') // true
@@ -543,6 +666,130 @@
                 moment('2010-10-20').isBetween('2009-12-31', '2012-01-01', 'year') // true
 
                 moment().isLeapYear() // 是否是闰年
+                break;
+            case 2:
+                //使用day.js处理时间
+                // https://github.com/iamkun/dayjs/blob/master/docs/zh-cn/API-reference.md
+
+                //直接运行 dayjs()，得到包含当前时间和日期的 Dayjs 对象。
+                console.log('直接运行 dayjs()，得到包含当前时间和日期的 Dayjs 对象', dayjs())
+                //可以解析传入的一个标准的ISO 8601时间字符串,并转化未dayjs对象。
+                console.log('可以解析传入的一个标准的ISO 8601时间字符串', dayjs("1995-12-25"))
+                //可以解析传入的一个 Javascript Date 对象。
+                console.log('可以解析传入的一个 Javascript Date 对象', dayjs(new Date(2018, 8, 18)))
+                //检测当前 Dayjs 对象是否是一个有效的时间
+                console.log('检测当前 Dayjs 对象是否是一个有效的时间', dayjs().isValid())
+                //=====================================================================
+
+                //获取和改变日期。
+                console.log('获取年份：', dayjs().year(), '获取月份：', dayjs().month(), '获取日期：', dayjs().date())
+                console.log('获取星期：', dayjs().day(), '获取小时：', dayjs().hour(), '获取分钟：', dayjs().minute(), '获取秒:', dayjs().second(), '毫秒', dayjs().millisecond())
+                //设置
+
+                //设置时间 传入的单位 (unit) 对大小写不敏感。
+
+                //dayjs().set(unit : String, value : Int);
+                //dayjs().set('date', 1);
+                //dayjs().set('month', 3); // 四月
+                //dayjs().set('second', 30);
+                //可用单位
+
+                //单位	缩写	描述
+                //date		日期
+                //day	d	星期几 (星期天 0, 星期六 6)
+                //month	M	月
+                //year	y	年
+                //hour	h	时
+                //minute	m	分
+                //second	s	秒
+                //millisecond	ms	毫秒
+                //操作
+
+                //您可以对 Dayjs 对象如下增加减少之类的操作：
+                //console.log(dayjs().startOf('month').add(1, 'day').subtract(1, 'year').format('YYYY-MM-DD'))
+                //增加时间并返回一个新的 Dayjs() 对象。
+                //dayjs().add(value : Number, unit : String);
+                //dayjs().add(7, 'day');
+                //减少时间并返回一个新的 Dayjs() 对象，使用方法和 dayjs#add 相同。
+                //dayjs().subtract(7, 'year');
+                //开头时间 : 返回当前时间的开头时间的 Dayjs() 对象，如月份的第一天。
+                //dayjs().startOf('year');
+                //末尾时间:  返回当前时间的末尾时间的 Dayjs() 对象，如月份的最后一天。
+                //dayjs().endOf('month');
+
+                //格式化
+                //dayjs().format(String);
+                //Format	Output	Description
+                //YY	18	两位数的年份
+                //YYYY	2018	四位数的年份
+                //M	1-12	月份，从 1 开始
+                //MM	01-12	月份，两位数
+                //MMM	Jan-Dec	简写的月份名称
+                //MMMM	January-December	完整的月份名称
+                //D	1-31	月份里的一天
+                //DD	01-31	月份里的一天，两位数
+                //d	0-6	一周中的一天，星期天是 0
+                //dd	Su-Sa	最简写的一周中一天的名称
+                //ddd	Sun-Sat	简写的一周中一天的名称
+                //dddd	Sunday-Saturday	一周中一天的名称
+                //H	0-23	小时
+                //HH	00-23	小时，两位数
+                //m	0-59	分钟
+                //mm	00-59	分钟，两位数
+                //s	0-59	秒
+                //ss	00-59	秒 两位数
+                //SSS	000-999	秒 三位数
+                //Z	+5:00	UTC 的偏移量
+                //ZZ	+0500	UTC 的偏移量，数字前面加上 0
+                //A	AM PM
+                //a	am pm
+
+                //时间差
+                //获取两个 Dayjs 对象的时间差，默认毫秒。
+                const date1 = dayjs('2019-01-25');
+                const date2 = dayjs('2018-06-05');
+                date1.diff(date2); // 20214000000
+                date1.diff(date2, 'month'); // 7
+                date1.diff(date2, 'month', true); // 7.645161290322581
+                date1.diff(date2, 'day'); // 233
+
+                //返回月份的天数。
+                dayjs().daysInMonth();
+                //返回原生的 Date 对象。
+                dayjs().toDate();
+
+                //当序列化 Dayjs 对象时，会返回 ISO8601 格式的字符串。
+                dayjs().toJSON(); //"2018-08-08T00:00:00.000Z"
+
+                //返回包含时间数值的对象。
+                dayjs().toObject();// { years:2018, months:8, date:18, hours:0, minutes:0, seconds:0, milliseconds:0}
+
+
+                //查询
+                //检查一个 Dayjs 对象是否在另一个 Dayjs 对象时间之前。
+                //dayjs().isBefore(Dayjs);
+                dayjs().isBefore(dayjs()); // false
+
+                //检查一个 Dayjs 对象是否和另一个 Dayjs 对象时间相同。
+
+                //dayjs().isSame(Dayjs);
+                dayjs().isSame(dayjs()); // true
+
+                //检查一个 Dayjs 对象是否在另一个 Dayjs 对象时间之后。
+                //dayjs().isAfter(Dayjs);
+                dayjs().isAfter(dayjs()); // false
+
+                //返回一个 boolean 验证传入值是否是一个 Dayjs 对象.
+                dayjs.isDayjs(dayjs()); // true
+                dayjs.isDayjs(new Date()); // false
+
+                //是否是闰年
+                // .isLeapYear 获得是否闰年
+
+                // .week 获取是第几个周
+
+                // .isBetween 返回一个时间是否介于两个时间之间
+
                 break;
         }
 

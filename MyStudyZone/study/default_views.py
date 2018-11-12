@@ -5,6 +5,8 @@
  @email: wanghui@zih718.com
  @time: 2018/9/17 10:41
 """
+import time
+
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -30,3 +32,9 @@ def test(request):
 
 def jquery_util_test(request):
     return render(request, 'jquery_util_test.html')
+
+
+def jquery_util_ajx_test(request):
+    time.sleep(2) #Python time sleep() 函数推迟调用线程的运行，可通过参数secs指秒数，表示进程挂起的时间。
+
+    return HttpResponse('我是通过后台加载到的数据')

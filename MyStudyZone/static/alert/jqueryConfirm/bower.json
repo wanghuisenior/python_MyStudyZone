@@ -1,0 +1,21 @@
+{
+  "name": "我是json文件中的name对应的值",
+  "version": "1.1.1",
+  "homepage": "https://github.com/jquery-table2excel/",
+  "authors": [
+    "rainabba <rainabba@gmail.com>"
+  ],
+  "description": "哇哈哈哈哈哈",
+  "main": "src/jquery.table2excel.js",
+  "keywords": [
+    "jquery",
+    "plugin",
+    "table2excel",
+    "jquery-plugin",
+    "jquery-table2excel"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "2.x.x"
+  }
+}
