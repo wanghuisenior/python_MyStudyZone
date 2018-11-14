@@ -27,7 +27,12 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # Application definition
+# ajax文件上传，进度显示
+from django.conf import global_settings
 
+FILE_UPLOAD_HANDLERS = global_settings.FILE_UPLOAD_HANDLERS
+# FILE_UPLOAD_HANDLERS = ['uploadprogresscachedhandler.UploadProgressCachedHandler', ] + global_settings.FILE_UPLOAD_HANDLERS
+CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',

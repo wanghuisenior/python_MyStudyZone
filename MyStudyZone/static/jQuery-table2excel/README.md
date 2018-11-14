@@ -20,7 +20,7 @@ bower install jquery-table2excel --save
 
 Include jquery and table2excel in your page
 ```html
-<script src="bower_components\jquery\dist\jquery.min.js"></script>
+<script src="bower_components\jquery\dist\jquery-1.8.2.min.js"></script>
 <script src="bower_components\jquery-table2excel\dist\jquery.table2excel.min.js"></script>
 ```
 
@@ -29,7 +29,7 @@ Include jquery and table2excel in your page
 
 Include jQuery and table2excel plugin:
 ```html
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery-1.8.2.min.js"></script>
 <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
 ```
 

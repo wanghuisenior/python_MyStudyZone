@@ -28,13 +28,13 @@ class User(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)  # auto_now无论是你添加还是修改对象，时间为你添加或者修改的时间
     update_time = models.DateTimeField(auto_now=True)  # auto_now_add为添加时的时间，更新对象时不会有变动。
     # 如果已经在setting配置了MEDIA_ROOT = os.path.join(BASE_DIR, "static/media")，那么将创建photos文件夹
-    image = models.ImageField(upload_to='photos', default='photos/user1.jpg')
+    image = models.ImageField(upload_to='photos', default='photos/default_user.jpg')
 
     # authors = models.ManyToManyField(Author)  # 多对多，会生成中间表book_authors
     # publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)  # 一对多，将字段定义在多的端中
     def encode2json(self):
         return {'user_id': self.user_id, 'user_name': self.user_name, 'user_tel': self.user_tel, 'user_email': self.user_email,
-                'user_info': self.user_info, 'create_time': self.create_time}
+                'user_info': self.user_info, 'create_time': self.create_time, 'update_time': self.update_time}
 
 # 基本查询
 # exact：表示判等

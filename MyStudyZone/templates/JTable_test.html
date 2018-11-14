@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/static/jquery/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet"/>
+    <link href="/static/jtable.2.4.0/themes/lightcolor/gray/jtable.css" rel="stylesheet"/>
+    <link href="/static/formvalidate/jQuery-Validation-Engine-2.6.2-ciaoca/css/validationEngine.jquery.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/static/jquery/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/static/jquery/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="/static/jtable.2.4.0/jquery.jtable.js"></script>
+    <script type="text/javascript" src="/static/jtable.2.4.0/localization/jquery.jtable.zh-CN.js"></script>
+    <script type="text/javascript" src="/static/formvalidate/jQuery-Validation-Engine-2.6.2-ciaoca/js/jquery.validationEngine.js"></script>
+    <script type="text/javascript"
+            src="/static/formvalidate/jQuery-Validation-Engine-2.6.2-ciaoca/js/jquery.validationEngine-zh_CN.js"></script>
+    <style>
+        body {
+            margin: 20px 200px;
+
+        }
+    </style>
+</head>
+<body>
+返回json时参数的OK表示请求状态，Records表示数据集合，TotalRecordCount表示总记录数。一般这些参数的约定好的，不可改成其他，除非你不愿意使用
+<br>list 成功返回: json.dumps({'Result': 'OK', 'Records': user_data_list, 'TotalRecordCount': paginator.count}, cls=LazyEncoder))
+<br>delete 成功返回: json.dumps({'Result': 'OK'})
+<br>update 成功返回一个三元素的数组：元素ID、检查是否通过(true or false)、提示信息。['Edit-user_name', True, '成功了']
+<br>update 失败返回一个三元素的数组：元素ID、检查是否通过(true or false)、提示信息。['Edit-user_name', False, '失败']
+
+<br>
+<br>
+<div id="my_table_container"></div>
+<button id="delete_all" class="ui-button ui-widget ui-corner-all">删除选中的行</button>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#my_table_container').jtable({
+            title: 'JTable标题',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            defaultSorting: 'create_time ASC', //Set default sorting
+            selecting: true, //Enable selecting
+            selectingCheckboxes: true,
+            multiselect: true, //Allow multiple selecting
+            //selectOnRowClick: false,
+            actions: {
+                listAction: '/JTable_test?action=list',
+                deleteAction: '/JTable_test?action=delete',
+                updateAction: '/JTable_test?action=update',
+                createAction: '/JTable_test?action=create'
+            },
+            fields: {
+                user_id: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: false
+                },
+                user_name: {
+                    title: '用户名',
+                    width: '8%',
+                    sorting: false
+                },
+                user_tel: {
+                    title: '手机号',
+                    list: true,
+                    width: '8%',
+                    sorting: false
+                },
+
+                user_email: {
+                    title: '电子邮件',
+                    type: 'text',
+                    list: true,
+                    width: '10%',
+                    sorting: false
+                },
+                user_info: {
+                    title: '备注',
+                    type: 'text',
+                    list: true,
+                    width: '14%',
+                    sorting: false
+                },
+                create_time: {
+                    title: '创建时间',
+                    width: '15%',
+                    type: 'date',//datetime 显示时分秒
+                    displayFormat: 'yy-mm-dd',
+                },
+                /*
+                Gender: {
+                    title: 'Gender',
+                    width: '13%',
+                    options: {'M': 'Male', 'F': 'Female'}
+                },
+                CityId: {
+                    title: 'City',
+                    width: '12%',
+                    options: '/Demo/GetCityOptions'
+                },
+                BirthDate: {
+                    title: 'Birth date',
+                    width: '15%',
+                    type: 'date',
+                    displayFormat: 'yy-mm-dd'
+                },
+                Education: {
+                    title: 'Education',
+                    list: false,
+                    type: 'radiobutton',
+                    options: {
+                        '1': 'Primary school',
+                        '2': 'High school',
+                        '3': 'University'
+                    }
+                },
+                About: {
+                    title: 'About this person',
+                    type: 'textarea',
+                    list: false
+                },
+                IsActive: {
+                    title: 'Status',
+                    width: '12%',
+                    type: 'checkbox',
+                    values: {'false': 'Passive', 'true': 'Active'},
+                    defaultValue: 'true'
+                },
+                RecordDate: {
+                    title: 'Record date',
+                    width: '15%',
+                    type: 'date',
+                    displayFormat: 'dd.mm.yy',
+                    create: false,
+                    edit: false,
+                    sorting: false //This column is not sortable!
+                }
+                */
+            },
+            formCreated: function (event, data) {
+                data.form.find('input[name="user_name"]').addClass('validate[required,ajax[ajaxNameCall]]');
+                data.form.find('input[name="user_tel"]').addClass('validate[required,custom[phone]]');
+                data.form.find('input[name="user_email"]').addClass('validate[required,custom[email]]');
+                data.form.find('input[name="user_tel"]').addClass('validate[required]');
+                data.form.validationEngine();
+            },
+            //Validate form when it is being submitted
+            /*
+            formSubmitting: function (event, data) {
+                var res = data.form.validationEngine('validate')
+                //return res;
+                return true; //这里有疑问
+            },
+            */
+
+            //Dispose validation logic when form is closed
+            formClosed: function (event, data) {
+                data.form.validationEngine('hide');
+                data.form.validationEngine('detach');
+            }
+        });
+
+        //Load student list from server
+        $('#my_table_container').jtable('load');
+        //Delete selected students
+        $('#delete_all').button().click(function () {
+            var $selectedRows = $('#my_table_container').jtable('selectedRows');
+            $('#my_table_container').jtable('deleteRows', $selectedRows);
+        });
+    });
+    $.validationEngineLanguage.allRules.ajaxNameCall = {
+        "url": "{% url 'jtable_test_user_available' %}",
+        //"extraData": "dt="+(new Date()).getTime(),
+        //验证失败时的消息
+        "alertText": "* 该名称已被其他人使用",
+        //验证成功时的消息
+        //"alertTextOk": "该名称可以使用",
+        "alertTextLoad": "* 正在验证，请稍等。。。"
+    };
+
+    /* Chinese initialisation for the jQuery UI date picker plugin. */
+    /* Written by Cloudream (cloudream@gmail.com). */
+    jQuery(function ($) {
+        $.datepicker.regional['zh-CN'] = {
+            closeText: '关闭',
+            prevText: '<上月',
+            nextText: '下月>',
+            currentText: '今天',
+            monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
+                '七月', '八月', '九月', '十月', '十一月', '十二月'],
+            monthNamesShort: ['一月', '二月', '三月', '四月', '五月', '六月',
+                '七月', '八月', '九月', '十月', '十一月', '十二月'],
+            dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+            dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+            dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
+            weekHeader: '周',
+            dateFormat: 'yy-mm-dd',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: true,
+            yearSuffix: '年',
+            //下面时自定义选项
+            showAnim: 'slideDown',
+            showButtonPanel: true,
+            showClearButton: true,
+            changeMonth: true,
+            //changeYear: true
+        };
+        $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+    });
+
+</script>
+</html>

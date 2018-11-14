@@ -17,6 +17,7 @@ Including another URLconf
 from django.urls import path, include
 
 from study import default_views
+from study.views import jquery_util_test_view
 
 # name 可以用于在 templates, models, views ……中得到对应的网址，
 # 相当于“给网址取了个别名”，只要这个别名不变，路径网址名变了也能通过别名获取到
@@ -33,11 +34,14 @@ urlpatterns = [
     path('', include('study.urls.bootstrap_urls')),
     path('', include('study.urls.layui_urls')),
     path('', include('study.urls.user_urls')),
-    path('db_test_add', default_views.db_test_add, name='db_test_add'),
-    path('test', default_views.test, name='test'),
-    path('jquery_util_test', default_views.jquery_util_test, name='jquery_util_test'),
-    path('jquery_util_ajx_test', default_views.jquery_util_ajx_test, name='jquery_util_ajx_test'),
+    path('jquery_util_test', jquery_util_test_view.jquery_util_test, name='jquery_util_test'),
+    path('jquery_util_ajx_test', jquery_util_test_view.jquery_util_ajx_test, name='jquery_util_ajx_test'),
+    path('jquery_util_ajax_fileupload', jquery_util_test_view.jquery_util_ajax_fileupload, name='jquery_util_ajax_fileupload'),
+    path('jquery_util_test_typeaheadjs', jquery_util_test_view.jquery_util_test_typeaheadjs, name='jquery_util_test_typeaheadjs'),
     # 另一个app的url
     path('itchat/', include('testApp.urls.itchat_url')),
+    # JTable数据表格测试
+    path('JTable_test', default_views.JTable_test, name='JTable_test'),
+    path('jtable_test_user_available', default_views.jtable_test_user_available, name='jtable_test_user_available'),
 
 ]

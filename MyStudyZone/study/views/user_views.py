@@ -120,9 +120,29 @@ def get_user_names(request):
 
     # values_list方法加个参数flat = True可以获取number的值列表。
     # < QuerySet['aaa', 'aaaaaa', 'afdsaaaa'] >
-    names_queryset = models.User.objects.filter(
-        user_name__contains=request.POST.get('param')).values_list('user_name', flat=True)
-    return HttpResponse(json.dumps(list(names_queryset), cls=LazyEncoder))
+    if request.POST.get('param') or request.POST.get('q'):
+        user_name = request.POST.get('param')
+        names_queryset = models.User.objects.filter(
+            user_name__contains=user_name).values_list('user_name', flat=True)
+        return HttpResponse(json.dumps(list(names_queryset), cls=LazyEncoder))
+    if request.GET.get('keyword'):
+        user_name = request.GET.get('keyword')
+        names_queryset = models.User.objects.filter(
+            user_name__contains=user_name)
+        datas = []
+        for q in names_queryset:
+            datas.append({'user_id': q.user_id, 'user_name': q.user_name, 'user_tel': q.user_tel, 'user_email': q.user_email})
+        print(json.dumps(datas, cls=LazyEncoder))
+        return HttpResponse(json.dumps(datas, cls=LazyEncoder))
+    if request.GET.get('q'):
+        user_name = request.GET.get('q')
+        names_queryset = models.User.objects.filter(
+            user_name__contains=user_name)
+        datas = []
+        for q in names_queryset:
+            datas.append({'user_id': q.user_id, 'user_name': q.user_name, 'user_tel': q.user_tel, 'user_email': q.user_email})
+        print(json.dumps(datas, cls=LazyEncoder))
+        return HttpResponse(json.dumps(datas, cls=LazyEncoder))
 
 
 def update_user_info(request):

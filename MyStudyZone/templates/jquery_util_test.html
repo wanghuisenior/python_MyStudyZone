@@ -49,9 +49,24 @@
     <script src="/static/formvalidate/jquery-validation-1.17.0/dist/jquery.validate.js"></script>
     <script src="/static/formvalidate/jquery-validation-1.17.0/dist/localization/messages_zh.js"></script>
 
+    <!--Simple Ajax Uploader 文件上传-->
+    <script src="/static/fileupload/Simple-Ajax-Uploader-master/SimpleAjaxUploader.js"></script>
+
+    <!--jQueryflexdatalist 自动完成插件-->
+    <link href="/static/autocomplete/jquery-flexdatalist-2.2.4/jquery.flexdatalist.css" rel="stylesheet" type="text/css">
+    <script src="/static/autocomplete/jquery-flexdatalist-2.2.4/jquery.flexdatalist.js"></script>
+
+    <!--jquery.typeahead.js 自动完成插件-->
+    <link href="/static/autocomplete/jquery-typeahead-2.10.6/dist/jquery.typeahead.css" rel="stylesheet" type="text/css">
+    <script src="/static/autocomplete/jquery-typeahead-2.10.6/dist/jquery.typeahead.js"></script>
+
     <style type="text/css">
         .panel-body.minHieht {
             min-height: 100px;
+        }
+
+        .typeahead__container {
+            max-width: 500px;
         }
     </style>
 </head>
@@ -367,10 +382,74 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="container">
+        <div class="col-sm-6 col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">文件上传模块</div>
+                <div class="panel-body minHieht">
+                    <div class="container">
+                        <div class="page-header">
+                            <h3>Simple Ajax Uploader Basic Example</h3>
+                        </div>
+                        <div class="row" style="padding-top:10px;">
+                            <div class="col-xs-2">
+                                <button id="uploadBtn" class="btn btn-large btn-primary">选择文件</button>
+                            </div>
+                            <div class="col-xs-10">
+                                <div id="progressOuter" class="progress progress-striped active" style="display:none;">
+                                    <div id="progressBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45"
+                                         aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:10px;">
+                            <div class="col-xs-10">
+                                <div id="msgBox">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">自动完成插件</div>
+                <div class="panel-body minHieht">
+                    <div class="input-group col-md-6">
+                        <span class="input-group-addon">jQueryflexdatalist 用户名</span>
+                        <input type="text" id="jQueryflexdatalist" class="form-control flexdatalist">
+                    </div>
+                    <div class="input-group col-md-6" style="padding-top: 10px">
+                        <form>
+                            <div class="typeahead__container">
+                                <div class="typeahead__field">
+                                    <div class="typeahead__query">
+                                        <input class="js-typeahead" name="q" type="search" autocomplete="off">
+                                    </div>
+                                    <div class="typeahead__button">
+                                        <button type="submit">
+                                            <span class="typeahead__search-icon"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 </div>
 <div id="bs_modal_alert" class="modal" style="z-index:9999;display: none;">
     <div class="modal-dialog modal-sm">
@@ -546,9 +625,9 @@
         $("#fakeLoader").fakeLoader({
             timeToHide: 1200, //Time in milliseconds for fakeLoader disappear
             zIndex: 999, // Default zIndex
-            spinner: "spinner1",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
+            spinner: "spinner2",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
             bgColor: "#2ecc71", //Hex, RGB or RGBA colors
-            imagePath: "yourPath/customizedImage.gif" //If you want can you insert your custom image
+            //imagePath: "yourPath/customizedImage.gif" //If you want can you insert your custom image
         });
     }
 
@@ -934,7 +1013,156 @@
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请正确填写您的手机号码");
 
-</script>
+    /**
+     * Simple Ajax Uploader 文件上传开始
+     */
+    function escapeTags(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
 
+    var btn = document.getElementById('uploadBtn'),
+        progressBar = document.getElementById('progressBar'),
+        progressOuter = document.getElementById('progressOuter'),
+        msgBox = document.getElementById('msgBox');
+
+    var uploader = new ss.SimpleUpload({
+        debug: true,
+        button: btn,
+        url: '{% url 'jquery_util_ajax_fileupload' %}',
+        name: 'uploadfile',
+        multipart: true,
+        hoverClass: 'hover',
+        focusClass: 'focus',
+        responseType: 'json',
+        startXHR: function () {
+            progressOuter.style.display = 'block'; // make progress bar visible
+            this.setProgressBar(progressBar);
+        },
+        onSubmit: function () {
+            msgBox.innerHTML = ''; // empty the message box
+            btn.innerHTML = 'Uploading...'; // change button text to "Uploading..."
+        },
+        onComplete: function (filename, response) {
+            btn.innerHTML = 'Choose Another File';
+            progressOuter.style.display = 'none'; // hide progress bar when upload is completed
+
+            if (!response) {
+                msgBox.innerHTML = 'Unable to upload file';
+                return;
+            }
+
+            if (response.success === true) {
+                msgBox.innerHTML = '<strong>' + escapeTags(filename) + '</strong>' + ' successfully uploaded.';
+
+            } else {
+                if (response.msg) {
+                    msgBox.innerHTML = escapeTags(response.msg);
+
+                } else {
+                    msgBox.innerHTML = 'An error occurred and the upload failed.';
+                }
+            }
+        },
+        onError: function () {
+            progressOuter.style.display = 'none';
+            msgBox.innerHTML = 'Unable to upload file';
+        }
+    });
+
+    /**
+     * Simple Ajax Uploader 文件上传结束
+     */
+    /**
+     * jQueryflexdatalist开始
+     */
+    $('#jQueryflexdatalist').flexdatalist({
+        url: '{% url 'get_user_names' %}',
+        requestType: 'get',
+        minLength: 1,//至少输入1个字符才会触发查询
+        noResultsText: '找不到包含 {keyword} 的字符串',
+        searchContain: true, //默认为false：只查询以输入值开头匹配的数据（startwith），设置为true：只要包含输入值就返回（contain）
+        textProperty: '{user_name}, {user_email}', //选中某条结果后，文本框填入的内容
+        //multiple:true,//是否支持多选
+        //valueProperty: 'user_id',
+        visibleProperties: ["user_name", "user_tel", "user_email"],//查询到的下拉框中显示的字段的值
+        searchIn: 'user_name', //去查询结果列表中查询哪个key的值，默认为label
+        searchDelay: 300, //延迟执行，默认为300
+        valuesSeparator: '.',//分隔符，默认为逗号
+    }).on('change:flexdatalist', function (e, s, o) {
+        console.log('aaa', s)
+        console.log('bbb', o)
+    }).on('after:flexdatalist.search', function (event, keyword, result, matched_items) {
+        console.log('result', result)
+        console.log('matched_items', matched_items)
+    }).on('show:flexdatalist.results', function (event, data) {
+
+        console.log('aaaaa', data)
+    });
+    /**
+     * jQueryflexdatalist结束
+     */
+    /**
+     * jquery.typeahead.js开始
+     */
+    $.typeahead({
+        input: '.js-typeahead',
+        minLength: 0,
+        order: "asc",
+        dynamic: true,
+        delay: 500,
+        hint: true,
+        //highlight:'any',
+        backdrop: {
+            "background-color": "#fff"
+        },
+        //emptyTemplate: "no result for {{query}}",
+        template: function (q, item) {
+            return '<span><small style="color: #ff1493;">' + item.user_name + '</small></span>'
+        },
+        emptyTemplate: function (q) {
+            return 'no result for ' + '<span><small style="color: #ff1493;">' + q + '</small></span>'
+        },
+        source: {
+            user: {
+                display: "user_name",//这个属性用来匹配返回的json中该属性key对应的数据
+                data: function () {
+                    var deferred = $.Deferred(),
+                        query = this.query;
+                    $.getJSON('{%  url 'get_user_names' %}', {q: query},
+                        function (data) {
+                            console.log('____')
+                            console.log(data)
+                            console.log('____')
+                            deferred.resolve(data)
+                        }
+                    )
+                    return deferred;
+                }
+            },
+        },
+        callback: {
+            onClick: function (node, a, item, event) {
+
+                // You can do a simple window.location of the item.href
+                alert(JSON.stringify(item));
+
+            },
+            onSendRequest: function (node, query) {
+                console.log('request is sent')
+            },
+            onReceiveRequest: function (node, query) {
+                console.log('request is received')
+            }
+        },
+        debug: true
+    });
+
+
+</script>
 </body>
 </html>
