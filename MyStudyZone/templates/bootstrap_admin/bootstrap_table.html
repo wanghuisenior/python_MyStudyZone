@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>bootstrap_table</title>
     {% include 'bootstrap_admin/static_files.html' %}
+    <script src="/static/bootstrap-table/extensions/resizable/bootstrap-table-resizable.js/"></script>
+    <script src="/static/colResizable-1.6/colResizable-1.6.js"></script>
     <style>
         .toast-center-center {
             top: 50%;
@@ -172,6 +174,8 @@
                 showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
                 detailView: false,                  //是否显示父子表
+                resizable: true,
+
                 //rowStyle: function (row, index) {},
                 columns: [{
                     checkbox: true
@@ -186,10 +190,13 @@
                         validate: function (v) {
                             if (!v) return '不能为空';
                         }
+                    },
+                    cellStyle: {
+                        css: {'vertical-align': 'middle', 'text-align': 'center'}
                     }
                 }, {
                     field: "user_tel",
-                    title: '电话'
+                    title: '电话',
                 }, {
                     field: "user_email",
                     title: '邮箱'
