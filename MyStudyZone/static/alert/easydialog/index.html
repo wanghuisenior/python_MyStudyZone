@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>简单实用的easyDialog弹出层演示</title>
+<style> 
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	background:#e3e3e3;
+	height:100%;
+	font:normal normal 12px/24px "Microsoft yahei", Arial;
+}
+#title{width:300px;margin:3% auto 0;}
+h1{font-size:18px;}
+h6{ font-size:12px; font-weight:normal; color:#333;margin-bottom:10px; }
+h6 a { color:#09c; }
+#wrapper {
+	width:300px;
+	margin:0 auto 50px;
+	background:#f8f8f8;
+	border:1px solid #a3a3a3;
+	padding:20px 20px 50px;
+	border-radius:5px;-moz-border-radius:5px;
+}
+.box{width:210px;margin:10px auto 0;background:#fff;border:1px solid #d3d3d3;padding:10px 20px 15px;}
+.box pre{font-family:"Consolas","Courier New",Courier,mono;font-size:12px;line-height:20px;}
+.box a{width:60px;height:22px;line-height:22px;background:#f0f0f0;border:1px solid #d2d2d2;text-align:center;font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;display:block;margin-top:20px;border-radius:2px;cursor:pointer;font-size:13px;color:#09c;}
+.box a:hover{border-color:#fbcb09;color:#c77405;background:#fdf8df;}
+ 
+h3{color:#333;font-size:14px;width:250px;margin:30px auto 0;}
+.hide_box{width:300px;color:#fff;color:#444;background:#fff;box-shadow:1px 2px 2px #555;display:none;}
+.hide_box h4{height:26px;line-height:26px;overflow:hidden;background:#f7b64b;color:#fff;padding:0 10px;border:1px solid #e78f08;font-size:14px;border-bottom:1px solid #eaa12a;}
+.hide_box h4 a{width:14px;line-height:13px;_line-height:15px;height:13px;font-family:arial;overflow:hidden;display:block;background:#fff;color:#c77405;float:right;text-align:center;text-decoration:none;margin-top:7px;font-size:14px;font-weight:normal;border-radius:2px;_font-size:12px;}
+.hide_box p{padding:30px 10px;font-size:13px;border:1px solid #ccc;}
+</style> 
+</head> 
+ 
+<body> 
+<div id="title"> 
+<h1>easyDialog 弹出层演示</h1> 
+</div> 
+<div id="wrapper"> 
+<h3>默认状态</h3> 
+<div class="box"> 
+<pre> 
+easyDialog.open({
+  container : 'testBox'
+});
+</pre> 
+<a id="demoBtn1">run</a> 
+</div> 
+<h3>不显示遮罩层</h3> 
+<div class="box"> 
+<pre> 
+easyDialog.open({
+  container : 'testBox',
+  isOverlay : false
+});
+</pre> 
+<a id="demoBtn2">run</a> 
+</div> 
+<h3>弹出窗口绝对定位</h3> 
+<div class="box"> 
+<pre> 
+easyDialog.open({
+  container : 'testBox',
+  fixed : false
+});
+</pre> 
+<a id="demoBtn3">run</a> 
+</div> 
+<h3>弹出窗口跟随页面某元素定位</h3> 
+<div class="box"> 
+<pre> 
+easyDialog.open({
+  container : 'testBox',
+  follow : 'demoBtn4',
+  followX : -265,
+  followY : 24
+});
+</pre> 
+<a id="demoBtn4">run</a> 
+</div> 
+<h3>自动关闭窗口</h3> 
+<div class="box"> 
+<pre> 
+easyDialog.open({
+  container : 'testBox',
+  autoClose : 1500
+});
+</pre> 
+<a id="demoBtn5">run</a> 
+</div> 
+<h3>关闭窗口的回调函数</h3> 
+<div class="box"> 
+<pre> 
+easyDialog.open({
+  container : 'testBox',
+  callback : message
+});
+ 
+function message(){
+  alert('hello');
+};
+</pre> 
+<a id="demoBtn6">run</a> 
+</div> 
+<h3>关闭窗口</h3> 
+<div class="box"> 
+<pre> 
+easyDialog.close();
+</pre> 
+<p>再试试ESC键关闭窗口</p> 
+</div> 
+</div> 
+<div class="hide_box" id="testBox"> 
+	<h4><a href="javascript:void(0)" title="关闭窗口">&times;</a>提示</h4> 
+	<p>easyDialog：简单、实用的弹出层 : )</p> 
+</div> 
+<script src="easydialog.min.js"></script> 
+<script> 
+var $ = function(){
+	return document.getElementById(arguments[0]);
+};
+ 
+$('demoBtn1').onclick = function(){
+	easyDialog.open({
+		container : 'testBox'
+	});
+};
+ 
+$('demoBtn2').onclick = function(){
+	easyDialog.open({
+		container : 'testBox',
+		isOverlay : false
+	});
+};
+ 
+$('demoBtn3').onclick = function(){
+	easyDialog.open({
+		container : 'testBox',
+		fixed : false
+	});
+};
+ 
+$('demoBtn4').onclick = function(){
+	easyDialog.open({
+		container : 'testBox',
+		follow : 'demoBtn4',
+		followX : -125,
+		followY : 24
+	});
+};
+ 
+$('demoBtn5').onclick = function(){
+	easyDialog.open({
+		container : 'testBox',
+		autoClose : 1500
+	});
+};
+ 
+$('demoBtn6').onclick = function(){
+	easyDialog.open({
+		container : 'testBox',
+		callback : message
+	});
+};
+ 
+function message(){
+	alert('hello');
+};
+ 
+$('testBox').getElementsByTagName('a')[0].onclick = function(){
+	easyDialog.close();
+}
+</script>
+</body>
+</html>
