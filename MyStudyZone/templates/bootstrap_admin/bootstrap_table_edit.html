@@ -11,8 +11,6 @@
     <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
     <script src="/static/bootstrap-table/bootstrap-table.js"></script>
     <script src="/static/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-    <link href="/static/bootstrap-table/extensions/click-edit-row/bootstrap-table-click-edit-row.css">
-    <script src="/static/bootstrap-table/extensions/click-edit-row/bootstrap-table-click-edit-row.js"></script>
 </head>
 <body>
 <div class="container" style="padding-top: 20px">
@@ -30,7 +28,7 @@
         pagination: true,                   //是否显示分页（*）
         search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
         showRefresh: true,                  //是否显示刷新按钮
-        clickEdit: false,
+
         columns: [{
             field: 'user_id',
             title: 'id',
@@ -61,6 +59,7 @@
                 });
                 if (value != newValue) {
                     $.post("update_user_info", row, function (result) {
+                        //use toastr to display a toast for info, success, warning or error
                         if (result == 200) {
                             toastr.success('修改成功！', '', {timeOut: 800})
                         } else if (result == 404) {
@@ -72,28 +71,10 @@
                 }
             });
         },
-        onClickCell: function (field, value, row, $element) {
-            console.log(''==false)
-            if (field == 'user_name') {
-                $element.attr('contenteditable', true);
-                $element.attr('style', 'color:red;border:2px solid');
-                $element.focus();
-                $element.blur(function () {
-                    let index = $element.parent().data('index');
-                    let tdValue = $element.html();
-                    console.log(index, field, tdValue);
-                    $('#tb_test').bootstrapTable('updateCell', {//
-                        index: index,
-                        field: field,
-                        value: tdValue,
-                    });
-                })
-            }
-        },
+
         onLoadSuccess: function (result) {
             //console.log(result, result)
         },
-
         onLoadError: function (err) {
             console.log('err')
         }
