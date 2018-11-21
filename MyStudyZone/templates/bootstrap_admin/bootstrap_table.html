@@ -26,13 +26,7 @@
 <body>
 <div class="panel-body" style="padding-bottom:0px;">
     <div class="panel panel-default">
-        <div class="panel-heading">查询条件
-        </div>
-        <div class="panel-heading">
-            <button type="button" class="btn btn-danger" onclick="window.location.href='{% url 'create_random_users' %}'">随机制造100条数据
-            </button>
-            <h4>列宽可拖动</h4>
-        </div>
+        <div class="panel-heading">查询条件</div>
         <div class="panel-body">
             <form class="form-horizontal">
                 <div class="form-group" style="margin-top:15px">
@@ -157,7 +151,6 @@
         //初始化Table
         oTableInit.Init = function () {
             $('#table_user').bootstrapTable({
-                height: 500,
                 url: 'bootstrap_table',             //请求后台的URL（*）
                 method: 'GET',                      //请求方式（*）
                 toolbar: '#toolbar',                //工具按钮用哪个容器
@@ -199,27 +192,15 @@
                             if (!v) return '不能为空';
                         }
                     },
-                    /*
                     cellStyle: {
                         css: {'vertical-align': 'middle', 'text-align': 'center'}
                     }
-                    */
-                    align: 'center',
-                    valign: 'middle',
-                    width: 120
-
                 }, {
                     field: "user_tel",
                     title: '电话',
-                    align: 'center',
-                    valign: 'middle',
-                    width: 120
                 }, {
                     field: "user_email",
-                    title: '邮箱',
-                    align: 'center',
-                    valign: 'middle',
-                    width: 200
+                    title: '邮箱'
                 }, {
                     field: "image",
                     title: '图片',
@@ -227,19 +208,14 @@
                         var image = '<a class = "view"  href="javascript:void(0)"><img style="width:300;height:40px;"  src="' + '/static/media/' + value + '" /></a>';
                         console.log(image)
                         return image
-                    },
-                    align: 'center',
-                    valign: 'middle',
-                    width: 120
+                    }
                 }, {
                     field: "create_time",
                     title: '创建时间',
                     formatter: function (value, row, index) {
                         return new Date(value).Format("yyyy-MM-dd");
-                    },
-                    align: 'center',
-                    valign: 'middle',
-                    width: 120
+                    }
+
                 }, {
                     field: "user_info",
                     title: '备注',
@@ -276,10 +252,6 @@
                 },
                 onLoadError: function (res) { //加载失败时执行
                     alert('表格数据加载失败')
-                },
-                onResetView: function () {
-
-                    return false;
                 }
             });
         };
