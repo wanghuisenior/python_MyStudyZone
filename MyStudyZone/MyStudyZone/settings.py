@@ -82,7 +82,7 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mystudyzone',  # 数据库名字
+        'NAME': 'aaa',  # 数据库名字
         'USER': 'root',
         'PASSWORD': 'root',
         # 'HOST': '192.168.16.198',
