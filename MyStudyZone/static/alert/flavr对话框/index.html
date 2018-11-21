@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+
+<html lang="en" class="win chrome chrome3 webkit webkit5">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+
+    <title>flavr—超级漂亮的jQuery扁平弹出对话框</title>
+
+    
+
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- GOOGLE FONTS -->
+
+    <link rel="stylesheet" type="text/css" href="./index_files/lato.css">
+
+    <!-- DEMO PAGE CSS -->
+
+    <link rel="stylesheet" type="text/css" href="./index_files/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="./index_files/fontawesome.css">
+
+    <link rel="stylesheet" type="text/css" href="./index_files/default.css">
+
+    <link rel="stylesheet" type="text/css" href="./index_files/style.css">
+
+    <!-- END DEMO PAGE CSS -->
+
+    <!-- flavr CSS -->
+
+    <link rel="stylesheet" type="text/css" href="./index_files/animate.css">
+
+    <link rel="stylesheet" type="text/css" href="./index_files/flavr.css">
+
+    <!-- END flavr CSS -->
+
+</head>
+
+<body class="parent">
+
+    <div class="container">
+
+        <div class="content">
+
+            <div class="livedemo clearfix">
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    SIMPLE ALERT
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-alert">
+
+                    <div class="demo-title">
+
+                        简单的对话框</div>
+
+                    <p class="demo-desc">
+
+                        目的是用最简单的配置
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">new</span> $.flavr(<span class="hljs-string">'Hello World!'</span>);</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    CONFIRM DIALOG
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-confirm">
+
+                    <div class="demo-title">
+
+                        确认对话框
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        一个确认对话框和两个预设按钮
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">new</span> $.flavr({ content : <span class="hljs-string">'Are you sure to delete your memories?'</span>,
+
+                            dialog : <span class="hljs-string">'confirm'</span>, onConfirm : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'Deleted'</span>); }, onCancel : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+
+                            alert(<span class="hljs-string">'Canceled'</span>); } }); <span class="hljs-comment">/*----- OR ----- */</span> <span class="hljs-keyword">new</span> $.flavr().confirm(<span class="hljs-string">'Are you sure
+
+                            to delete your memories?'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'Deleted'</span>); }, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'Canceled'</span>);
+
+                            });</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    PROMPT DIALOG
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-prompt">
+
+                    <div class="demo-title">
+
+                        提示对话框
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        一个更好的提示对话框
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">new</span> $.flavr({ content : <span class="hljs-string">'How old are you?'</span>, dialog : <span class="hljs-string">'prompt'</span>,
+
+                            prompt : { placeholder: <span class="hljs-string">'Enter something'</span> }, onConfirm : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( $container, $prompt
+
+                            )</span>{</span> alert( $prompt.val() ); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; }, onCancel : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'Canceled'</span>);
+
+                            } }); <span class="hljs-comment">/*----- OR ----- */</span> <span class="hljs-keyword">new</span> $.flavr().prompt(<span class="hljs-string">'Enter something'</span>, <span class="hljs-string">'How old are you?'</span>,
+
+                            <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( $container, $prompt )</span>{</span> alert( $prompt.val() ); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; }, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+
+                            alert(<span class="hljs-string">'Canceled'</span>); });</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    MULTIPLE DIALOGS
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-multi-instance">
+
+                    <div class="demo-title">
+
+                        多个对话框实例
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        flavr支持无限的对话实例/层,将堆栈在用户屏幕上
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">new</span> $.flavr({ content : <span class="hljs-string">'Nuff siad, here is the last one'</span>,
+
+                            position : <span class="hljs-string">'top-right'</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">new</span> $.flavr({ content : <span class="hljs-string">'The stack is unlimited,
+
+                            pretty cool huh'</span>, position : <span class="hljs-string">'top-left'</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">new</span> $.flavr({ content : <span class="hljs-string">'Here
+
+                            is the dialog #3'</span>, position : <span class="hljs-string">'bottom-right'</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">new</span> $.flavr({ content
+
+                            : <span class="hljs-string">'Me dialog #2'</span>, position : <span class="hljs-string">'bottom-mid'</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">new</span> $.flavr({ content :<span class="hljs-string">'I
+
+                            am dialog #1'</span>, buttons : { exit : { text: <span class="hljs-string">'Close All'</span>, style: <span class="hljs-string">'danger'</span>, action:
+
+                            <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">this</span>.exit(); } }, close : {} } }); }); }); }); });</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    MULTIPLE BUTTONS
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-multi-buttons">
+
+                    <div class="demo-title">
+
+                        多个按钮
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        你可以添加任意数量的按钮。
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">new</span> $.flavr({ content : <span class="hljs-string">'flavr box with multiple buttons'</span>,
+
+                            buttons : { primary : { text: <span class="hljs-string">'Primary'</span>, style: <span class="hljs-string">'primary'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'Primary
+
+                            button'</span>); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; } }, success : { text: <span class="hljs-string">'Success'</span>, style: <span class="hljs-string">'success'</span>, action:
+
+                            <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'Mission succeed!'</span>); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; } }, info : { text: <span class="hljs-string">'Info'</span>,
+
+                            style: <span class="hljs-string">'info'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'For your information'</span>); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+                            } }, warning : { text: <span class="hljs-string">'Warning'</span>, style: <span class="hljs-string">'warning'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'No
+
+                            good captain!'</span>); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; } }, danger : { text: <span class="hljs-string">'Danger'</span>, style: <span class="hljs-string">'danger'</span>,
+
+                            action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'Mission failed!'</span>); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; } }, close : { style:
+
+                            <span class="hljs-string">'default'</span> } } });</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    STACKED BUTTONS
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-stacked-buttons">
+
+                    <div class="demo-title">
+
+                        堆叠按钮
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        选择显示你的按钮内联或者垂直叠放
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">new</span> $.flavr({ buttonDisplay : <span class="hljs-string">'stacked'</span>, content : <span class="hljs-string">'flavr
+
+                            with stacked buttons'</span>, buttons : { confirm : { style: <span class="hljs-string">'info'</span> }, remove : { style:
+
+                            <span class="hljs-string">'danger'</span> }, close : { style: <span class="hljs-string">'default'</span> } } });</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    HTML DIALOG
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-html">
+
+                    <div class="demo-title">
+
+                        Html内容
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        flavr接受默认的HTML内容。设置html选项为false,以防止flavr接受任何html标记。
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">var</span> html = <span class="hljs-string">' &lt;div class="form-row"&gt;'</span> +
+
+                            <span class="hljs-string">' &lt;input type="text" name="username" '</span> + <span class="hljs-string">' placeholder="Username"
+
+                            /&gt;'</span> + <span class="hljs-string">' &lt;/div&gt;'</span> + <span class="hljs-string">' &lt;div class="form-row"&gt;'</span> + <span class="hljs-string">' &lt;input
+
+                            type="password" name="password" '</span> + <span class="hljs-string">' placeholder="Password"
+
+                            /&gt;'</span> + <span class="hljs-string">' &lt;/div&gt;'</span> + <span class="hljs-string">' &lt;div class="form-row"&gt;'</span> + <span class="hljs-string">' &lt;input
+
+                            type="checkbox" name="remember" '</span> + <span class="hljs-string">' id="check"/&gt;'</span>
+
+                            + <span class="hljs-string">' &lt;label for="check"&gt;Remember me&lt;/label&gt;'</span> + <span class="hljs-string">' &lt;/div&gt;'</span>;
+
+                            <span class="hljs-keyword">new</span> $.flavr({ title : <span class="hljs-string">'Form'</span>, iconPath : <span class="hljs-string">'flavr/images/icons/'</span>, icon : <span class="hljs-string">'email.png'</span>,
+
+                            content : <span class="hljs-string">'HTML form example'</span>, dialog : <span class="hljs-string">'form'</span>, form : { content: html, method:
+
+                            <span class="hljs-string">'post'</span> }, onSubmit : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">( $container, $form )</span>{</span> alert( $form.serialize() );
+
+                            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; } });</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    MODELESS DIALOG
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-modeless">
+
+                    <div class="demo-title">
+
+                        非模态的对话框
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        非模态的是扭转模态对话框的状态,并不妨碍用户交互页面的其他元素。
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a> <a href="#" class="btn btn-default btn-close">Close</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">var</span> modeless = <span class="hljs-keyword">new</span> $.flavr({ modal : <span class="hljs-literal">false</span>, content :
+
+                            <span class="hljs-string">'This is a modeless dialog'</span> }); <span class="hljs-comment">/* Closing the dialog */</span> modeless.close();</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    AUTOCLOSED DIALOG
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-autoclose">
+
+                    <div class="demo-title">
+
+                        自动关闭对话框
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        下面的对话框会5秒自动关闭
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">new</span> $.flavr({ content : <span class="hljs-string">'Autoclosing the dialog in 5 seconds'</span>,
+
+                            autoclose : <span class="hljs-literal">true</span>, timeout : <span class="hljs-number">5000</span> <span class="hljs-comment">/* Default timeout is 3 seconds */</span> });</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    ALTERNATIVE CLOSING
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-alt-closing">
+
+                    <div class="demo-title">
+
+                        选择关闭
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        flavr提供选项或者关闭当前对话框点击叠加或按下键盘Escape按钮
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">new</span> $.flavr({ content : <span class="hljs-string">'Try clicking the overlay or pressing
+
+                            the escape button'</span>, closeOverlay : <span class="hljs-literal">true</span>, closeEsc : <span class="hljs-literal">true</span> });</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    ANIMATION
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-animation">
+
+                    <div class="demo-title">
+
+                        设置动画
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        flavr使用流行的动画。提供一些令人惊异的CSS3动画。
+
+                    </p>
+
+                    <div class="demo-select clearfix">
+
+                        <div class="col-xs-6 half">
+
+                            <select class="form-control animate-entrance">
+
+                                <optgroup label="Attention Seekers">
+
+                                    <option value="bounce">bounce</option>
+
+                                    <option value="flash">flash</option>
+
+                                    <option value="pulse">pulse</option>
+
+                                    <option value="rubberBand">rubberBand</option>
+
+                                    <option value="shake">shake</option>
+
+                                    <option value="swing">swing</option>
+
+                                    <option value="tada">tada</option>
+
+                                    <option value="wobble">wobble</option>
+
+                                </optgroup>
+
+                                <optgroup label="Bouncing Entrances">
+
+                                    <option value="bounceIn">bounceIn</option>
+
+                                    <option value="bounceInDown">bounceInDown</option>
+
+                                    <option value="bounceInLeft">bounceInLeft</option>
+
+                                    <option value="bounceInRight">bounceInRight</option>
+
+                                    <option value="bounceInUp">bounceInUp</option>
+
+                                </optgroup>
+
+                                <optgroup label="Bouncing Exits">
+
+                                    <option value="bounceOut">bounceOut</option>
+
+                                    <option value="bounceOutDown">bounceOutDown</option>
+
+                                    <option value="bounceOutLeft">bounceOutLeft</option>
+
+                                    <option value="bounceOutRight">bounceOutRight</option>
+
+                                    <option value="bounceOutUp">bounceOutUp</option>
+
+                                </optgroup>
+
+                                <optgroup label="Fading Entrances">
+
+                                    <option value="fadeIn">fadeIn</option>
+
+                                    <option value="fadeInDown">fadeInDown</option>
+
+                                    <option value="fadeInDownBig">fadeInDownBig</option>
+
+                                    <option value="fadeInLeft">fadeInLeft</option>
+
+                                    <option value="fadeInLeftBig">fadeInLeftBig</option>
+
+                                    <option value="fadeInRight">fadeInRight</option>
+
+                                    <option value="fadeInRightBig">fadeInRightBig</option>
+
+                                    <option value="fadeInUp">fadeInUp</option>
+
+                                    <option value="fadeInUpBig">fadeInUpBig</option>
+
+                                </optgroup>
+
+                                <optgroup label="Fading Exits">
+
+                                    <option value="fadeOut">fadeOut</option>
+
+                                    <option value="fadeOutDown">fadeOutDown</option>
+
+                                    <option value="fadeOutDownBig">fadeOutDownBig</option>
+
+                                    <option value="fadeOutLeft">fadeOutLeft</option>
+
+                                    <option value="fadeOutLeftBig">fadeOutLeftBig</option>
+
+                                    <option value="fadeOutRight">fadeOutRight</option>
+
+                                    <option value="fadeOutRightBig">fadeOutRightBig</option>
+
+                                    <option value="fadeOutUp">fadeOutUp</option>
+
+                                    <option value="fadeOutUpBig">fadeOutUpBig</option>
+
+                                </optgroup>
+
+                                <optgroup label="Flippers">
+
+                                    <option value="flip">flip</option>
+
+                                    <option value="flipInX">flipInX</option>
+
+                                    <option value="flipInY">flipInY</option>
+
+                                    <option value="flipOutX">flipOutX</option>
+
+                                    <option value="flipOutY">flipOutY</option>
+
+                                </optgroup>
+
+                                <optgroup label="Lightspeed">
+
+                                    <option value="lightSpeedIn">lightSpeedIn</option>
+
+                                    <option value="lightSpeedOut">lightSpeedOut</option>
+
+                                </optgroup>
+
+                                <optgroup label="Rotating Entrances">
+
+                                    <option value="rotateIn">rotateIn</option>
+
+                                    <option value="rotateInDownLeft">rotateInDownLeft</option>
+
+                                    <option value="rotateInDownRight">rotateInDownRight</option>
+
+                                    <option value="rotateInUpLeft">rotateInUpLeft</option>
+
+                                    <option value="rotateInUpRight">rotateInUpRight</option>
+
+                                </optgroup>
+
+                                <optgroup label="Rotating Exits">
+
+                                    <option value="rotateOut">rotateOut</option>
+
+                                    <option value="rotateOutDownLeft">rotateOutDownLeft</option>
+
+                                    <option value="rotateOutDownRight">rotateOutDownRight</option>
+
+                                    <option value="rotateOutUpLeft">rotateOutUpLeft</option>
+
+                                    <option value="rotateOutUpRight">rotateOutUpRight</option>
+
+                                </optgroup>
+
+                                <optgroup label="Sliders">
+
+                                    <option value="slideInDown">slideInDown</option>
+
+                                    <option value="slideInLeft">slideInLeft</option>
+
+                                    <option value="slideInRight">slideInRight</option>
+
+                                    <option value="slideOutLeft">slideOutLeft</option>
+
+                                    <option value="slideOutRight">slideOutRight</option>
+
+                                    <option value="slideOutUp">slideOutUp</option>
+
+                                </optgroup>
+
+                                <optgroup label="Specials">
+
+                                    <option value="hinge">hinge</option>
+
+                                    <option value="rollIn">rollIn</option>
+
+                                    <option value="rollOut">rollOut</option>
+
+                                </optgroup>
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-xs-6 half">
+
+                            <select class="form-control animate-closing">
+
+                                <optgroup label="Attention Seekers">
+
+                                    <option value="bounce">bounce</option>
+
+                                    <option value="flash">flash</option>
+
+                                    <option value="pulse">pulse</option>
+
+                                    <option value="rubberBand">rubberBand</option>
+
+                                    <option value="shake">shake</option>
+
+                                    <option value="swing">swing</option>
+
+                                    <option value="tada">tada</option>
+
+                                    <option value="wobble">wobble</option>
+
+                                </optgroup>
+
+                                <optgroup label="Bouncing Entrances">
+
+                                    <option value="bounceIn">bounceIn</option>
+
+                                    <option value="bounceInDown">bounceInDown</option>
+
+                                    <option value="bounceInLeft">bounceInLeft</option>
+
+                                    <option value="bounceInRight">bounceInRight</option>
+
+                                    <option value="bounceInUp">bounceInUp</option>
+
+                                </optgroup>
+
+                                <optgroup label="Bouncing Exits">
+
+                                    <option value="bounceOut">bounceOut</option>
+
+                                    <option value="bounceOutDown">bounceOutDown</option>
+
+                                    <option value="bounceOutLeft">bounceOutLeft</option>
+
+                                    <option value="bounceOutRight">bounceOutRight</option>
+
+                                    <option value="bounceOutUp">bounceOutUp</option>
+
+                                </optgroup>
+
+                                <optgroup label="Fading Entrances">
+
+                                    <option value="fadeIn">fadeIn</option>
+
+                                    <option value="fadeInDown">fadeInDown</option>
+
+                                    <option value="fadeInDownBig">fadeInDownBig</option>
+
+                                    <option value="fadeInLeft">fadeInLeft</option>
+
+                                    <option value="fadeInLeftBig">fadeInLeftBig</option>
+
+                                    <option value="fadeInRight">fadeInRight</option>
+
+                                    <option value="fadeInRightBig">fadeInRightBig</option>
+
+                                    <option value="fadeInUp">fadeInUp</option>
+
+                                    <option value="fadeInUpBig">fadeInUpBig</option>
+
+                                </optgroup>
+
+                                <optgroup label="Fading Exits">
+
+                                    <option value="fadeOut">fadeOut</option>
+
+                                    <option value="fadeOutDown">fadeOutDown</option>
+
+                                    <option value="fadeOutDownBig">fadeOutDownBig</option>
+
+                                    <option value="fadeOutLeft">fadeOutLeft</option>
+
+                                    <option value="fadeOutLeftBig">fadeOutLeftBig</option>
+
+                                    <option value="fadeOutRight">fadeOutRight</option>
+
+                                    <option value="fadeOutRightBig">fadeOutRightBig</option>
+
+                                    <option value="fadeOutUp">fadeOutUp</option>
+
+                                    <option value="fadeOutUpBig">fadeOutUpBig</option>
+
+                                </optgroup>
+
+                                <optgroup label="Flippers">
+
+                                    <option value="flip">flip</option>
+
+                                    <option value="flipInX">flipInX</option>
+
+                                    <option value="flipInY">flipInY</option>
+
+                                    <option value="flipOutX">flipOutX</option>
+
+                                    <option value="flipOutY">flipOutY</option>
+
+                                </optgroup>
+
+                                <optgroup label="Lightspeed">
+
+                                    <option value="lightSpeedIn">lightSpeedIn</option>
+
+                                    <option value="lightSpeedOut">lightSpeedOut</option>
+
+                                </optgroup>
+
+                                <optgroup label="Rotating Entrances">
+
+                                    <option value="rotateIn">rotateIn</option>
+
+                                    <option value="rotateInDownLeft">rotateInDownLeft</option>
+
+                                    <option value="rotateInDownRight">rotateInDownRight</option>
+
+                                    <option value="rotateInUpLeft">rotateInUpLeft</option>
+
+                                    <option value="rotateInUpRight">rotateInUpRight</option>
+
+                                </optgroup>
+
+                                <optgroup label="Rotating Exits">
+
+                                    <option value="rotateOut">rotateOut</option>
+
+                                    <option value="rotateOutDownLeft">rotateOutDownLeft</option>
+
+                                    <option value="rotateOutDownRight">rotateOutDownRight</option>
+
+                                    <option value="rotateOutUpLeft">rotateOutUpLeft</option>
+
+                                    <option value="rotateOutUpRight">rotateOutUpRight</option>
+
+                                </optgroup>
+
+                                <optgroup label="Sliders">
+
+                                    <option value="slideInDown">slideInDown</option>
+
+                                    <option value="slideInLeft">slideInLeft</option>
+
+                                    <option value="slideInRight">slideInRight</option>
+
+                                    <option value="slideOutLeft">slideOutLeft</option>
+
+                                    <option value="slideOutRight">slideOutRight</option>
+
+                                    <option value="slideOutUp">slideOutUp</option>
+
+                                </optgroup>
+
+                                <optgroup label="Specials">
+
+                                    <option value="hinge">hinge</option>
+
+                                    <option value="rollIn">rollIn</option>
+
+                                    <option value="rollOut">rollOut</option>
+
+                                </optgroup>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">var</span> select = $(<span class="hljs-keyword">this</span>).parent().siblings(<span class="hljs-string">'.demo-select'</span>);
+
+                            <span class="hljs-keyword">var</span> entrance = select.find(<span class="hljs-string">'.animate-entrance :selected'</span>).text(); <span class="hljs-keyword">var</span> closing =
+
+                            select.find(<span class="hljs-string">'.animate-closing :selected'</span>).text(); <span class="hljs-keyword">new</span> $.flavr({ animateEntrance
+
+                            : entrance, animateClosing : closing, content : <span class="hljs-string">'Animation example'</span> });</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    ATTENTION SEEKER
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-attention">
+
+                    <div class="demo-title">
+
+                        导引动画
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        flavr动画提供了几个快捷方式寻求您的用户关注
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">new</span> $.flavr({ position : <span class="hljs-string">'top-mid'</span>, content : <span class="hljs-string">'Attention
+
+                            seeker animation examples'</span>, buttons : { swing : { style: <span class="hljs-string">'info'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+
+                            <span class="hljs-keyword">this</span>.swing(); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> }}, shake : { style: <span class="hljs-string">'warning'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">this</span>.shake();
+
+                            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> }}, wobble : { style: <span class="hljs-string">'danger'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">this</span>.wobble();
+
+                            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> }}, flash : { style: <span class="hljs-string">'primary'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">this</span>.flash(); <span class="hljs-keyword">return</span>
+
+                            <span class="hljs-literal">false</span> }}, tada : { style: <span class="hljs-string">'info'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">this</span>.tada(); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+
+                            }}, pulse : { style: <span class="hljs-string">'warning'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">this</span>.pulse(); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> }},
+
+                            bounce : { style: <span class="hljs-string">'danger'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">this</span>.animate(<span class="hljs-string">'bounce'</span>); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+
+                            }}, close : {} } });</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    DYNAMIC DIALOG
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-dynamic">
+
+                    <div class="demo-title">
+
+                        动态对话框
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        令人惊讶的是,flavr可以全屏对话框,调整对话框到特定的高度或宽度,改变其内容、位置和更多
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">new</span> $.flavr({ content : <span class="hljs-string">'Resize your Dialog'</span>, buttons
+
+                            : { resize : { text: <span class="hljs-string">'Resize 700 x 300'</span>, style: <span class="hljs-string">'info'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">this</span>.resize(
+
+                            <span class="hljs-number">700</span>, <span class="hljs-number">300</span> ); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; } }, full : { text: <span class="hljs-string">'Fullscreen'</span>, style: <span class="hljs-string">'warning'</span>, action:
+
+                            <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">this</span>.fullscreen(); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; } }, revert : { text: <span class="hljs-string">'Original Size'</span>,
+
+                            style: <span class="hljs-string">'danger'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">this</span>.revert(); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; } }, content :
+
+                            { text: <span class="hljs-string">'Change Content'</span>, style: <span class="hljs-string">'info'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">this</span>.content(<span class="hljs-string">'&lt;p&gt;This
+
+                            is the new content&lt;/p&gt;&lt;br/&gt;&lt;p&gt;New line&lt;/p&gt;'</span>); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+                            } }, close : {} } });</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    CALLBACKS
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-callback">
+
+                    <div class="demo-title">
+
+                        回调
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        flavr提供你回调在一个特定阶段的能力和条件,将极大地帮助你建立一个对话框
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-demo">
+
+                            Demo</a> <a href="#" class="btn btn-default btn-show">Show</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">new</span> $.flavr({ content : <span class="hljs-string">'flavr callback examples'</span>, buttons
+
+                            : { shake : { style: <span class="hljs-string">'primary'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> <span class="hljs-keyword">this</span>.shake(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'Shake
+
+                            animation callback'</span>); }); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; } }, hide : { style: <span class="hljs-string">'info'</span>, action: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+
+                            <span class="hljs-keyword">this</span>.hide(); <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; } }, close : { style: <span class="hljs-string">'warning'</span> } }, onLoad : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+
+                            alert(<span class="hljs-string">'The plugin has been loaded'</span>); }, onBuild : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'We have succesfully
+
+                            build the DOM elements'</span>); }, onShow : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'The dialog has been shown'</span>);
+
+                            }, onHide : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> alert(<span class="hljs-string">'Now hidding the dialog'</span>); }, onClose : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+
+                            alert(<span class="hljs-string">'We\'re about to close the dialog'</span>); } });</code></pre>
+
+                    </div>
+
+                </div>
+
+                <!-------------------------------------------------------------------------------------------------------------
+
+                    IFRAME
+
+                --------------------------------------------------------------------------------------------------------------->
+
+                <div class="demo-block" id="demo-iframe">
+
+                    <div class="demo-title">
+
+                        支持Iframe
+
+                    </div>
+
+                    <p class="demo-desc">
+
+                        flavr支持iframe视频回放等。
+
+                    </p>
+
+                    <div class="demo-actions">
+
+                        <a href="#" class="btn btn-default btn-code">Code</a> <a href="#" class="btn btn-default btn-show">
+
+                            Show</a>
+
+                    </div>
+
+                    <div class="demo-code">
+
+                        <pre><code class="javascript hljs "><span class="hljs-keyword">new</span> $.flavr({ title : <span class="hljs-string">'Charlie bit my finger'</span>, content
+
+                            : <span class="hljs-string">'&lt;iframe width="420" height="315" src="//www.youtube.com/embed/_OBlgSz8sSM"
+
+                            frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;'</span>, buttons : { close
+
+                            : {} } });</code></pre>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- End of Livedemo -->
+
+        </div>
+
+        <!-- End of Content -->
+
+    </div>
+
+
+
+<!-- BEGIN DEMO PAGE SCRIPT -->
+
+
+
+<script type="text/javascript" src="./index_files/jquery.min.js"></script>
+
+
+
+<script type="text/javascript" src="./index_files/bootstrap.min.js"></script>
+
+
+
+<script type="text/javascript" src="./index_files/jquery.browser.js"></script>
+
+
+
+<script type="text/javascript" src="./index_files/livedemo.js"></script>
+
+
+
+<script type="text/javascript" src="./index_files/highlight.pack.js"></script>
+
+
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+<!-- END DEMO PAGE SCRIPT -->
+
+<!-- BEGIN flavr SCRIPT -->
+
+
+
+<script type="text/javascript" src="./index_files/flavr.min.js"></script>
+
+
+
+<!-- END flavr SCRIPT -->
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        
+
+        $('.livedemo').livedemo();        
+
+        
+
+        $('.footer .socials a').on('mouseenter', function(){
+
+            var animationEnd = 'webkitAnimationEnd oanimationend msAnimationEnd animationend';
+
+            $(this).addClass('swing animated').bind( animationEnd, function(){
+
+                $(this).removeClass('swing animated');
+
+            });            
+
+        });
+
+        
+
+        $('.demo-block .demo-actions .btn-demo').on('click', function(e){            
+
+            e.preventDefault();
+
+        });
+
+        
+
+/*  =========================================================================================
+
+        flavr Examples
+
+    =========================================================================================
+
+*/
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                Simple Alert
+
+            ------------------------------------------------------------------------------- */  
+
+            $('#demo-alert .demo-actions .btn-demo').on('click', function(){            
+
+                new $.flavr('Hello World!');        
+
+            });
+
+
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                Confirm Dialog
+
+            ------------------------------------------------------------------------------- */  
+
+            $('#demo-confirm .demo-actions .btn-demo').on('click', function(){
+
+                
+
+                new $.flavr({
+
+                    content     : 'Are you sure to delete your memories?',
+
+                    dialog      : 'confirm',
+
+                    onConfirm   : function(){
+
+                        alert('Deleted');
+
+                    },
+
+                    onCancel    : function(){
+
+                        alert('Canceled');
+
+                    }
+
+                });
+
+
+
+            });
+
+        
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                Prompt Dialog
+
+            ------------------------------------------------------------------------------- */  
+
+            $('#demo-prompt .demo-actions .btn-demo').on('click', function(){
+
+                
+
+                new $.flavr({
+
+                    content     : 'How old are you?',
+
+                    dialog      : 'prompt',
+
+                    prompt      : { placeholder : 'Enter something' },
+
+                    onConfirm   : function( $container, $prompt ){
+
+                        alert( $prompt.val() );
+
+                        return false;
+
+                    },
+
+                    onCancel    : function(){
+
+                        alert('Canceled');
+
+                    }
+
+                });
+
+
+
+
+
+            });
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                Multiple Dialog Instance
+
+            ------------------------------------------------------------------------------- */  
+
+            $('#demo-multi-instance .demo-actions .btn-demo').on('click', function(){
+
+                
+
+                new $.flavr({
+
+                    content  : 'Nuff siad, here is the last one', 
+
+                    position : 'top-right'
+
+                }, function(){
+
+                    new $.flavr({
+
+                        content  : 'The stack is unlimited, pretty cool huh',
+
+                        position : 'top-left'
+
+                    }, function(){
+
+                        new $.flavr({
+
+                            content  : 'Here is the dialog #3',
+
+                            position : 'bottom-right'
+
+                        }, function(){
+
+                            new $.flavr({
+
+                                content  : 'Me dialog #2',
+
+                                position : 'bottom-mid'
+
+                            }, function(){
+
+                                new $.flavr({
+
+                                    content     :'I am dialog #1',
+
+                                    buttons     : {
+
+                                        exit    : { text: 'Close All', style: 'danger',
+
+                                                    action: function(){
+
+                                                        this.exit();
+
+                                                    }
+
+                                        },
+
+                                        close   : {}
+
+                                    }
+
+                                });
+
+                            });
+
+                        });
+
+                    });
+
+                });
+
+            });
+
+
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                Multiple Buttons
+
+            ------------------------------------------------------------------------------- */  
+
+            $('#demo-multi-buttons .demo-actions .btn-demo').on('click', function(){
+
+                
+
+                new $.flavr({
+
+                    content     : 'flavr box with multiple buttons',
+
+                    buttons     : {
+
+                        primary : { text: 'Primary', style: 'primary', 
+
+                                    action: function(){
+
+                                        alert('Primary button');
+
+                                        return false;
+
+                                    }
+
+                        },
+
+                        success : { text: 'Success', style: 'success',
+
+                                    action: function(){
+
+                                        alert('Mission succeed!');
+
+                                        return false;
+
+                                    }
+
+                        },
+
+                        info    : { text: 'Info', style: 'info',
+
+                                    action: function(){
+
+                                        alert('For your information');
+
+                                        return false;
+
+                                    }
+
+                        },
+
+                        warning : { text: 'Warning', style: 'warning',
+
+                                    action: function(){
+
+                                        alert('No good captain!');
+
+                                        return false;
+
+                                    }                    
+
+                        },
+
+                        danger  : { text: 'Danger', style: 'danger',
+
+                                    action: function(){
+
+                                        alert('Mission failed!');
+
+                                        return false;
+
+                                    }          
+
+                        },
+
+                        close   : { style: 'default' }
+
+                    }
+
+                });
+
+                
+
+            });
+
+
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                Stacked Buttons
+
+            ------------------------------------------------------------------------------- */  
+
+            $('#demo-stacked-buttons .demo-actions .btn-demo').on('click', function(){
+
+                
+
+                new $.flavr({
+
+                    buttonDisplay   : 'stacked',
+
+                    content         : 'flavr with stacked buttons',
+
+                    buttons         : {                    
+
+                        confirm     : { style: 'info' },
+
+                        remove      : { style: 'danger' },
+
+                        close       : { style: 'default' }
+
+                    }                
+
+                });
+
+
+
+            });
+
+
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                HTML Dialog
+
+            ------------------------------------------------------------------------------- */  
+
+            $('#demo-html .demo-actions .btn-demo').on('click', function(){
+
+                
+
+                var html =  
+
+                '   <div class="form-row">' +                        
+
+                '       <input type="text" name="username" placeholder="Username" />' +
+
+                '   </div>' +
+
+                '   <div class="form-row">' +                        
+
+                '       <input type="password" name="password" placeholder="Password" />' +
+
+                '   </div>' +
+
+                '   <div class="form-row">' +                        
+
+                '       <input type="checkbox" name="remember" id="check"/>' +
+
+                '       <label for="check">Remember me</label>' +
+
+                '   </div>';
+
+            
+
+                new $.flavr({                
+
+                    title       : 'Form',
+
+                    iconPath    : 'flavr/images/icons/',
+
+                    icon        : 'email.png',                
+
+                    content     : 'HTML form example',
+
+                    dialog      : 'form',
+
+                    form        : { content: html, method: 'post' },
+
+                    onSubmit    : function( $container, $form ){
+
+                        alert( $form.serialize() );
+
+                        return false;
+
+                    }            
+
+                });
+
+
+
+            });
+
+        
+
+
+
+        /*  -------------------------------------------------------------------------------
+
+                Modeless Dialog
+
+            ------------------------------------------------------------------------------- */
+
+            var modeless = null;
+
+            $('#demo-modeless .demo-actions .btn-demo').on('click', function(){
+
+                modeless = new $.flavr({
+
+                    modal       : false,
+
+                    content     : 'This is a modeless dialog'
+
+                });   
+
+            }); 
+
+            $('#demo-modeless .demo-actions .btn-close').on('click', function(e){
+
+                e.preventDefault();
+
+                if( null !== modeless ) modeless.close();
+
+            });
+
+
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                Autoclose Dialog
+
+            ------------------------------------------------------------------------------- */            
+
+            $('#demo-autoclose .demo-actions .btn-demo').on('click', function(){
+
+                
+
+                new $.flavr({
+
+                    content     : 'Autoclosing the dialog in 5 seconds',
+
+                    autoclose   : true,
+
+                    timeout     : 5000  /* Default timeout is 3 seconds */
+
+                });
+
+ 
+
+            }); 
+
+
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                Alternative Closing
+
+            ------------------------------------------------------------------------------- */            
+
+            $('#demo-alt-closing .demo-actions .btn-demo').on('click', function(){
+
+                
+
+                new $.flavr({
+
+                    content      : 'Try clicking the overlay or pressing the escape button',
+
+                    closeOverlay : true,
+
+                    closeEsc     : true                
+
+                });
+
+
+
+            }); 
+
+
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                CSS3 Animation
+
+            ------------------------------------------------------------------------------- */            
+
+            $('#demo-animation .demo-actions .btn-demo').on('click', function(){
+
+                
+
+                var select = $(this).parent().siblings('.demo-select');
+
+                var entrance = select.find('.animate-entrance :selected').text();
+
+                var closing = select.find('.animate-closing :selected').text();
+
+                
+
+                new $.flavr({                
+
+                    animateEntrance : entrance,
+
+                    animateClosing  : closing,
+
+                    content         : 'Animation example'
+
+                });
+
+
+
+
+
+            });         
+
+
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                Attention Seeker
+
+            ------------------------------------------------------------------------------- */            
+
+            $('#demo-attention .demo-actions .btn-demo').on('click', function(){
+
+                
+
+                new $.flavr({
+
+                    position        : 'top-mid',                
+
+                    content         : 'Attention seeker animation examples',                
+
+                    buttons         : {
+
+                        swing       : { style: 'info', action: function(){ this.swing(); return false }},
+
+                        shake       : { style: 'warning', action: function(){ this.shake(); return false }},
+
+                        wobble      : { style: 'danger', action: function(){ this.wobble(); return false }},
+
+                        flash       : { style: 'primary', action: function(){ this.flash(); return false }},
+
+                        tada        : { style: 'info', action: function(){ this.tada(); return false }},
+
+                        pulse       : { style: 'warning', action: function(){ this.pulse(); return false }},
+
+                        bounce      : { style: 'danger', action: function(){ this.animate('bounce'); return false }},
+
+                        close       : {}
+
+                    }
+
+                });
+
+                
+
+            }); 
+
+        
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                Dynamic Dialog
+
+            ------------------------------------------------------------------------------- */            
+
+            $('#demo-dynamic .demo-actions .btn-demo').on('click', function(){
+
+                
+
+                new $.flavr({
+
+                    content     : 'Resize your Dialog',                
+
+                    buttons     : {
+
+                        resize  : { text: 'Resize 700 x 300', style: 'info',
+
+                                    action: function(){
+
+                                        this.resize( 700, 300 );                                     
+
+                                        return false 
+
+                                    }
+
+                        },
+
+                        full    : { text: 'Fullscreen', style: 'warning', 
+
+                                    action: function(){
+
+                                        this.fullscreen();
+
+                                        return false
+
+                                    }
+
+                        },
+
+                        revert  : { text: 'Original Size', style: 'danger',
+
+                                    action: function(){                         
+
+                                        this.revert();
+
+                                        return false;
+
+                                    }
+
+                        },
+
+                        change  : { text: 'Change Content', style: 'info',
+
+                                    action: function(){
+
+                                        this.content('<p>This is the new content</p><br/><p>New line</p>');                                    
+
+                                        return false;
+
+                                    }
+
+                        },
+
+                        close   : {}
+
+                    }
+
+                });
+
+                
+
+            });        
+
+        
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                Callbacks
+
+            ------------------------------------------------------------------------------- */            
+
+            var callbackflavr = null;
+
+            $('#demo-callback .demo-actions .btn-demo').on('click', function(){
+
+                callbackflavr = new $.flavr({
+
+                    content     : 'flavr callback examples',
+
+                    buttons     : {
+
+                        shake   : { style: 'primary', 
+
+                                    action: function(){
+
+                                        this.shake(function(){
+
+                                            alert('Shake animation callback');
+
+                                        });
+
+                                        return false;
+
+                                    }
+
+                        },
+
+                        hide    : { style: 'info', 
+
+                                    action: function(){
+
+                                        this.hide();
+
+                                        return false;
+
+                                    }
+
+                        },
+
+                        close   : { style: 'warning' }
+
+                    },
+
+                    onLoad      : function(){
+
+                        alert('The plugin has been loaded');
+
+                    },
+
+                    onBuild     : function(){
+
+                        alert('We have succesfully build the DOM elements');
+
+                    },
+
+                    onShow      : function(){
+
+                        alert('The dialog has been shown');
+
+                    },
+
+                    onHide      : function(){
+
+                        alert('Now hidding the dialog');
+
+                    },                
+
+                    onClose     : function(){
+
+                        alert('We\'re about to close the dialog');
+
+                    }
+
+                });
+
+            });
+
+            $('#demo-callback .demo-actions .btn-show').on('click', function(e){
+
+                e.preventDefault();
+
+                if( null !== callbackflavr ) callbackflavr.show();
+
+            });
+
+        
+
+        
+
+        /*  -------------------------------------------------------------------------------
+
+                Iframe
+
+            ------------------------------------------------------------------------------- */ 
+
+            $('#demo-iframe .demo-actions .btn-show').on('click', function(){
+
+                new $.flavr({
+
+                    title       : 'Charlie bit my finger',
+
+                    content     : '<iframe width="420" height="315" src="//www.youtube.com/embed/_OBlgSz8sSM"' + 
+
+                                    'frameborder="0" allowfullscreen></iframe>',
+
+                    buttons     : {
+
+                        close   : {}
+
+                    }
+
+                });
+
+                return false;
+
+            });
+
+        
+
+    });    
+
+</script>
+
+
+
+
+
+<div style="display:none"></div></body></html>

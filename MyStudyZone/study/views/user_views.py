@@ -7,6 +7,7 @@
 """
 import json
 
+import faker
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -182,3 +183,16 @@ def create_user(request):
     except RuntimeError:
         return HttpResponse(0)
     return HttpResponse(200)
+
+
+def create_random_users(request):
+    """
+    随机添加一些用户
+    :param request:
+    :return:
+    """
+    fakeMan = faker.Faker(locale='zh_CN')
+    for i in range(100):
+        models.User.objects.create(user_name=fakeMan.name(), user_tel=fakeMan.phone_number(), user_email=fakeMan.email(),
+                                   user_info=fakeMan.company())
+    return HttpResponse('成功了')
