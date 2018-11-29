@@ -134,7 +134,7 @@ interface JQueryAjaxSettings {
      */
     success? (data: any, textStatus: string, jqXHR: JQueryXHR): any;
     /**
-     * Set a timeout (in milliseconds) for the request. This will override any global timeout set with $.ajaxSetup(). The timeout period starts at the point the $.ajax call is made; if several other requests are in progress and the browser has no connections available, it is possible for a request to time out before it can be sent. In jQuery 1.4.x and below, the XMLHttpRequest object will be in an invalid state if the request times out; accessing any object members may throw an exception. In Firefox 3.0+ only, script and JSONP requests cannot be cancelled by a timeout; the script will run even if it arrives after the timeout period.
+     * Set a timeout (in milliseconds) for the request. This will override any global timeout set with $.ajaxSetup(). The timeout period starts at the point the $.ajax call is made; if several other requests are in top_loading_progress and the browser has no connections available, it is possible for a request to time out before it can be sent. In jQuery 1.4.x and below, the XMLHttpRequest object will be in an invalid state if the request times out; accessing any object members may throw an exception. In Firefox 3.0+ only, script and JSONP requests cannot be cancelled by a timeout; the script will run even if it arrives after the timeout period.
      */
     timeout?: number;
     /**
@@ -279,7 +279,7 @@ interface JQueryCallback {
  */
 interface JQueryGenericPromise<T> {
     /**
-     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in top_loading_progress.
      * 
      * @param doneFilter A function that is called when the Deferred is resolved.
      * @param failFilter An optional function that is called when the Deferred is rejected.
@@ -287,7 +287,7 @@ interface JQueryGenericPromise<T> {
     then<U>(doneFilter: (value?: T, ...values: any[]) => U|JQueryPromise<U>, failFilter?: (...reasons: any[]) => any, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
 
     /**
-     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in top_loading_progress.
      * 
      * @param doneFilter A function that is called when the Deferred is resolved.
      * @param failFilter An optional function that is called when the Deferred is rejected.
@@ -336,9 +336,9 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
      */
     fail(failCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...failCallbacksN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<T>;
     /**
-     * Add handlers to be called when the Deferred object generates progress notifications.
+     * Add handlers to be called when the Deferred object generates top_loading_progress notifications.
      * 
-     * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
+     * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates top_loading_progress notifications.
      */
     progress(progressCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...progressCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryPromise<T>;
 
@@ -376,9 +376,9 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      */
     fail(failCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...failCallbacksN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryDeferred<T>;
     /**
-     * Add handlers to be called when the Deferred object generates progress notifications.
+     * Add handlers to be called when the Deferred object generates top_loading_progress notifications.
      * 
-     * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
+     * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates top_loading_progress notifications.
      */
     progress(progressCallback1?: JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[], ...progressCallbackN: Array<JQueryPromiseCallback<any>|JQueryPromiseCallback<any>[]>): JQueryDeferred<T>;
 

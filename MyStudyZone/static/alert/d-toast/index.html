@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<script src="js/d-toast.min.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body style="height:3000px;">
+		<textarea rows="5" id="text" style="width: 560px;" placeholder="这里输入提示的内容" ></textarea>
+		</br>
+		<button type="button" onclick="test(1)">桌面通知无图片</button>
+		<button type="button" onclick="test(2,true)">桌面通知有图片</button>
+		<button type="button" onclick="testInner(3)">仿桌面通知无图片</button>
+		<button type="button" onclick="testInner(4,true)">仿桌面通知有图片</button>
+		<button type="button" onclick="testOnlyContent()">参数仅内容</button>
+		
+	</body>
+	<script type="text/javascript">
+		
+		var el=document.getElementById("text");
+		
+		function test(i,isShowIcon){
+			
+			//需允许浏览器通知
+			
+			var config={
+				title:"新消息"+i,//通知标题部分  默认 新消息   可选
+				body:el.value,//通知内容部分
+				data:"abc2",// 是浏览器仿桌面通知 否首选桌面通知 默认否 可选
+				onclick:function(data){//监听点击通知   data:可传递参数 可选
+					new dToast("桌面通知被点击了 传递参数："+data);
+				},
+			}
+			if(isShowIcon==true){
+				config.icon="img/thumb-"+i+".jpg";//通知的图片 可选
+			}
+			
+			//桌面通知
+			new dToast(config);
+		}
+		
+		function testInner(i,isShowIcon){
+			
+			var config={
+				title:"新消息"+i,//通知标题部分  默认 新消息   可选
+				body:el.value,//通知内容部分
+				inner:true, // 是浏览器仿桌面通知 否首选桌面通知 默认否 可选
+				onclick:function(data){ //监听点击通知   data:可传递参数 可选
+					new dToast("仿桌面通知被点击了 传递参数："+data);
+				},
+				data:"我是仿桌面通知的参数",//可传递参数 可选
+				timeout:10000 // 自动关闭 单位毫秒 默认 6500毫秒   timeout<=0 不自动关闭  可选
+			}
+			
+			if(isShowIcon==true){
+				config.icon="img/thumb-"+i+".jpg";//通知的图片 可选
+			}
+			
+			//仿桌面通知
+			new dToast(config);
+		}
+		
+		function testOnlyContent(){
+			new dToast(el.value);
+		}
+		
+	</script>
+	
+</html>

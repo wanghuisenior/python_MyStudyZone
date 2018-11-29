@@ -78,8 +78,8 @@ $(function () {
                 Lobibox.progress({
                     title: 'Please wait',
                     label: 'Uploading files...',
-                    progressTpl: '<div class="progress lobibox-progress-outer">\n\
-                    <div class="progress-bar progress-bar-danger progress-bar-striped lobibox-progress-element" data-role="progress-text" role="progressbar"></div>\n\
+                    progressTpl: '<div class="top_loading_progress lobibox-top_loading_progress-outer">\n\
+                    <div class="top_loading_progress-bar top_loading_progress-bar-danger top_loading_progress-bar-striped lobibox-top_loading_progress-element" data-role="top_loading_progress-text" role="progressbar"></div>\n\
                     </div>',
                     progressCompleted: function () {
                         Lobibox.notify('success', {
@@ -166,7 +166,7 @@ $(function () {
                 $form.find('.alert-fieldset').attr('disabled', true);
                 $form.find('.prompt-fieldset').attr('disabled', true);
                 $form.find('.confirm-fieldset').attr('disabled', true);
-                $form.find('.progress-fieldset').attr('disabled', true);
+                $form.find('.top_loading_progress-fieldset').attr('disabled', true);
 
                 if ($this.val() === 'alert') {
                     $form.find('.alert-fieldset').removeAttr('disabled');
@@ -178,8 +178,8 @@ $(function () {
                     $form.find('.confirm-fieldset').removeAttr('disabled');
                     $form.find('[href="#confirm-options"]').trigger('click');
                 } else if ($this.val() === 'progress') {
-                    $form.find('.progress-fieldset').removeAttr('disabled');
-                    $form.find('[href="#progress-options"]').trigger('click');
+                    $form.find('.top_loading_progress-fieldset').removeAttr('disabled');
+                    $form.find('[href="#top_loading_progress-options"]').trigger('click');
                 }
             });
             $form.submit(function (ev) {

@@ -13349,7 +13349,7 @@ var widgetsDroppable = $.ui.droppable;
 //>>label: Progressbar
 //>>group: Widgets
 // jscs:disable maximumLineLength
-//>>description: Displays a status indicator for loading state, standard percentage, and other progress indicators.
+//>>description: Displays a status indicator for loading state, standard percentage, and other top_loading_progress indicators.
 // jscs:enable maximumLineLength
 //>>docs: http://api.jqueryui.com/progressbar/
 //>>demos: http://jqueryui.com/progressbar/

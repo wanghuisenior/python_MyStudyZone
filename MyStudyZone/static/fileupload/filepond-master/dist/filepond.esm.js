@@ -320,7 +320,7 @@ const spring =
           api.onupdate(position);
           api.oncomplete(position);
         } else {
-          // progress update
+          // top_loading_progress update
           api.onupdate(position);
         }
       };
@@ -2323,13 +2323,13 @@ const createFileLoader = fetchFn => {
         // update duration
         state.duration = Date.now() - state.timestamp;
 
-        // if we can't compute progress, we're not going to fire progress events
+        // if we can't compute top_loading_progress, we're not going to fire top_loading_progress events
         if (!computable) {
           state.progress = null;
           return;
         }
 
-        // update progress percentage
+        // update top_loading_progress percentage
         state.progress = current / total;
 
         // expose
@@ -2351,7 +2351,7 @@ const createFileLoader = fetchFn => {
 
   const api = Object.assign({}, on(), {
     setSource: source => (state.source = source),
-    getProgress, // file load progress
+    getProgress, // file load top_loading_progress
     abort, // abort file load
     load // start load
   });
@@ -2397,10 +2397,10 @@ const sendRequest = (data, url, options) => {
   // create request
   const xhr = new XMLHttpRequest();
 
-  // progress of load
+  // top_loading_progress of load
   const process = /GET/i.test(options.method) ? xhr : xhr.upload;
   process.onprogress = e => {
-    // no progress event when aborted ( onprogress is called once after abort() )
+    // no top_loading_progress event when aborted ( onprogress is called once after abort() )
     if (aborted) {
       return;
     }
@@ -2493,7 +2493,7 @@ const createTimeoutResponse = cb => xhr => {
 };
 
 const createFetchFunction = (apiUrl = '', action) => {
-  // custom handler (should also handle file, load, error, progress and abort)
+  // custom handler (should also handle file, load, error, top_loading_progress and abort)
   if (typeof action === 'function') {
     return action;
   }
@@ -2565,14 +2565,14 @@ const createFetchFunction = (apiUrl = '', action) => {
 
 /*
 function signature:
-  (file, metadata, load, error, progress, abort) => {
+  (file, metadata, load, error, top_loading_progress, abort) => {
     return {
     abort:() => {}
   }
 }
 */
 const createProcessorFunction = (apiUrl = '', action, name) => {
-  // custom handler (should also handle file, load, error, progress and abort)
+  // custom handler (should also handle file, load, error, top_loading_progress and abort)
   if (typeof action === 'function') {
     return (...params) => action(name, ...params);
   }
@@ -2746,12 +2746,12 @@ const createFileProcessor = processFn => {
     const progressFn = () => {
       // we've not yet started the real download, stop here
       // the request might not go through, for instance, there might be some server trouble
-      // if state.progress is null, the server does not allow computing progress and we show the spinner instead
+      // if state.top_loading_progress is null, the server does not allow computing top_loading_progress and we show the spinner instead
       if (state.duration === 0 || state.progress === null) {
         return;
       }
 
-      // as we're now processing, fire the progress event
+      // as we're now processing, fire the top_loading_progress event
       api.fire('progress', api.getProgress());
     };
 
@@ -2767,7 +2767,7 @@ const createFileProcessor = processFn => {
     // set request start
     state.timestamp = Date.now();
 
-    // create perceived performance progress indicator
+    // create perceived performance top_loading_progress indicator
     state.perceivedPerformanceUpdater = createPerceivedPerformanceUpdater(
       progress => {
         state.perceivedProgress = progress;
@@ -2775,7 +2775,7 @@ const createFileProcessor = processFn => {
 
         progressFn();
 
-        // if fake progress is done, and a response has been received,
+        // if fake top_loading_progress is done, and a response has been received,
         // and we've not yet called the complete method
         if (
           state.response &&
@@ -2799,7 +2799,7 @@ const createFileProcessor = processFn => {
       // the metadata to send along
       metadata,
 
-      // callbacks (load, error, progress, abort)
+      // callbacks (load, error, top_loading_progress, abort)
       // load expects the body to be a server id if
       // you want to make use of revert
       response => {
@@ -2817,15 +2817,15 @@ const createFileProcessor = processFn => {
         // update duration
         state.duration = Date.now() - state.timestamp;
 
-        // force progress to 1 as we're now done
+        // force top_loading_progress to 1 as we're now done
         state.progress = 1;
 
         // actual load is done let's share results
         api.fire('load', state.response.body);
 
         // we are really done
-        // if perceived progress is 1 ( wait for perceived progress to complete )
-        // or if server does not support progress ( null )
+        // if perceived top_loading_progress is 1 ( wait for perceived top_loading_progress to complete )
+        // or if server does not support top_loading_progress ( null )
         if (state.perceivedProgress === 1) {
           completeFn();
         }
@@ -2849,12 +2849,12 @@ const createFileProcessor = processFn => {
         );
       },
 
-      // actual processing progress
+      // actual processing top_loading_progress
       (computable, current, total) => {
         // update actual duration
         state.duration = Date.now() - state.timestamp;
 
-        // update actual progress
+        // update actual top_loading_progress
         state.progress = computable ? current / total : null;
 
         progressFn();
@@ -3046,11 +3046,11 @@ const createItem = (origin = null, serverFileReference = null, file = null) => {
       fire('load-meta');
     });
 
-    // the file is now loading we need to update the progress indicators
+    // the file is now loading we need to update the top_loading_progress indicators
     loader.on('progress', progress => {
       setStatus(ItemStatus.LOADING);
 
-      fire('load-progress', progress);
+      fire('load-top_loading_progress', progress);
     });
 
     // an error was thrown while loading the file, we need to switch to error state
@@ -3175,7 +3175,7 @@ const createItem = (origin = null, serverFileReference = null, file = null) => {
     });
 
     processor.on('progress', progress => {
-      fire('process-progress', progress);
+      fire('process-top_loading_progress', progress);
     });
 
     // when successfully transformed
@@ -3692,7 +3692,7 @@ const actions = (dispatch, query, state) => ({
       dispatch('DID_UPDATE_ITEM_META', { id });
     });
 
-    item.on('load-progress', progress => {
+    item.on('load-top_loading_progress', progress => {
       dispatch('DID_UPDATE_ITEM_LOAD_PROGRESS', { id, progress });
     });
 
@@ -3806,7 +3806,7 @@ const actions = (dispatch, query, state) => ({
       dispatch('DID_START_ITEM_PROCESSING', { id });
     });
 
-    item.on('process-progress', progress => {
+    item.on('process-top_loading_progress', progress => {
       dispatch('DID_UPDATE_ITEM_PROCESS_PROGRESS', { id, progress });
     });
 
@@ -4234,7 +4234,7 @@ const write$5 = ({ root, props }) => {
     ringTo
   );
 
-  // update progress bar
+  // update top_loading_progress bar
   attr(root.ref.path, 'd', coordinates);
 
   // hide while contains 0 value
@@ -4247,7 +4247,7 @@ const write$5 = ({ root, props }) => {
 
 const progressIndicator = createView({
   tag: 'div',
-  name: 'progress-indicator',
+  name: 'top_loading_progress-indicator',
   ignoreRectUpdate: true,
   ignoreRect: true,
   create: create$7,
@@ -4746,7 +4746,7 @@ const create$6 = ({ root, props }) => {
     `GET_STYLE_BUTTON_PROCESS_ITEM_POSITION`
   );
 
-  // add progress indicators
+  // add top_loading_progress indicators
   const loadIndicatorView = root.appendChildView(
     root.createChildView(progressIndicator, { opacity: 0 })
   );
@@ -6955,7 +6955,7 @@ const createApp$1 = (initialOptions = {}) => {
       event.items = data.items.map(createItemAPI);
     }
 
-    // if this is a progress event add the progress amount
+    // if this is a top_loading_progress event add the top_loading_progress amount
     if (/progress/.test(name)) {
       event.progress = data.progress;
     }

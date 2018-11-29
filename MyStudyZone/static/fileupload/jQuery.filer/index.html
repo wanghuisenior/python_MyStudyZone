@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HTML5文件上传组件美化jQuery插件</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.filer.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.filer-dragdropbox-theme.css">
+    <link rel="stylesheet" type="text/css" href="css/tomorrow.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+
+</head>
+<body>
+		<section id="section4" class="section-white">
+                        <a name="demos"></a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Demos:</h2>
+                        <hr>
+                        
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#demo-default" role="tab" data-toggle="tab">Default</a></li>
+                                <li role="presentation"><a href="#demo-dragdrop" role="tab" data-toggle="tab">Drag&amp;Drop</a></li>
+                                <li role="presentation"><a href="#demo-instant-upload" role="tab" data-toggle="tab">Instant Upload</a></li>
+                                <li role="presentation"><a href="#demo-edit-mode" role="tab" data-toggle="tab">Edit Mode</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane pt20 pb20 fade in active" id="demo-default">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b>Example 1:</b>
+                                            <br><br>
+                                            <p>In this example we <span class="text-warning"><em>limit</em></span> our users with maximal 3 number of files, all files together must have maximal 3MB's and the file's extensions should be matched in the array(ex: ['jpg', 'png', 'gif']). We are also <span class="text-info"><em>changig</em></span> the file input to jQuery.filer default design. We also need to show the <span class="text-success"><em>file preview</em></span> in our browser before uploading the file.</p>
+                                            <div class="pre-box collapsed"><div class="pre-collapse"><i class="fa fa-code pull-left"></i> + Show the source code</div><pre class="prettyprint lang-js">$('#filer_input').filer({
+    limit: 3,
+    maxSize: 3,
+    extensions: ['jpg', 'jpeg', 'png', 'gif'],
+    changeInput: true,
+    showThumbs: true
+});</pre></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <b>Result:</b>
+                                            <br><br>
+                                            <form action="" method="post" enctype="multipart/form-data">
+                                                  <input type="file" name="files[]" id="demo-fileInput-3" multiple>
+                                                  <input type="submit" class="btn-custom green" value="Submit">
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
+                                    <br><hr><br>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b>Example 2:</b>
+                                            <br><br>
+                                            <p>In this example we <span class="text-info"><em>designed</em></span> our own file input and used our own theme - 'dragdropbox'. We also added the <span class="text-success"><em>file preview</em></span> in our browser before uploading the file.</p>
+                                            <div class="pre-box collapsed"><div class="pre-collapse"><i class="fa fa-code pull-left"></i> + Show the source code</div><pre class="prettyprint lang-js">$('#filer_input').filer({
+    changeInput: '&lt;div class="jFiler-input-dragDrop">&lt;div class="jFiler-input-inner">&lt;div class="jFiler-input-icon">&lt;i class="icon-jfi-folder">&lt;/i>&lt;/div>&lt;div class="jFiler-input-text">&lt;h3>Click on this box&lt;/h3> &lt;span style="display:inline-block; margin: 15px 0">or&lt;/span>&lt;/div>&lt;a class="jFiler-input-choose-btn blue">Browse Files&lt;/a>&lt;/div>&lt;/div>',
+    showThumbs: true,
+    theme: "dragdropbox",
+    templates: {
+        box: '&lt;ul class="jFiler-items-list jFiler-items-grid">&lt;/ul>',
+        item: '&lt;li class="jFiler-item">\
+                    &lt;div class="jFiler-item-container">\
+                        &lt;div class="jFiler-item-inner">\
+                            &lt;div class="jFiler-item-thumb">\
+                                &lt;div class="jFiler-item-status">&lt;/div>\
+                                &lt;div class="jFiler-item-info">\
+                                    &lt;span class="jFiler-item-title">&lt;b title="{{fi-name}}">{{fi-name | limitTo: 25}}&lt;/b>&lt;/span>\
+                                    &lt;span class="jFiler-item-others">{{fi-size2}}&lt;/span>\
+                                &lt;/div>\
+                                {{fi-image}}\
+                            &lt;/div>\
+                            &lt;div class="jFiler-item-assets jFiler-row">\
+                                &lt;ul class="list-inline pull-left">\
+                                    &lt;li>{{fi-progressBar}}&lt;/li>\
+                                &lt;/ul>\
+                                &lt;ul class="list-inline pull-right">\
+                                    &lt;li>&lt;a class="icon-jfi-trash jFiler-item-trash-action">&lt;/a>&lt;/li>\
+                                &lt;/ul>\
+                            &lt;/div>\
+                        &lt;/div>\
+                    &lt;/div>\
+                &lt;/li>',
+        itemAppend: '&lt;li class="jFiler-item">\
+                        &lt;div class="jFiler-item-container">\
+                            &lt;div class="jFiler-item-inner">\
+                                &lt;div class="jFiler-item-thumb">\
+                                    &lt;div class="jFiler-item-status">&lt;/div>\
+                                    &lt;div class="jFiler-item-info">\
+                                        &lt;span class="jFiler-item-title">&lt;b title="{{fi-name}}">{{fi-name | limitTo: 25}}&lt;/b>&lt;/span>\
+                                        &lt;span class="jFiler-item-others">{{fi-size2}}&lt;/span>\
+                                    &lt;/div>\
+                                    {{fi-image}}\
+                                &lt;/div>\
+                                &lt;div class="jFiler-item-assets jFiler-row">\
+                                    &lt;ul class="list-inline pull-left">\
+                                        &lt;li>&lt;span class="jFiler-item-others">{{fi-icon}}&lt;/span>&lt;/li>\
+                                    &lt;/ul>\
+                                    &lt;ul class="list-inline pull-right">\
+                                        &lt;li>&lt;a class="icon-jfi-trash jFiler-item-trash-action">&lt;/a>&lt;/li>\
+                                    &lt;/ul>\
+                                &lt;/div>\
+                            &lt;/div>\
+                        &lt;/div>\
+                    &lt;/li>',
+        itemAppendToEnd: false,
+        removeConfirmation: true,
+        _selectors: {
+            list: '.jFiler-items-list',
+            item: '.jFiler-item',
+            remove: '.jFiler-item-trash-action'
+        }
+    }
+});</pre></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <b>Result:</b>
+                                            <br><br>
+                                            <form action="" method="post" enctype="multipart/form-data" class="text-center">
+                                                  <input type="file" name="files[]" id="demo-fileInput-4" multiple>
+                                                  <input type="submit" class="btn-custom green" value="Submit">
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
+                                    <br><hr><br>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b>Example 3:</b>
+                                            <br><br>
+                                            <p>If you want to have an input like in Example 1 and also to allow your users to upload files from different folders just set <span class="text-info"><b>addMore</b></span> option to <em>true</em></p>
+                                            <pre class="prettyprint lang-js">addMore: true</pre>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <b>Result:</b>
+                                            <br><br>
+                                            <form action="" method="post" enctype="multipart/form-data">
+                                                  <input type="file" name="files[]" id="demo-fileInput-5" multiple>
+                                                  <input type="submit" class="btn-custom green" value="Submit">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane pt20 pb20 fade" id="demo-dragdrop">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b>Example 4:</b>
+                                            <br><br>
+                                            <p>In this example we activated Drag&amp;Drop feature for the default jQuery.filer input. <span class="text-danger">Note</span> that this feature is working only with <b>Instantly Upload</b> feature!</p>
+                                            <div class="pre-box collapsed"><div class="pre-collapse"><i class="fa fa-code pull-left"></i> + Show the source code</div><pre class="prettyprint lang-js">$('#filer_input').filer({
+    changeInput: '&lt;div class="jFiler-input-dragDrop">&lt;div class="jFiler-input-inner">&lt;div class="jFiler-input-icon">&lt;i class="icon-jfi-cloud-up-o">&lt;/i>&lt;/div>&lt;div class="jFiler-input-text">&lt;h3>Drag&Drop files here&lt;/h3> &lt;span style="display:inline-block; margin: 15px 0">or&lt;/span>&lt;/div>&lt;a class="jFiler-input-choose-btn blue">Browse Files&lt;/a>&lt;/div>&lt;/div>',
+    showThumbs: true,
+    theme: "dragdropbox",
+    templates: {
+        box: '&lt;ul class="jFiler-items-list jFiler-items-grid">&lt;/ul>',
+        item: '&lt;li class="jFiler-item">\
+                    &lt;div class="jFiler-item-container">\
+                        &lt;div class="jFiler-item-inner">\
+                            &lt;div class="jFiler-item-thumb">\
+                                &lt;div class="jFiler-item-status">&lt;/div>\
+                                &lt;div class="jFiler-item-info">\
+                                    &lt;span class="jFiler-item-title">&lt;b title="{{fi-name}}">{{fi-name | limitTo: 25}}&lt;/b>&lt;/span>\
+                                    &lt;span class="jFiler-item-others">{{fi-size2}}&lt;/span>\
+                                &lt;/div>\
+                                {{fi-image}}\
+                            &lt;/div>\
+                            &lt;div class="jFiler-item-assets jFiler-row">\
+                                &lt;ul class="list-inline pull-left">\
+                                    &lt;li>{{fi-progressBar}}&lt;/li>\
+                                &lt;/ul>\
+                                &lt;ul class="list-inline pull-right">\
+                                    &lt;li>&lt;a class="icon-jfi-trash jFiler-item-trash-action">&lt;/a>&lt;/li>\
+                                &lt;/ul>\
+                            &lt;/div>\
+                        &lt;/div>\
+                    &lt;/div>\
+                &lt;/li>',
+        itemAppend: '&lt;li class="jFiler-item">\
+                        &lt;div class="jFiler-item-container">\
+                            &lt;div class="jFiler-item-inner">\
+                                &lt;div class="jFiler-item-thumb">\
+                                    &lt;div class="jFiler-item-status">&lt;/div>\
+                                    &lt;div class="jFiler-item-info">\
+                                        &lt;span class="jFiler-item-title">&lt;b title="{{fi-name}}">{{fi-name | limitTo: 25}}&lt;/b>&lt;/span>\
+                                        &lt;span class="jFiler-item-others">{{fi-size2}}&lt;/span>\
+                                    &lt;/div>\
+                                    {{fi-image}}\
+                                &lt;/div>\
+                                &lt;div class="jFiler-item-assets jFiler-row">\
+                                    &lt;ul class="list-inline pull-left">\
+                                        &lt;li>&lt;span class="jFiler-item-others">{{fi-icon}}&lt;/span>&lt;/li>\
+                                    &lt;/ul>\
+                                    &lt;ul class="list-inline pull-right">\
+                                        &lt;li>&lt;a class="icon-jfi-trash jFiler-item-trash-action">&lt;/a>&lt;/li>\
+                                    &lt;/ul>\
+                                &lt;/div>\
+                            &lt;/div>\
+                        &lt;/div>\
+                    &lt;/li>',
+        progressBar: '&lt;div class="bar">&lt;/div>',
+        itemAppendToEnd: false,
+        removeConfirmation: true,
+        _selectors: {
+            list: '.jFiler-items-list',
+            item: '.jFiler-item',
+            progressBar: '.bar',
+            remove: '.jFiler-item-trash-action'
+        }
+    },
+    dragDrop: {
+        dragEnter: null,
+        dragLeave: null,
+        drop: null,
+    },
+    uploadFile: {
+        url: "./php/upload.php",
+        data: null,
+        type: 'POST',
+        enctype: 'multipart/form-data',
+        beforeSend: function(){},
+        success: function(data, el){
+            var parent = el.find(".jFiler-jProgressBar").parent();
+            el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                $("&lt;div class=\"jFiler-item-others text-success\">&lt;i class=\"icon-jfi-check-circle\">&lt;/i> Success&lt;/div>").hide().appendTo(parent).fadeIn("slow");    
+            });
+        },
+        error: function(el){
+            var parent = el.find(".jFiler-jProgressBar").parent();
+            el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                $("&lt;div class=\"jFiler-item-others text-error\">&lt;i class=\"icon-jfi-minus-circle\">&lt;/i> Error&lt;/div>").hide().appendTo(parent).fadeIn("slow");    
+            });
+        },
+        statusCode: null,
+        onProgress: null,
+        onComplete: null
+    },
+    onRemove: function(itemEl, file){
+        var file = file.name;
+        $.post('./php/remove_file.php', {file: file});
+    }
+});</pre></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <b>Result:</b>
+                                            <br><br>
+                                            <input type="file" name="files[]" id="demo-fileInput-6" multiple>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane pt20 pb20 fade" id="demo-instant-upload">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b>Example 5:</b>
+                                            <br><br>
+                                            <p>In this example we activated Instantly Upload feature. After choosing a file, it should automatically upload it!</p>
+                                            <div class="pre-box collapsed"><div class="pre-collapse"><i class="fa fa-code pull-left"></i> + Show the source code</div><pre class="prettyprint lang-js">$('#filer_input').filer({
+    showThumbs: true,
+    templates: {
+        box: '&lt;ul class="jFiler-items-list jFiler-items-grid">&lt;/ul>',
+        item: '&lt;li class="jFiler-item">\
+                    &lt;div class="jFiler-item-container">\
+                        &lt;div class="jFiler-item-inner">\
+                            &lt;div class="jFiler-item-thumb">\
+                                &lt;div class="jFiler-item-status">&lt;/div>\
+                                &lt;div class="jFiler-item-info">\
+                                    &lt;span class="jFiler-item-title">&lt;b title="{{fi-name}}">{{fi-name | limitTo: 25}}&lt;/b>&lt;/span>\
+                                    &lt;span class="jFiler-item-others">{{fi-size2}}&lt;/span>\
+                                &lt;/div>\
+                                {{fi-image}}\
+                            &lt;/div>\
+                            &lt;div class="jFiler-item-assets jFiler-row">\
+                                &lt;ul class="list-inline pull-left">\
+                                    &lt;li>{{fi-progressBar}}&lt;/li>\
+                                &lt;/ul>\
+                                &lt;ul class="list-inline pull-right">\
+                                    &lt;li>&lt;a class="icon-jfi-trash jFiler-item-trash-action">&lt;/a>&lt;/li>\
+                                &lt;/ul>\
+                            &lt;/div>\
+                        &lt;/div>\
+                    &lt;/div>\
+                &lt;/li>',
+        itemAppend: '&lt;li class="jFiler-item">\
+                        &lt;div class="jFiler-item-container">\
+                            &lt;div class="jFiler-item-inner">\
+                                &lt;div class="jFiler-item-thumb">\
+                                    &lt;div class="jFiler-item-status">&lt;/div>\
+                                    &lt;div class="jFiler-item-info">\
+                                        &lt;span class="jFiler-item-title">&lt;b title="{{fi-name}}">{{fi-name | limitTo: 25}}&lt;/b>&lt;/span>\
+                                        &lt;span class="jFiler-item-others">{{fi-size2}}&lt;/span>\
+                                    &lt;/div>\
+                                    {{fi-image}}\
+                                &lt;/div>\
+                                &lt;div class="jFiler-item-assets jFiler-row">\
+                                    &lt;ul class="list-inline pull-left">\
+                                        &lt;li>&lt;span class="jFiler-item-others">{{fi-icon}}&lt;/span>&lt;/li>\
+                                    &lt;/ul>\
+                                    &lt;ul class="list-inline pull-right">\
+                                        &lt;li>&lt;a class="icon-jfi-trash jFiler-item-trash-action">&lt;/a>&lt;/li>\
+                                    &lt;/ul>\
+                                &lt;/div>\
+                            &lt;/div>\
+                        &lt;/div>\
+                    &lt;/li>',
+        progressBar: '&lt;div class="bar">&lt;/div>',
+        itemAppendToEnd: false,
+        removeConfirmation: true,
+        _selectors: {
+            list: '.jFiler-items-list',
+            item: '.jFiler-item',
+            progressBar: '.bar',
+            remove: '.jFiler-item-trash-action'
+        }
+    },
+    uploadFile: {
+        url: "./php/upload.php",
+        data: null,
+        type: 'POST',
+        enctype: 'multipart/form-data',
+        beforeSend: function(){},
+        success: function(data, el){
+            var parent = el.find(".jFiler-jProgressBar").parent();
+            el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                $("&lt;div class=\"jFiler-item-others text-success\">&lt;i class=\"icon-jfi-check-circle\">&lt;/i> Success&lt;/div>").hide().appendTo(parent).fadeIn("slow");    
+            });
+        },
+        error: function(el){
+            var parent = el.find(".jFiler-jProgressBar").parent();
+            el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+                $("&lt;div class=\"jFiler-item-others text-error\">&lt;i class=\"icon-jfi-minus-circle\">&lt;/i> Error&lt;/div>").hide().appendTo(parent).fadeIn("slow");    
+            });
+        },
+        statusCode: null,
+        onProgress: null,
+        onComplete: null
+    },
+    onRemove: function(itemEl, file){
+        var file = file.name;
+        $.post('./php/remove_file.php', {file: file});
+    }
+});</pre></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <b>Result:</b>
+                                            <br><br>
+                                            <input type="file" name="files[]" id="demo-fileInput-7" multiple>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane pt20 pb20 fade" id="demo-edit-mode">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <b>Example 6:</b>
+                                            <br><br>
+                                            <p>In this example we activated <b>addMore</b> option and added 2 files(this files were already uploaded). Now you can edit the 2 uploaded files or add some more.</p>
+                                            <div class="pre-box collapsed"><div class="pre-collapse"><i class="fa fa-code pull-left"></i> + Show the source code</div><pre class="prettyprint lang-js">$('#filer_input').filer({
+    showThumbs: true,
+    addMore: true,
+    files: [
+        {
+            name: "appended_file.jpg",
+            size: 5453,
+            type: "image/jpg",
+            file: "http://dummyimage.com/720x480/f9f9f9/191a1a.jpg"
+        },
+        {
+            name: "appended_file_2.jpg",
+            size: 9453,
+            type: "image/jpg",
+            file: "http://dummyimage.com/640x480/f9f9f9/191a1a.jpg"
+        }
+    ],
+    templates: {
+        box: '&lt;ul class="jFiler-items-list jFiler-items-grid">&lt;/ul>',
+        item: '&lt;li class="jFiler-item">\
+                    &lt;div class="jFiler-item-container">\
+                        &lt;div class="jFiler-item-inner">\
+                            &lt;div class="jFiler-item-thumb">\
+                                &lt;div class="jFiler-item-status">&lt;/div>\
+                                &lt;div class="jFiler-item-info">\
+                                    &lt;span class="jFiler-item-title">&lt;b title="{{fi-name}}">{{fi-name | limitTo: 25}}&lt;/b>&lt;/span>\
+                                    &lt;span class="jFiler-item-others">{{fi-size2}}&lt;/span>\
+                                &lt;/div>\
+                                {{fi-image}}\
+                            &lt;/div>\
+                            &lt;div class="jFiler-item-assets jFiler-row">\
+                                &lt;ul class="list-inline pull-left">\
+                                    &lt;li>{{fi-progressBar}}&lt;/li>\
+                                &lt;/ul>\
+                                &lt;ul class="list-inline pull-right">\
+                                    &lt;li>&lt;a class="icon-jfi-trash jFiler-item-trash-action">&lt;/a>&lt;/li>\
+                                &lt;/ul>\
+                            &lt;/div>\
+                        &lt;/div>\
+                    &lt;/div>\
+                &lt;/li>',
+        itemAppend: '&lt;li class="jFiler-item">\
+                        &lt;div class="jFiler-item-container">\
+                            &lt;div class="jFiler-item-inner">\
+                                &lt;div class="jFiler-item-thumb">\
+                                    &lt;div class="jFiler-item-status">&lt;/div>\
+                                    &lt;div class="jFiler-item-info">\
+                                        &lt;span class="jFiler-item-title">&lt;b title="{{fi-name}}">{{fi-name | limitTo: 25}}&lt;/b>&lt;/span>\
+                                        &lt;span class="jFiler-item-others">{{fi-size2}}&lt;/span>\
+                                    &lt;/div>\
+                                    {{fi-image}}\
+                                &lt;/div>\
+                                &lt;div class="jFiler-item-assets jFiler-row">\
+                                    &lt;ul class="list-inline pull-left">\
+                                        &lt;li>&lt;span class="jFiler-item-others">{{fi-icon}}&lt;/span>&lt;/li>\
+                                    &lt;/ul>\
+                                    &lt;ul class="list-inline pull-right">\
+                                        &lt;li>&lt;a class="icon-jfi-trash jFiler-item-trash-action">&lt;/a>&lt;/li>\
+                                    &lt;/ul>\
+                                &lt;/div>\
+                            &lt;/div>\
+                        &lt;/div>\
+                    &lt;/li>',
+        itemAppendToEnd: false,
+        removeConfirmation: true,
+        _selectors: {
+            list: '.jFiler-items-list',
+            item: '.jFiler-item',
+            remove: '.jFiler-item-trash-action'
+        }
+    }
+});</pre></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <b>Result:</b>
+                                            <br><br>
+                                            <input type="file" name="files[]" id="demo-fileInput-8" multiple>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+	
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+    <script src="js/jquery.filer.min.js" type="text/javascript"></script>
+    <script src="js/prettify.js" type="text/javascript"></script>
+    <script src="js/scripts.js" type="text/javascript"></script>
+    <script src="js/custom.js" type="text/javascript"></script>
+</body>
+</html>

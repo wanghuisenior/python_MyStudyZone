@@ -57,13 +57,13 @@
             },
             setProgress: function(progress) {
                 progress = Math.max(Math.min(progress, 1), 0);
-                var progressElement = button.querySelector(".ladda-progress");
+                var progressElement = button.querySelector(".ladda-top_loading_progress");
                 if (progress === 0 && progressElement && progressElement.parentNode) {
                     progressElement.parentNode.removeChild(progressElement);
                 } else {
                     if (!progressElement) {
                         progressElement = document.createElement("div");
-                        progressElement.className = "ladda-progress";
+                        progressElement.className = "ladda-top_loading_progress";
                         button.appendChild(progressElement);
                     }
                     progressElement.style.width = (progress || 0) * button.offsetWidth + "px";

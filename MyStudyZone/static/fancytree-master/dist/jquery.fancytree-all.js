@@ -2864,7 +2864,7 @@ Fancytree.prototype = /** @lends Fancytree# */{
 	 *   }
 	 * });
 	 * // Use deferred promise:
-	 * tree.loadKeyPath("/_3/_23/_26/_27").progress(function(data){
+	 * tree.loadKeyPath("/_3/_23/_26/_27").top_loading_progress(function(data){
 	 *   if(data.status === "loaded") {
 	 *     console.log("loaded intermediate node " + data.node);
 	 *   }else if(data.status === "ok") {
@@ -2930,7 +2930,7 @@ Fancytree.prototype = /** @lends Fancytree# */{
 			// targetList.push({ parent: parent, segList: path.split(sep)/* , path: path*/});
 		}
 		// The timeout forces async behavior always (even if nodes are all loaded)
-		// This way a potential progress() event will fire.
+		// This way a potential top_loading_progress() event will fire.
 		setTimeout(function(){
 			self._loadKeyPathImpl(dfd, opts, parent, pathSegList).done(function(){
 				dfd.resolve();
@@ -4397,7 +4397,7 @@ $.extend(Fancytree.prototype,
 						// See #716, #717
 						tree.debug("use specified effect (" + effect.effect + ") with the jqueryui.toggle method");
 
-						// try to stop an animation that might be already in progress
+						// try to stop an animation that might be already in top_loading_progress
 						$(node.ul).stop(true, true); //< does not work after resetLazy has been called for a node whose animation wasn't complete and effect was "blind"
 
 						// dirty fix to remove a defunct animation (effect: "blind") after resetLazy has been called

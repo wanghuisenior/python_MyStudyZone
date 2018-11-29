@@ -3056,7 +3056,7 @@ THE SOFTWARE.
                 var data = { row: $row, record: $row.data('record'), deleteConfirm: true, deleteConfirmMessage: deleteConfirmMessage, cancel: false, cancelMessage: null };
                 self.options.deleteConfirmation(data);
 
-                //If delete progress is cancelled
+                //If delete top_loading_progress is cancelled
                 if (data.cancel) {
 
                     //If a canlellation reason is specified

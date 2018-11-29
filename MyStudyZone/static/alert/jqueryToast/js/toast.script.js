@@ -62,7 +62,7 @@
         }
 
         if($options.has_progress && $options.timeout > 0){
-            $('<div class="toast-progress"></div>').appendTo($element);
+            $('<div class="toast-top_loading_progress"></div>').appendTo($element);
         }
 
         if($options.sticky){
@@ -137,7 +137,7 @@
 		if($options.timeout > 0){
 			setTimeout(removeToast, $options.timeout);
             if($options.has_progress){
-                $(".toast-progress", $element).animate({"width":"100%"}, $options.timeout);
+                $(".toast-top_loading_progress", $element).animate({"width":"100%"}, $options.timeout);
             }
 		}        
 

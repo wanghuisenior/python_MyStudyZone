@@ -16,8 +16,8 @@ var Lobibox = Lobibox || {};
     Lobibox.confirm = function (options) {
         return new LobiboxConfirm(options);
     };
-    //User can set default properties for progress in the following way
-    //Lobibox.progress.DEFAULT_OPTIONS = object;
+    //User can set default properties for top_loading_progress in the following way
+    //Lobibox.top_loading_progress.DEFAULT_OPTIONS = object;
     Lobibox.progress = function (options) {
         return new LobiboxProgress(options);
     };
@@ -472,7 +472,7 @@ var Lobibox = Lobibox || {};
             'info'      : 'lobibox-info',
             'warning'   : 'lobibox-warning',
             'confirm'   : 'lobibox-confirm',
-            'progress'  : 'lobibox-progress',
+            'progress'  : 'lobibox-top_loading_progress',
             'prompt'    : 'lobibox-prompt',
             'default'   : 'lobibox-default',
             'window'    : 'lobibox-window'
@@ -788,19 +788,19 @@ var Lobibox = Lobibox || {};
         },
         _createProgressbar: function(){
             var me = this;
-            var outer = $('<div class="lobibox-progress-bar-wrapper lobibox-progress-outer"></div>')
-                    .append('<div class="lobibox-progress-bar lobibox-progress-element"></div>')
+            var outer = $('<div class="lobibox-top_loading_progress-bar-wrapper lobibox-top_loading_progress-outer"></div>')
+                    .append('<div class="lobibox-top_loading_progress-bar lobibox-top_loading_progress-element"></div>')
                     ;
             if (me.$options.showProgressLabel){
-                outer.append('<span class="lobibox-progress-text" data-role="progress-text"></span>');
+                outer.append('<span class="lobibox-top_loading_progress-text" data-role="top_loading_progress-text"></span>');
             }
            
             return outer;
         },
         /**
-         * Set progress value
+         * Set top_loading_progress value
          * 
-         * @param {Integer} progress "progress value"
+         * @param {Integer} progress "top_loading_progress value"
          * @returns {Instance}
          */
         setProgress: function(progress){
@@ -814,12 +814,12 @@ var Lobibox = Lobibox || {};
             if (me.$progress === 100){
                 me._triggerEvent('progressCompleted');
             }
-            me.$el.find('.lobibox-progress-element').css('width', progress.toFixed(1)+"%");
-            me.$el.find('[data-role="progress-text"]').html(progress.toFixed(1)+"%");
+            me.$el.find('.lobibox-top_loading_progress-element').css('width', progress.toFixed(1)+"%");
+            me.$el.find('[data-role="top_loading_progress-text"]').html(progress.toFixed(1)+"%");
             return me;
         },
         /**
-         * Get progress value
+         * Get top_loading_progress value
          * 
          * @returns {Integer}
          */
@@ -830,9 +830,9 @@ var Lobibox = Lobibox || {};
     
     Lobibox.progress.DEFAULTS = {
         width               : 500,
-        showProgressLabel   : true,  // Show percentage of progress
-        label               : '',  // Show progress label
-        progressTpl         : false,  //Template of progress bar
+        showProgressLabel   : true,  // Show percentage of top_loading_progress
+        label               : '',  // Show top_loading_progress label
+        progressTpl         : false,  //Template of top_loading_progress bar
         
         //Events
         progressUpdated     : null,

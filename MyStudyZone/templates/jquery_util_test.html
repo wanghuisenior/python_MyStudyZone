@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>jQuery-Util demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="author" content="helang.love@qq.com">
     <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
@@ -12,10 +13,12 @@
 
     <script type="text/javascript" src="/static/assets/jQuery-Util.js"></script>
     <!-- nprogress-->
-    <link rel="stylesheet" type="text/css" href="/static/loading/progress/nprogress/nprogress.css">
-    <script type="text/javascript" src="/static/loading/progress/nprogress/nprogress.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/loading/top_loading_progress/nprogress/nprogress.css">
+    <script type="text/javascript" src="/static/loading/top_loading_progress/nprogress/nprogress.js"></script>
     <!-- topbar-->
-    <script type="text/javascript" src="/static/loading/progress/topbar/topbar.js"></script>
+    <script type="text/javascript" src="/static/loading/top_loading_progress/topbar/topbar.js"></script>
+    <!-- loadBar-->
+    <script type="text/javascript" src="/static/loading/top_loading_progress/loadbar/jquery.loadBar.js"></script>
     <!-- 按钮加载中动画 ladda-->
     <link rel="stylesheet" href="/static/loading/ladda-bootstrap-master/dist/ladda-themeless.css">
     <script src="/static/loading/ladda-bootstrap-master/dist/spin.js"></script>
@@ -53,13 +56,24 @@
     <script src="/static/fileupload/Simple-Ajax-Uploader-master/SimpleAjaxUploader.js"></script>
 
     <!--jQueryflexdatalist 自动完成插件-->
-    <link href="/static/autocomplete/jquery-flexdatalist-2.2.4/jquery.flexdatalist.css" rel="stylesheet" type="text/css">
+    <link href="/static/autocomplete/jquery-flexdatalist-2.2.4/jquery.flexdatalist.css" rel="stylesheet"
+          type="text/css">
     <script src="/static/autocomplete/jquery-flexdatalist-2.2.4/jquery.flexdatalist.js"></script>
 
     <!--jquery.typeahead.js 自动完成插件-->
-    <link href="/static/autocomplete/jquery-typeahead-2.10.6/dist/jquery.typeahead.css" rel="stylesheet" type="text/css">
+    <link href="/static/autocomplete/jquery-typeahead-2.10.6/dist/jquery.typeahead.css" rel="stylesheet"
+          type="text/css">
     <script src="/static/autocomplete/jquery-typeahead-2.10.6/dist/jquery.typeahead.js"></script>
-
+    <!--jquery.simpletree.js 树形菜单使用-->
+    <link href="/static/tree/jquery.simpletree/jquery.simple.tree.css" rel="stylesheet"
+          type="text/css">
+    <script src="/static/tree/jquery.simpletree/jquery.simple.tree.js"></script>
+    <!--jquery.ztree.js 树形菜单使用-->
+    <link href="/static/tree/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" rel="stylesheet"
+          type="text/css">
+    <script src="/static/tree/zTree_v3-master/js/jquery.ztree.core.js"></script>
+    <script src="/static/tree/zTree_v3-master/js/jquery.ztree.excheck.js"></script>
+    <script src="/static/tree/zTree_v3-master/js/jquery.ztree.exedit.js"></script>
     <style type="text/css">
         .panel-body.minHieht {
             min-height: 100px;
@@ -148,7 +162,8 @@
                 <div class="panel-body minHieht">
                     <h4><code>$.Util.win.*</code></h4>
                     <div>* 可选方法 <code>href(url,time)，open(url,time)，back()，reload(time)</code></div>
-                    <div><span>href：窗口跳转地址</span>，<span>open：打开新窗口</span>，<span>back：后退</span>，<span>reload：刷新页面</span></div>
+                    <div><span>href：窗口跳转地址</span>，<span>open：打开新窗口</span>，<span>back：后退</span>，<span>reload：刷新页面</span>
+                    </div>
                     <div>必传参数：<code>"url"</code>地址栏链接地址，可传参数：<code>"time"</code>延迟毫秒数，默认为0</div>
                 </div>
                 <div class="panel-footer">
@@ -176,7 +191,8 @@
                                 <div class="form-group">
                                     <label for="inputData" class="col-sm-2 control-label">输入数据</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputData" name="inputData" placeholder="请输入需要校验的数据"
+                                        <input type="text" class="form-control" id="inputData" name="inputData"
+                                               placeholder="请输入需要校验的数据"
                                                value="154306777@qq.com">
                                     </div>
                                 </div>
@@ -223,7 +239,8 @@
                                 <div class="form-group">
                                     <label for="inputName" class="col-sm-2 control-label">name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputName" name="userName" placeholder="用户名"
+                                        <input type="text" class="form-control" id="inputName" name="userName"
+                                               placeholder="用户名"
                                                value="admin">
                                     </div>
                                 </div>
@@ -247,7 +264,8 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="button" class="btn btn-success" onclick="serializeJSON()">提交</button>
+                                        <button type="button" class="btn btn-success" onclick="serializeJSON()">提交
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -271,6 +289,9 @@
                     <button type="button" class="btn btn-success" onclick="showTopbar(1)">展示topbar</button>
                     <button type="button" class="btn btn-success" onclick="showTopbar(2)">关闭topbar</button>
                     <button type="button" class="btn btn-success" onclick="showTopbar(3)">动态设置</button>
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-success" onclick="showTopbar(4)">loadBar</button>
 
                 </div>
             </div>
@@ -279,9 +300,11 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">加载状态展示</div>
                 <div class="panel-body minHieht">
-                    <button id="form-submit" class="btn btn-primary btn-lg ladda-button" data-style="expand-right" data-size="l"><span
+                    <button id="form-submit" class="btn btn-primary btn-lg ladda-button" data-style="expand-right"
+                            data-size="l"><span
                             class="ladda-label">Submit form</span></button>
-                    <button type="button" class="btn btn-success ladda-button" id="loadingButton" data-style="expand-right"
+                    <button type="button" class="btn btn-success ladda-button" id="loadingButton"
+                            data-style="expand-right"
                             onclick="showLoading()">加载中
                     </button>
                     <br><br>
@@ -289,10 +312,14 @@
                     <button type="button" class="btn btn-success" onclick="showLoading1()">动态设置</button>
                     <button type="button" class="btn btn-success" onclick="showLoading2()">fakeLoader</button>
                     <br><br>
-                    <button type="button" class="btn btn-success" onclick="show_bootstrap_waitingfor(1)">waitingfor</button>
-                    <button type="button" class="btn btn-success" onclick="show_bootstrap_waitingfor(2)">waitingfor</button>
-                    <button type="button" class="btn btn-success" onclick="show_bootstrap_waitingfor(3)">waitingfor</button>
-                    <button type="button" class="btn btn-success" onclick="show_bootstrap_waitingfor(4)">waitingfor</button>
+                    <button type="button" class="btn btn-success" onclick="show_bootstrap_waitingfor(1)">waitingfor
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="show_bootstrap_waitingfor(2)">waitingfor
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="show_bootstrap_waitingfor(3)">waitingfor
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="show_bootstrap_waitingfor(4)">waitingfor
+                    </button>
 
                 </div>
             </div>
@@ -319,7 +346,8 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">使用moment.js / dayjs 轻松管理日期和时间</div>
                 <div class="panel-body minHieht">
-                    <button type="button" class="btn btn-success" onclick="date_operator(1)">momentjs获取当前时间，并格式化</button>
+                    <button type="button" class="btn btn-success" onclick="date_operator(1)">momentjs获取当前时间，并格式化
+                    </button>
                     <br><br>
                     <button type="button" class="btn btn-success" onclick="date_operator(2)">dayjs获取当前时间，并格式化</button>
                     <br><br>
@@ -342,25 +370,29 @@
                         <div class="form-group">
                             <label for="form_pwd" class="col-md-2 control-label">密码</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" id="form_pwd" name="form_pwd" placeholder="请输入密码">
+                                <input type="text" class="form-control" id="form_pwd" name="form_pwd"
+                                       placeholder="请输入密码">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="form_confirm_pwd" class="col-md-2 control-label">确认密码</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" id="form_confirm_pwd" name="form_confirm_pwd" placeholder="请重复密码">
+                                <input type="text" class="form-control" id="form_confirm_pwd" name="form_confirm_pwd"
+                                       placeholder="请重复密码">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="form_email" class="col-md-2 control-label">邮箱地址</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" id="form_email" name="form_email" placeholder="请输入邮箱地址">
+                                <input type="text" class="form-control" id="form_email" name="form_email"
+                                       placeholder="请输入邮箱地址">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="form_phone" class="col-md-2 control-label">手机号码</label>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" id="form_phone" name="form_phone" placeholder="请输入手机号">
+                                <input type="text" class="form-control" id="form_phone" name="form_phone"
+                                       placeholder="请输入手机号">
                             </div>
                         </div>
 
@@ -397,7 +429,8 @@
                             </div>
                             <div class="col-xs-10">
                                 <div id="progressOuter" class="progress progress-striped active" style="display:none;">
-                                    <div id="progressBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45"
+                                    <div id="progressBar" class="progress-bar progress-bar-success" role="progressbar"
+                                         aria-valuenow="45"
                                          aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                                     </div>
                                 </div>
@@ -443,6 +476,30 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-6 col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">树插件</div>
+                <div class="panel-body minHieht">
+                    <ul id="ztreeDemo" class="ztree"></ul>
+                    [ <a id="refreshNode" href="#" onclick="return false;">重新加载</a> ]
+                    [ <a id="addNode" href="#" onclick="return false;">追加</a> ]<br>
+                    <span class="text-danger">“悄悄地”操作只能针对 折叠状态 的父节点</span><br>
+                    [ <a id="refreshNodeSilent" href="#" onclick="return false;">悄悄地 重新加载</a> ]&nbsp;&nbsp;&nbsp;&nbsp;
+                    [ <a id="addNodeSilent" href="#" onclick="return false;">悄悄地 追加</a> ]
+                    <br>
+                    <span class="text-danger">updateNode 方法更新节点</span><br>
+                    [ <a id="rename" href="#" onclick="return false;">换名字</a> ]
+                    <br>
+                    单个节点(不包括子节点)--[ <a id="toggleBtn" href="#" onclick="return false;">展开 / 折叠 切换</a> ]<br>
+                    单个节点(包括子节点)--[ <a id="expandSonBtn" href="#" onclick="return false;">展开</a> ]
+                    [ <a id="collapseSonBtn" href="#" onclick="return false;">折叠</a> ]<br>
+                    全部节点--[ <a id="expandAllBtn" href="#" onclick="return false;">展开</a> ]
+                    &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="collapseAllBtn" href="#" onclick="return false;">折叠</a> ]
+                    <br>[ <a id="getChecked" href="#" onclick="return false;">获取勾选数据</a> ]
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <br>
@@ -455,7 +512,8 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span>
                 </button>
                 <h5 class="modal-title"><i class="fa fa-exclamation-circle"></i> [Title]</h5>
             </div>
@@ -537,29 +595,50 @@
     }
 
     function showTopbar(i) {
-        if (i == 1) {
-            topbar.show()
-        } else if (i == 2) {
-            topbar.hide()
-        } else if (i == 3) {
-            topbar.config({
-                autoRun: false,
-                barThickness: 5,
-                barColors: {
-                    '0': 'rgba(26,  188, 156, .7)',
-                    '.3': 'rgba(41,  128, 185, .7)',
-                    '1.0': 'rgba(231, 76,  60,  .7)'
-                },
-                shadowBlur: 5,
-                shadowColor: 'rgba(0, 0, 0, .5)'
-            })
-            topbar.show();
-            (function step() {
-                console.log('top', topbar.progress())
+        switch (i) {
+            case 1:
+                topbar.show()
+                break;
+            case 2:
+                topbar.hide()
+                break;
+            case 3:
+                topbar.config({
+                    autoRun: false,
+                    barThickness: 5,
+                    barColors: {
+                        '0': 'rgba(26,  188, 156, .7)',
+                        '.3': 'rgba(41,  128, 185, .7)',
+                        '1.0': 'rgba(231, 76,  60,  .7)'
+                    },
+                    shadowBlur: 5,
+                    shadowColor: 'rgba(0, 0, 0, .5)'
+                })
+                topbar.show();
+                (function step() {
+                    console.log('top', topbar.progress())
+                    setTimeout(function () {
+                        if (topbar.progress('+.01') < 1) step()
+                    }, 20)
+                })()
+                break;
+            case 4:
+                // main color
+                loadBar.mainColor = 'red';
+
+                // strip color
+                loadBar.stripColor = 'green';
+
+                // animation speed
+                loadBar.barSpeed = 5;
+
+                // bar height
+                loadBar.barHeight = 5;
+                loadBar.trigger('show');
                 setTimeout(function () {
-                    if (topbar.progress('+.01') < 1) step()
-                }, 20)
-            })()
+                    loadBar.trigger('hide');
+                }, 2000);
+                break;
         }
     }
 
@@ -832,15 +911,15 @@
                 //dayjs().set('second', 30);
                 //可用单位
 
-                //单位	缩写	描述
-                //date		日期
-                //day	d	星期几 (星期天 0, 星期六 6)
-                //month	M	月
-                //year	y	年
-                //hour	h	时
-                //minute	m	分
-                //second	s	秒
-                //millisecond	ms	毫秒
+                //单位  缩写  描述
+                //date    日期
+                //day d 星期几 (星期天 0, 星期六 6)
+                //month M 月
+                //year  y 年
+                //hour  h 时
+                //minute  m 分
+                //second  s 秒
+                //millisecond ms  毫秒
                 //操作
 
                 //您可以对 Dayjs 对象如下增加减少之类的操作：
@@ -857,30 +936,30 @@
 
                 //格式化
                 //dayjs().format(String);
-                //Format	Output	Description
-                //YY	18	两位数的年份
-                //YYYY	2018	四位数的年份
-                //M	1-12	月份，从 1 开始
-                //MM	01-12	月份，两位数
-                //MMM	Jan-Dec	简写的月份名称
-                //MMMM	January-December	完整的月份名称
-                //D	1-31	月份里的一天
-                //DD	01-31	月份里的一天，两位数
-                //d	0-6	一周中的一天，星期天是 0
-                //dd	Su-Sa	最简写的一周中一天的名称
-                //ddd	Sun-Sat	简写的一周中一天的名称
-                //dddd	Sunday-Saturday	一周中一天的名称
-                //H	0-23	小时
-                //HH	00-23	小时，两位数
-                //m	0-59	分钟
-                //mm	00-59	分钟，两位数
-                //s	0-59	秒
-                //ss	00-59	秒 两位数
-                //SSS	000-999	秒 三位数
-                //Z	+5:00	UTC 的偏移量
-                //ZZ	+0500	UTC 的偏移量，数字前面加上 0
-                //A	AM PM
-                //a	am pm
+                //Format  Output  Description
+                //YY  18  两位数的年份
+                //YYYY  2018  四位数的年份
+                //M 1-12  月份，从 1 开始
+                //MM  01-12 月份，两位数
+                //MMM Jan-Dec 简写的月份名称
+                //MMMM  January-December  完整的月份名称
+                //D 1-31  月份里的一天
+                //DD  01-31 月份里的一天，两位数
+                //d 0-6 一周中的一天，星期天是 0
+                //dd  Su-Sa 最简写的一周中一天的名称
+                //ddd Sun-Sat 简写的一周中一天的名称
+                //dddd  Sunday-Saturday 一周中一天的名称
+                //H 0-23  小时
+                //HH  00-23 小时，两位数
+                //m 0-59  分钟
+                //mm  00-59 分钟，两位数
+                //s 0-59  秒
+                //ss  00-59 秒 两位数
+                //SSS 000-999 秒 三位数
+                //Z +5:00 UTC 的偏移量
+                //ZZ  +0500 UTC 的偏移量，数字前面加上 0
+                //A AM PM
+                //a am pm
 
                 //时间差
                 //获取两个 Dayjs 对象的时间差，默认毫秒。
@@ -1161,8 +1240,284 @@
         },
         debug: true
     });
+    //ztree
+    var zNodes1 = [
+        {
+            name: "父节点1", open: true, children: [
+                {name: "子节点1"}, {name: "子节点2"}]
+        },
+        {
+            name: "父节点2", open: false, children: [
+                {name: "子节点2"}, {name: "子节点2"}]
+        }
+    ];
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true
+            }
+        }
+    };
+    var zNodes2 = [
+        {id: 1, pId: 0, name: "父节点1 - 展开", open: true},
+        {id: 11, pId: 1, name: "父节点11 - 展开", open: true},
+        {id: 111, pId: 11, name: "叶子节点111"},
+        {id: 112, pId: 11, name: "叶子节点112"},
+        {id: 113, pId: 11, name: "叶子节点113"},
+        {id: 114, pId: 11, name: "叶子节点114"},
+        {id: 12, pId: 1, name: "父节点12 - 折叠"},
+        {id: 121, pId: 12, name: "叶子节点121"},
+        {id: 122, pId: 12, name: "叶子节点122"},
+        {id: 123, pId: 12, name: "叶子节点123"},
+        {id: 124, pId: 12, name: "叶子节点124"},
+        {id: 13, pId: 1, name: "父节点13 - 没有子节点", isParent: true},
+        {id: 3, pId: 0, name: "父节点3 - 没有子节点", isParent: true}
+    ];
+    //参数1： dom ul节点，参数2： setting 配置，参数3：数据
+    //标准json数据
+    //$.fn.zTree.init($("#ztreeDemo"), {}, zNodes1);
+    //简单json数据：
+    /**
+     *直接加载数据
+     *
+     *
 
+     $.fn.zTree.init($("#ztreetest"), {
+        data: {
+            simpleData: { //使用简单json加载方式
+                enable: true
+            }
+        },
+        view: { //不显示连接线
+            showLine: false
+        },
+    }, zNodes2);
+     */
 
+    /**
+     * 异步加载数据
+     */
+    var log, className = "dark";
+    $.fn.zTree.init($("#ztreeDemo"), {
+        view: {
+            addHoverDom: function (treeId, treeNode) {
+                var newCount = 1;
+                var sObj = $("#" + treeNode.tId + "_span");
+                if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
+                var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+                    + "' title='add node111' onfocus='this.blur();'></span>";
+                sObj.after(addStr);
+                var btn = $("#addBtn_" + treeNode.tId);
+                if (btn) btn.bind("click", function () {
+                    var zTree = $.fn.zTree.getZTreeObj("ztreeDemo");
+                    zTree.addNodes(treeNode, {id: (100 + newCount), pId: treeNode.id, name: "new node" + (newCount++)});
+                    return false;
+                });
+            },
+            removeHoverDom: function (treeId, treeNode) {
+                $("#addBtn_" + treeNode.tId).unbind().remove();
+            },
+            selectedMulti: false,
+            dblClickExpand: false,//是否启用双击隐藏
+            showLine: true, //是否启用连接线
+        },
+        check: {
+            enable: true //显示复选框,需要引入jquery.ztree.excheck.js
+        },
+        edit: {
+            enable: true,//支持编辑模式，需引入jquery.ztree.exedit.js
+            editNameSelectAll: true,
+            showRemoveBtn: function (treeId, treeNode) {
+                //return !treeNode.isFirstNode; //不能删除最顶端的节点
+                return true;
+            },
+            showRenameBtn: function (treeId, treeNode) {
+                //return !treeNode.isLastNode;//不能重命名最后一个节点
+                return true;
+            },
+            showDeleteBtn: function () {
+                return true;
+            }
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+
+        async: {
+            enable: true,
+            url: 'get_ztree_nodes',
+            autoParam: ["id", "name=n", "level=lv"],
+            otherParam: {"zTreeIsLoad": "false"}, //防止异步加载设置isParent:true后没有子节点的父节点循环加载整棵树
+            //dataFilter: filter
+        },
+        callback: {
+            beforeClick: function (treeId, treeNode) {
+                console.log('beforeClick')
+                /**
+                 *
+                 if (!treeNode.isParent) {
+                    alert("请选择父节点");
+                    return false;
+                } else {
+                    return true;
+                }
+                 */
+            },
+
+            beforeAsync: function (treeId) {
+                console.log('beforeAsync', treeId)
+            },
+            onAsyncSuccess: function (event, treeId, treeNode, result) {
+                console.log('onAsyncSuccess', treeId)
+                //防止异步加载设置isParent:true后没有子节点的父节点循环加载整棵树
+                var treeObj = $.fn.zTree.getZTreeObj(treeId);
+                treeObj.setting.async.otherParam = {"zTreeIsLoad": true};
+            },
+            onAsyncError: function (event, treeId, treeNode, XMLHttpRequest, textStatus, errorThrown) {
+                console.log('onAsyncError')
+            },
+            onClick: function (event, treeId, treeNode, clickFlag) {
+                //按住ctrl键可以进行多选，是否多选的状态为clickFlag
+                console.log('onClick', treeNode)
+                //zTree 默认不提供单击展开节点的功能，但可以利用 onClick 事件回调函数轻松实现此功能
+                //为了避免与双击功能冲突，建议关闭双击展开节点的功能，请设置 setting.view.dblClickExpand = false
+                var zTree = $.fn.zTree.getZTreeObj("ztreeDemo");
+                zTree.expandNode(treeNode);
+            },
+            beforeDrag: function (treeId, treeNodes) {
+                return true;
+            },
+            beforeEditName: function (treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("ztreeDemo");
+                zTree.selectNode(treeNode);
+                setTimeout(function () {
+                    if (confirm("进入节点 -- " + treeNode.name + " 的编辑状态吗？")) {
+                        setTimeout(function () {
+                            zTree.editName(treeNode);
+                        }, 0);
+                    }
+                }, 0);
+                return false;
+            },
+            beforeRemove: function (treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("ztreeDemo");
+                zTree.selectNode(treeNode);
+                return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+            },
+            beforeRename: function (treeId, treeNode, newName) {
+                if (newName.length == 0) {
+                    setTimeout(function () {
+                        var zTree = $.fn.zTree.getZTreeObj("ztreeDemo");
+                        zTree.cancelEditName();
+                        alert("节点名称不能为空.");
+                    }, 0);
+                    return false;
+                }
+                return true;
+            },
+            onRemove: function (e, treeId, treeNode) {
+                console.log('onRemove')
+            },
+            onRename: function (e, treeId, treeNode) {
+                console.log('onRename', treeNode)
+            },
+        }
+    });
+
+    function refreshNode(e) {
+        var zTree = $.fn.zTree.getZTreeObj("ztreeDemo"),
+            type = e.data.type,
+            silent = e.data.silent,
+            nodes = zTree.getSelectedNodes();
+        if (nodes.length == 0) {
+            alert("请先选择一个父节点");
+        }
+        for (var i = 0, l = nodes.length; i < l; i++) {
+            zTree.reAsyncChildNodes(nodes[i], type, silent);
+            if (!silent) zTree.selectNode(nodes[i]);
+        }
+    }
+
+    function updateNode(e) {
+        var nameCount = 0, iconCount = 1
+        var zTree = $.fn.zTree.getZTreeObj("ztreeDemo"),
+            type = e.data.type,
+            nodes = zTree.getSelectedNodes();
+        if (nodes.length == 0) {
+            alert("请先选择一个节点");
+        }
+        for (var i = 0, l = nodes.length; i < l; i++) {
+            zTree.setting.view.fontCss = {};
+            if (type == "rename") {
+                nodes[i].name = nodes[i].name.replace(/_[\d]*$/g, "") + "_" + (nameCount++);
+            } else if (type == "icon") {
+                if (iconCount > 8) {
+                    nodes[i].iconSkin = null;
+                    iconCount = 1;
+                } else if (nodes[i].isParent) {
+                    nodes[i].iconSkin = nodes[i].iconSkin ? null : "pIcon01";
+                } else {
+                    nodes[i].iconSkin = "icon0" + (iconCount++);
+                }
+            }
+            zTree.updateNode(nodes[i]);
+        }
+    }
+
+    function expandNode(e) {
+        var zTree = $.fn.zTree.getZTreeObj("ztreeDemo"),
+            type = e.data.type,
+            nodes = zTree.getSelectedNodes();
+        if (type.indexOf("All") < 0 && nodes.length == 0) {
+            alert("请先选择一个父节点");
+        }
+
+        if (type == "expandAll") {
+            zTree.expandAll(true);
+        } else if (type == "collapseAll") {
+            zTree.expandAll(false);
+        } else {
+            var callbackFlag = $("#callbackTrigger").attr("checked");
+            for (var i = 0, l = nodes.length; i < l; i++) {
+                zTree.setting.view.fontCss = {};
+                if (type == "expand") {
+                    zTree.expandNode(nodes[i], true, null, null, callbackFlag);
+                } else if (type == "collapse") {
+                    zTree.expandNode(nodes[i], false, null, null, callbackFlag);
+                } else if (type == "toggle") {
+                    zTree.expandNode(nodes[i], null, null, null, callbackFlag);
+                } else if (type == "expandSon") {
+                    zTree.expandNode(nodes[i], true, true, null, callbackFlag);
+                } else if (type == "collapseSon") {
+                    zTree.expandNode(nodes[i], false, true, null, callbackFlag);
+                }
+            }
+        }
+    }
+
+    function getChecked(e) {
+        var zTree = $.fn.zTree.getZTreeObj("ztreeDemo"),
+            checkCount = zTree.getCheckedNodes(true).length,
+            nocheckCount = zTree.getCheckedNodes(false).length,
+            changeCount = zTree.getChangeCheckedNodes().length,
+            selectedNodes = zTree.getCheckedNodes();
+        console.log(checkCount, nocheckCount, changeCount, selectedNodes)
+    }
+
+    $("#refreshNode").bind("click", {type: "refresh", silent: false}, refreshNode);
+    $("#refreshNodeSilent").bind("click", {type: "refresh", silent: true}, refreshNode);
+    $("#addNode").bind("click", {type: "add", silent: false}, refreshNode);
+    $("#addNodeSilent").bind("click", {type: "add", silent: true}, refreshNode);
+    $("#rename").bind("click", {type: "rename"}, updateNode);
+    //$("#changeIcon").bind("click", {type: "icon"}, updateNode);
+    $("#toggleBtn").bind("click", {type: "toggle"}, expandNode);
+    $("#expandSonBtn").bind("click", {type: "expandSon"}, expandNode);
+    $("#collapseSonBtn").bind("click", {type: "collapseSon"}, expandNode);
+    $("#expandAllBtn").bind("click", {type: "expandAll"}, expandNode);
+    $("#collapseAllBtn").bind("click", {type: "collapseAll"}, expandNode);
+    $("#getChecked").bind("click", {type: "getChecked"}, getChecked);
 </script>
 </body>
 </html>

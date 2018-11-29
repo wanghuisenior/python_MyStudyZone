@@ -346,7 +346,7 @@ $.fn.ajaxSubmit = function(options) {
                         io.contentWindow.document.execCommand('Stop');
                     } catch(ignore) {}
                 }
-                $io.attr('src', s.iframeSrc); // abort op in progress
+                $io.attr('src', s.iframeSrc); // abort op in top_loading_progress
                 xhr.error = e;
                 if (s.error)
                     s.error.call(s.context, xhr, e, status);

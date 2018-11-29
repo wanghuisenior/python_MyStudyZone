@@ -710,9 +710,9 @@ ss.SimpleUpload = function( options ) {
 
     this._active = 0;
     this._disabled = false; // if disabled, clicking on button won't do anything
-    this._maxFails = 10; // max allowed failed progress updates requests in iframe mode
-    this._progKeys = {}; // contains the currently active upload ID progress keys
-    this._sizeFlags = {}; // Cache progress keys after setting sizeBox for fewer trips to the DOM
+    this._maxFails = 10; // max allowed failed top_loading_progress updates requests in iframe mode
+    this._progKeys = {}; // contains the currently active upload ID top_loading_progress keys
+    this._sizeFlags = {}; // Cache top_loading_progress keys after setting sizeBox for fewer trips to the DOM
     this._btns = [];
 
     this.addButton( this._opts.button );
@@ -848,7 +848,7 @@ ss.SimpleUpload.prototype = {
     },
 
     /**
-    * Designate an element as a progress bar
+    * Designate an element as a top_loading_progress bar
     * The CSS width % of the element will be updated as the upload progresses
     */
     setProgressBar: function( elem ) {
@@ -857,7 +857,7 @@ ss.SimpleUpload.prototype = {
     },
 
     /**
-    * Designate an element to receive a string containing progress % during upload
+    * Designate an element to receive a string containing top_loading_progress % during upload
     * Note: Uses innerHTML, so any existing child elements will be wiped out
     */
     setPctBox: function( elem ) {
@@ -876,7 +876,7 @@ ss.SimpleUpload.prototype = {
 
     /**
     * Designate an element to be removed from DOM when upload is completed
-    * Useful for removing progress bar, file size, etc. after upload
+    * Useful for removing top_loading_progress bar, file size, etc. after upload
     */
     setProgressContainer: function( elem ) {
         "use strict";
@@ -1277,7 +1277,7 @@ ss.IframeUpload = {
                 form.appendChild( ss.getHidden( opts.sessionProgressName, key ) );
             }
 
-            // PHP APC upload progress key field must come before the file field
+            // PHP APC upload top_loading_progress key field must come before the file field
             else if ( opts.progressUrl ) {
                 form.appendChild( ss.getHidden( opts.keyParamName, key ) );
             }
@@ -1401,7 +1401,7 @@ ss.IframeUpload = {
             }, 1);
 
             if ( self._hasProgUrl ) {
-                // Add progress key to active key array
+                // Add top_loading_progress key to active key array
                 self._progKeys[key] = 1;
 
                 window.setTimeout( function() {
@@ -1417,8 +1417,8 @@ ss.IframeUpload = {
     },
 
     /**
-    * Retrieves upload progress updates from the server
-    * (For fallback upload progress support)
+    * Retrieves upload top_loading_progress updates from the server
+    * (For fallback upload top_loading_progress support)
     */
     _getProg: function( key, progBar, sizeBox, pctBox, counter ) {
         "use strict";
@@ -1446,7 +1446,7 @@ ss.IframeUpload = {
             url = opts.sessionProgressUrl;
         }
 
-        // PHP APC upload progress
+        // PHP APC upload top_loading_progress
         else if ( opts.progressUrl ) {
             url = opts.progressUrl +
             '?progresskey=' + encodeURIComponent( key ) +
@@ -1479,7 +1479,7 @@ ss.IframeUpload = {
                         response = ss.parseJSON( xhr.responseText );
 
                         if ( response === false ) {
-                            self.log( 'Error parsing progress response (expecting JSON)' );
+                            self.log( 'Error parsing top_loading_progress response (expecting JSON)' );
                             return;
                         }
 
@@ -1497,7 +1497,7 @@ ss.IframeUpload = {
                                 pct = 100;
 
                             } else if ( response.state == 'error' ) {
-                                self.log( 'Error requesting upload progress: ' + response.status );
+                                self.log( 'Error requesting upload top_loading_progress: ' + response.status );
                                 return;
                             }
                         }
@@ -1510,7 +1510,7 @@ ss.IframeUpload = {
                             }
                         }
 
-                        // Update progress bar width
+                        // Update top_loading_progress bar width
                         if ( pct ) {
                             if ( pctBox ) {
                                 pctBox.innerHTML = pct + '%';
@@ -1532,17 +1532,17 @@ ss.IframeUpload = {
                             opts.onUpdateFileSize.call( self, size );
                         }
 
-                        // Stop attempting progress checks if we keep failing
+                        // Stop attempting top_loading_progress checks if we keep failing
                         if ( !pct &&
                              !size &&
                              counter >= self._maxFails )
                         {
                             counter++;
-                            self.log( 'Failed progress request limit reached. Count: ' + counter );
+                            self.log( 'Failed top_loading_progress request limit reached. Count: ' + counter );
                             return;
                         }
 
-                        // Begin countdown until next progress update check
+                        // Begin countdown until next top_loading_progress update check
                         if ( pct < 100 && self._progKeys[key] ) {
                             window.setTimeout( function() {
                                 self._getProg( key, progBar, sizeBox, pctBox, counter );
@@ -1554,14 +1554,14 @@ ss.IframeUpload = {
                         // We didn't get a 2xx status so don't continue sending requests
                     } else {
                         delete self._progKeys[key];
-                        self.log( 'Error requesting upload progress: ' + status + ' ' + statusText );
+                        self.log( 'Error requesting upload top_loading_progress: ' + status + ' ' + statusText );
                     }
 
                     xhr = size = pct = status = statusText = response = null;
                 }
 
             } catch( e ) {
-                self.log( 'Error requesting upload progress: ' + e.message );
+                self.log( 'Error requesting upload top_loading_progress: ' + e.message );
             }
         };
 
@@ -1577,7 +1577,7 @@ ss.IframeUpload = {
                 xhr.onerror = function() {
                     delete self._progKeys[key];
                     key = null;
-                    self.log('Error requesting upload progress');
+                    self.log('Error requesting upload top_loading_progress');
                 };
 
                 // IE7 or some other dinosaur -- just give up
@@ -1594,13 +1594,13 @@ ss.IframeUpload = {
             xhr.onreadystatechange = callback;
             xhr.open( method, url, true );
 
-            // PHP session progress updates must be a POST request
+            // PHP session top_loading_progress updates must be a POST request
             if ( opts.sessionProgressUrl ) {
                 params = encodeURIComponent( opts.sessionProgressName ) + '=' + encodeURIComponent( key );
                 headers['Content-Type'] = 'application/x-www-form-urlencoded';
             }
 
-            // Set the upload progress header for Nginx
+            // Set the upload top_loading_progress header for Nginx
             if ( opts.nginxProgressUrl ) {
                 headers[opts.nginxProgressHeader] = key;
             }
@@ -1699,7 +1699,7 @@ ss.XhrUpload = {
             sizeBox.innerHTML = fileObj.size + 'K';
         }
 
-        // Begin progress bars at 0%
+        // Begin top_loading_progress bars at 0%
         if ( pctBox ) {
             pctBox.innerHTML = '0%';
         }

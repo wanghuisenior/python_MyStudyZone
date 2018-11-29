@@ -28,20 +28,26 @@ from study.views import jquery_util_test_view
 # {% url 'name' 参数 %}
 # 在Ajax中的使用 url: "{% url 'chart3' %}",
 urlpatterns = [
-    # 路由分发
-    # path('', default_views.index, name='index'),  # 主页
-    path('', default_views.index, name='index'),
-    path('', include('study.urls.bootstrap_urls')),
-    path('', include('study.urls.layui_urls')),
-    path('', include('study.urls.user_urls')),
-    path('jquery_util_test', jquery_util_test_view.jquery_util_test, name='jquery_util_test'),
-    path('jquery_util_ajx_test', jquery_util_test_view.jquery_util_ajx_test, name='jquery_util_ajx_test'),
-    path('jquery_util_ajax_fileupload', jquery_util_test_view.jquery_util_ajax_fileupload, name='jquery_util_ajax_fileupload'),
-    path('jquery_util_test_typeaheadjs', jquery_util_test_view.jquery_util_test_typeaheadjs, name='jquery_util_test_typeaheadjs'),
-    # 另一个app的url
-    path('itchat/', include('testApp.urls.itchat_url')),
-    # JTable数据表格测试
-    path('JTable_test', default_views.JTable_test, name='JTable_test'),
-    path('jtable_test_user_available', default_views.jtable_test_user_available, name='jtable_test_user_available'),
+	# 路由分发
+	# path('', default_views.index, name='index'),  # 主页
+	path('', default_views.index, name='index'),
+	path('', include('study.urls.bootstrap_urls')),
+	path('', include('study.urls.layui_urls')),
+	path('', include('study.urls.user_urls')),
+	path('jquery_util_test', jquery_util_test_view.jquery_util_test, name='jquery_util_test'),
+	path('jquery_util_ajx_test', jquery_util_test_view.jquery_util_ajx_test, name='jquery_util_ajx_test'),
+	path('jquery_util_ajax_fileupload', jquery_util_test_view.jquery_util_ajax_fileupload,
+		 name='jquery_util_ajax_fileupload'),
+	path('jquery_util_test_typeaheadjs', jquery_util_test_view.jquery_util_test_typeaheadjs,
+		 name='jquery_util_test_typeaheadjs'),
+	path('get_ztree_nodes', jquery_util_test_view.get_ztree_nodes, name='get_ztree_nodes'),
+	# 另一个app的url
+	path('itchat/', include('testApp.urls.itchat_url')),
+	# JTable数据表格测试
+	path('JTable_test', default_views.JTable_test, name='JTable_test'),
+	path('jtable_test_user_available', default_views.jtable_test_user_available, name='jtable_test_user_available'),
+	# DataTables测试
+	path('jquery_datatables_test', default_views.jquery_datatables_test, name='jquery_datatables_test'),
+	path('jquery_datatables_getdata', default_views.jquery_datatables_getdata, name='jquery_datatables_getdata'),
 
 ]

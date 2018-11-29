@@ -60,7 +60,7 @@ window.onload = function() {
         focusClass: 'focus',
         responseType: 'json',
         startXHR: function() {
-            progressOuter.style.display = 'block'; // make progress bar visible
+            progressOuter.style.display = 'block'; // make top_loading_progress bar visible
             this.setProgressBar( progressBar );
         },
         onSubmit: function() {
@@ -69,7 +69,7 @@ window.onload = function() {
           },
         onComplete: function( filename, response ) {
             btn.innerHTML = 'Choose Another File';
-            progressOuter.style.display = 'none'; // hide progress bar when upload is completed
+            progressOuter.style.display = 'none'; // hide top_loading_progress bar when upload is completed
 
             if ( !response ) {
                 msgBox.innerHTML = 'Unable to upload file';

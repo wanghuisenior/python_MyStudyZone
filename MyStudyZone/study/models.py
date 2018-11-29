@@ -17,24 +17,28 @@ from django.db import models
 # unique：如果为True, 这个字段在表中必须有唯一值，默认值是False
 # Create your models here.
 class User(models.Model):
-    # 使用uuid作为主键，auto_created无需在创建对象时指定主键的值
-    # MySQL数据库中UUIDField类型一定是32位的char类型，在数据库Model中，
-    # 开发者不需要设置max_length = xxx，因为这个max_length的数值默认的一定是32
-    user_id = models.UUIDField(primary_key=True, auto_created=True, default=uuid.uuid4, editable=False)
-    user_name = models.CharField(max_length=255)
-    user_tel = models.CharField(max_length=255)
-    user_email = models.EmailField(max_length=255)
-    user_info = models.TextField(blank=True, null=True)
-    create_time = models.DateTimeField(auto_now_add=True)  # auto_now无论是你添加还是修改对象，时间为你添加或者修改的时间
-    update_time = models.DateTimeField(auto_now=True)  # auto_now_add为添加时的时间，更新对象时不会有变动。
-    # 如果已经在setting配置了MEDIA_ROOT = os.path.join(BASE_DIR, "static/media")，那么将创建photos文件夹
-    image = models.ImageField(upload_to='photos', default='photos/default_user.jpg')
+	# 使用uuid作为主键，auto_created无需在创建对象时指定主键的值
+	# MySQL数据库中UUIDField类型一定是32位的char类型，在数据库Model中，
+	# 开发者不需要设置max_length = xxx，因为这个max_length的数值默认的一定是32
+	user_id = models.UUIDField(primary_key=True, auto_created=True, default=uuid.uuid4, editable=False)
+	user_name = models.CharField(max_length=255)
+	user_tel = models.CharField(max_length=255)
+	user_email = models.EmailField(max_length=255)
+	user_info = models.TextField(blank=True, null=True)
+	create_time = models.DateTimeField(auto_now_add=True)  # auto_now无论是你添加还是修改对象，时间为你添加或者修改的时间
+	update_time = models.DateTimeField(auto_now=True)  # auto_now_add为添加时的时间，更新对象时不会有变动。
+	# 如果已经在setting配置了MEDIA_ROOT = os.path.join(BASE_DIR, "static/media")，那么将创建photos文件夹
+	image = models.ImageField(upload_to='photos', default='photos/default_user.jpg')
 
-    # authors = models.ManyToManyField(Author)  # 多对多，会生成中间表book_authors
-    # publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)  # 一对多，将字段定义在多的端中
-    def encode2json(self):
-        return {'user_id': self.user_id, 'user_name': self.user_name, 'user_tel': self.user_tel, 'user_email': self.user_email,
-                'user_info': self.user_info, 'create_time': self.create_time, 'update_time': self.update_time}
+	class Meta:
+		ordering = ['-update_time']
+
+	# authors = models.ManyToManyField(Author)  # 多对多，会生成中间表book_authors
+	# publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)  # 一对多，将字段定义在多的端中
+	def encode2json(self):
+		return {'user_id': self.user_id, 'user_name': self.user_name, 'user_tel': self.user_tel,
+				'user_email': self.user_email,
+				'user_info': self.user_info, 'create_time': self.create_time, 'update_time': self.update_time}
 
 # 基本查询
 # exact：表示判等

@@ -54,13 +54,13 @@ This approach of assigning roles to elements provides developers with a great de
 
 ```javascript
 var sizeBox = document.getElementById('sizeBox'), // container for file size info
-    progress = document.getElementById('progress'); // the element we're using for a progress bar
+    progress = document.getElementById(top_loading_progress); top_loading_progress
 
 var uploader = new ss.SimpleUpload({
       button: 'uploadButton', // file upload button
       url: 'uploadHandler.php', // server side handler
       name: 'uploadfile', // upload parameter name        
-      progressUrl: 'uploadProgress.php', // enables cross-browser progress support (more info below)
+      progressUrl: 'uploadProgress.php', top_loading_progress
       responseType: 'json',
       allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
       maxSize: 1024, // kilobytes
@@ -69,7 +69,7 @@ var uploader = new ss.SimpleUpload({
       disabledClass: 'ui-state-disabled',
       onSubmit: function(filename, extension) {
           this.setFileSizeBox(sizeBox); // designate this element as file size container
-          this.setProgressBar(progress); // designate as progress bar
+          this.setProgressBar(progress); top_loading_progress
         },         
       onComplete: function(filename, response) {
           if (!response) {

@@ -466,7 +466,7 @@
           api.onupdate(position);
           api.oncomplete(position);
         } else {
-          // progress update
+          // top_loading_progress update
           api.onupdate(position);
         }
       };
@@ -2850,13 +2850,13 @@
           // update duration
           state.duration = Date.now() - state.timestamp;
 
-          // if we can't compute progress, we're not going to fire progress events
+          // if we can't compute top_loading_progress, we're not going to fire top_loading_progress events
           if (!computable) {
             state.progress = null;
             return;
           }
 
-          // update progress percentage
+          // update top_loading_progress percentage
           state.progress = current / total;
 
           // expose
@@ -2880,7 +2880,7 @@
       setSource: function setSource(source) {
         return (state.source = source);
       },
-      getProgress: getProgress, // file load progress
+      getProgress: getProgress, // file load top_loading_progress
       abort: abort, // abort file load
       load: load // start load
     });
@@ -2929,10 +2929,10 @@
     // create request
     var xhr = new XMLHttpRequest();
 
-    // progress of load
+    // top_loading_progress of load
     var process = /GET/i.test(options.method) ? xhr : xhr.upload;
     process.onprogress = function(e) {
-      // no progress event when aborted ( onprogress is called once after abort() )
+      // no top_loading_progress event when aborted ( onprogress is called once after abort() )
       if (aborted) {
         return;
       }
@@ -3037,7 +3037,7 @@
       arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
     var action = arguments[1];
 
-    // custom handler (should also handle file, load, error, progress and abort)
+    // custom handler (should also handle file, load, error, top_loading_progress and abort)
     if (typeof action === 'function') {
       return action;
     }
@@ -3122,7 +3122,7 @@
 
   /*
 function signature:
-  (file, metadata, load, error, progress, abort) => {
+  (file, metadata, load, error, top_loading_progress, abort) => {
     return {
     abort:() => {}
   }
@@ -3134,7 +3134,7 @@ function signature:
     var action = arguments[1];
     var name = arguments[2];
 
-    // custom handler (should also handle file, load, error, progress and abort)
+    // custom handler (should also handle file, load, error, top_loading_progress and abort)
     if (typeof action === 'function') {
       return function() {
         for (
@@ -3349,12 +3349,12 @@ function signature:
       var progressFn = function progressFn() {
         // we've not yet started the real download, stop here
         // the request might not go through, for instance, there might be some server trouble
-        // if state.progress is null, the server does not allow computing progress and we show the spinner instead
+        // if state.top_loading_progress is null, the server does not allow computing top_loading_progress and we show the spinner instead
         if (state.duration === 0 || state.progress === null) {
           return;
         }
 
-        // as we're now processing, fire the progress event
+        // as we're now processing, fire the top_loading_progress event
         api.fire('progress', api.getProgress());
       };
 
@@ -3370,7 +3370,7 @@ function signature:
       // set request start
       state.timestamp = Date.now();
 
-      // create perceived performance progress indicator
+      // create perceived performance top_loading_progress indicator
       state.perceivedPerformanceUpdater = createPerceivedPerformanceUpdater(
         function(progress) {
           state.perceivedProgress = progress;
@@ -3378,7 +3378,7 @@ function signature:
 
           progressFn();
 
-          // if fake progress is done, and a response has been received,
+          // if fake top_loading_progress is done, and a response has been received,
           // and we've not yet called the complete method
           if (
             state.response &&
@@ -3402,7 +3402,7 @@ function signature:
         // the metadata to send along
         metadata,
 
-        // callbacks (load, error, progress, abort)
+        // callbacks (load, error, top_loading_progress, abort)
         // load expects the body to be a server id if
         // you want to make use of revert
         function(response) {
@@ -3420,15 +3420,15 @@ function signature:
           // update duration
           state.duration = Date.now() - state.timestamp;
 
-          // force progress to 1 as we're now done
+          // force top_loading_progress to 1 as we're now done
           state.progress = 1;
 
           // actual load is done let's share results
           api.fire('load', state.response.body);
 
           // we are really done
-          // if perceived progress is 1 ( wait for perceived progress to complete )
-          // or if server does not support progress ( null )
+          // if perceived top_loading_progress is 1 ( wait for perceived top_loading_progress to complete )
+          // or if server does not support top_loading_progress ( null )
           if (state.perceivedProgress === 1) {
             completeFn();
           }
@@ -3452,12 +3452,12 @@ function signature:
           );
         },
 
-        // actual processing progress
+        // actual processing top_loading_progress
         function(computable, current, total) {
           // update actual duration
           state.duration = Date.now() - state.timestamp;
 
-          // update actual progress
+          // update actual top_loading_progress
           state.progress = computable ? current / total : null;
 
           progressFn();
@@ -3682,11 +3682,11 @@ function signature:
         fire('load-meta');
       });
 
-      // the file is now loading we need to update the progress indicators
+      // the file is now loading we need to update the top_loading_progress indicators
       loader.on('progress', function(progress) {
         setStatus(ItemStatus.LOADING);
 
-        fire('load-progress', progress);
+        fire('load-top_loading_progress', progress);
       });
 
       // an error was thrown while loading the file, we need to switch to error state
@@ -3811,7 +3811,7 @@ function signature:
       });
 
       processor.on('progress', function(progress) {
-        fire('process-progress', progress);
+        fire('process-top_loading_progress', progress);
       });
 
       // when successfully transformed
@@ -4416,7 +4416,7 @@ function signature:
           dispatch('DID_UPDATE_ITEM_META', { id: id });
         });
 
-        item.on('load-progress', function(progress) {
+        item.on('load-top_loading_progress', function(progress) {
           dispatch('DID_UPDATE_ITEM_LOAD_PROGRESS', {
             id: id,
             progress: progress
@@ -4544,7 +4544,7 @@ function signature:
           dispatch('DID_START_ITEM_PROCESSING', { id: id });
         });
 
-        item.on('process-progress', function(progress) {
+        item.on('process-top_loading_progress', function(progress) {
           dispatch('DID_UPDATE_ITEM_PROCESS_PROGRESS', {
             id: id,
             progress: progress
@@ -5032,7 +5032,7 @@ function signature:
       ringTo
     );
 
-    // update progress bar
+    // update top_loading_progress bar
     attr(root.ref.path, 'd', coordinates);
 
     // hide while contains 0 value
@@ -5045,7 +5045,7 @@ function signature:
 
   var progressIndicator = createView({
     tag: 'div',
-    name: 'progress-indicator',
+    name: 'top_loading_progress-indicator',
     ignoreRectUpdate: true,
     ignoreRect: true,
     create: create$7,
@@ -5609,7 +5609,7 @@ function signature:
       'GET_STYLE_BUTTON_PROCESS_ITEM_POSITION'
     );
 
-    // add progress indicators
+    // add top_loading_progress indicators
     var loadIndicatorView = root.appendChildView(
       root.createChildView(progressIndicator, { opacity: 0 })
     );
@@ -8123,7 +8123,7 @@ function signature:
           event.items = data.items.map(createItemAPI);
         }
 
-        // if this is a progress event add the progress amount
+        // if this is a top_loading_progress event add the top_loading_progress amount
         if (/progress/.test(name)) {
           event.progress = data.progress;
         }

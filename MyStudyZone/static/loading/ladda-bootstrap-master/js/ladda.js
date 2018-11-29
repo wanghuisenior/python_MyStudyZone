@@ -123,7 +123,7 @@
 			},
 
 			/**
-			 * Sets the width of the visual progress bar inside of
+			 * Sets the width of the visual top_loading_progress bar inside of
 			 * this Ladda button
 			 *
 			 * @param {Number} progress in the range of 0-1
@@ -133,16 +133,16 @@
 				// Cap it
 				progress = Math.max( Math.min( progress, 1 ), 0 );
 
-				var progressElement = button.querySelector( '.ladda-progress' );
+				var progressElement = button.querySelector( '.ladda-top_loading_progress' );
 
-				// Remove the progress bar if we're at 0 progress
+				// Remove the top_loading_progress bar if we're at 0 top_loading_progress
 				if( progress === 0 && progressElement && progressElement.parentNode ) {
 					progressElement.parentNode.removeChild( progressElement );
 				}
 				else {
 					if( !progressElement ) {
 						progressElement = document.createElement( 'div' );
-						progressElement.className = 'ladda-progress';
+						progressElement.className = 'ladda-top_loading_progress';
 						button.appendChild( progressElement );
 					}
 

@@ -33,8 +33,8 @@
 					'<div class="modal-content">' +
 						'<div class="modal-header" style="display: none;"></div>' +
 						'<div class="modal-body">' +
-							'<div class="progress progress-striped active" style="margin-bottom:0;">' +
-								'<div class="progress-bar" style="width: 100%"></div>' +
+							'<div class="top_loading_progress top_loading_progress-striped active" style="margin-bottom:0;">' +
+								'<div class="top_loading_progress-bar" style="width: 100%"></div>' +
 							'</div>' +
 						'</div>' +
 					'</div>' +
@@ -52,13 +52,13 @@
 		 * @param message Custom message
 		 * @param options Custom options:
 		 *   options.headerText - if the option is set to boolean false,
-		 *     it will hide the header and "message" will be set in a paragraph above the progress bar.
+		 *     it will hide the header and "message" will be set in a paragraph above the top_loading_progress bar.
 		 *     When headerText is a not-empty string, "message" becomes a content
-		 *     above the progress bar and headerText string will be set as a text inside the H3;
+		 *     above the top_loading_progress bar and headerText string will be set as a text inside the H3;
 		 *   options.headerSize - this will generate a heading corresponding to the size number. Like <h1>, <h2>, <h3> etc;
 		 *   options.headerClass - extra class(es) for the header tag;
 		 *   options.dialogSize - bootstrap postfix for dialog size, e.g. "sm", "m";
-		 *   options.progressType - bootstrap postfix for progress bar type, e.g. "success", "warning";
+		 *   options.progressType - bootstrap postfix for top_loading_progress bar type, e.g. "success", "warning";
 		 *   options.contentElement - determines the tag of the content element.
 		 *     Defaults to "p", which will generate a <p> tag;
 		 *   options.contentClass - extra class(es) for the content tag.
@@ -89,9 +89,9 @@
 
 			// Configuring dialog
 			$dialog.find('.modal-dialog').attr('class', 'modal-dialog').addClass('modal-' + settings.dialogSize);
-			$dialog.find('.progress-bar').attr('class', 'progress-bar progress-bar-striped progress-bar-animated');
+			$dialog.find('.top_loading_progress-bar').attr('class', 'top_loading_progress-bar top_loading_progress-bar-striped top_loading_progress-bar-animated');
 			if (settings.progressType) {
-				$dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
+				$dialog.find('.top_loading_progress-bar').addClass('top_loading_progress-bar-' + settings.progressType);
 			}
 
 			// Generate header tag

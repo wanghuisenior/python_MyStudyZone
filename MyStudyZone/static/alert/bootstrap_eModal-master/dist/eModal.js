@@ -11,7 +11,7 @@
  * @params allowed elements:
  *     buttons  {array}:           An array of objects to configure buttons to modal footer; only able if message == string
  *     css      {object}:          CSS object try apply into message body; only able if message == string
- *     loading  {boolean}:         Set loading progress as message.
+ *     loading  {boolean}:         Set loading top_loading_progress as message.
  *     message  {string|object}:   The body message string or the HTML element. e.g.: $(selector);
  *     size     {string}:          sm || lg || xl -> define the modal size.
  *     subtitle {string}:          The header subtitle string. This appear in a smaller text.
@@ -59,7 +59,7 @@
             allowContentRecycle: true,
             confirmLabel: Object.keys(LABEL)[0],
             labels: LABEL,
-            loadingHtml: '<h5>Loading...</h5><div class=progress><div class="progress-bar progress-bar-striped active" style="width: 100%"></div></div>',
+            loadingHtml: '<h5>Loading...</h5><div class=top_loading_progress><div class="top_loading_progress-bar top_loading_progress-bar-striped active" style="width: 100%"></div></div>',
             size: EMPTY,
             title: 'Attention',
             autofocus: false

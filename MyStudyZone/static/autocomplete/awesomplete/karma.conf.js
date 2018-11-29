@@ -31,7 +31,7 @@ module.exports = function(config) {
 		},
 
 		// test results reporter to use
-		// possible values: 'dots', 'progress'
+		// possible values: 'dots', 'top_loading_progress'
 		// available reporters: https://npmjs.org/browse/keyword/karma-reporter
 		reporters: ['dots', 'coverage'],
 		coverageReporter: {

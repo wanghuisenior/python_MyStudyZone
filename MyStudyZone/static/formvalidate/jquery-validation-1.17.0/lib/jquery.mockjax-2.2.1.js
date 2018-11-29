@@ -913,7 +913,7 @@
 	/**
 	 * Remove an Ajax mock from those held in memory. This will prevent any
 	 * future Ajax request mocking for matched requests.
-	 * NOTE: Clearing a mock will not prevent the resolution of in progress requests
+	 * NOTE: Clearing a mock will not prevent the resolution of in top_loading_progress requests
 	 *
 	 * @param  {Number|String|RegExp} i  OPTIONAL The mock to clear. If not provided, all mocks are cleared,
 	 *                                   if a number it is the index in the in-memory cache. If a string or
