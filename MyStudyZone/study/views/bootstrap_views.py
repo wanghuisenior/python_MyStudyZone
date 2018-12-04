@@ -10,6 +10,7 @@ import uuid
 
 from PIL import Image
 from django.core import serializers
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.shortcuts import render

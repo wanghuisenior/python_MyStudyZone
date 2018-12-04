@@ -11,18 +11,66 @@
     <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
     <script src="/static/bootstrap-table/bootstrap-table.js"></script>
     <script src="/static/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-    <link href="/static/bootstrap-table/extensions/click-edit-row/bootstrap-table-click-edit-row.css">
-    <script src="/static/bootstrap-table/extensions/click-edit-row/bootstrap-table-click-edit-row.js"></script>
+    <!--表格导出-->
+    <script src="/static/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+    <script src="/static/tableExport.jquery.plugin-master/tableExport.js"></script>
+    <!--表格拖拽-行调序-->
+    <!-- 行调序
+        <table id="tb_order" data-use-row-attr-func="true" data-reorderable-rows="true"></table>
+    -->
+    <link href="/static/bootstrap-table/extensions/reorder-rows/bootstrap-table-reorder-rows.css" rel="stylesheet"
+          type="text/css"/>
+    <script src="/static/jquery/TableDnD-master/js/jquery.tablednd.js"></script>
+    <script src="/static/bootstrap-table/extensions/reorder-rows/bootstrap-table-reorder-rows.js"></script>
+    <!--表格拖拽-列调序-->
+    <!-- 不能和行调序同时使用
+        <table id="tb_departments" data-reorderable-columns="true"></table>
+    <link href="/static/jquery/dragtable-2.0.12/dragtable.css" rel="stylesheet"
+          type="text/css"/>
+    <script src="/static/jquery/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <script src="/static/bootstrap-table/extensions/reorder-columns/bootstrap-table-reorder-columns.js"></script>
+    <script src="/static/jquery/dragtable-2.0.12/jquery.dragtable.js"></script>
+    -->
 </head>
 <body>
+<div id="toolbar" class="btn-group">
+    <div class="form-inline">
+        <select id="sel_exportoption" class="form-control">
+            <option value="">Export Basic</option>
+            <option value="all">Export All</option>
+            <option value="selected">Export Selected</option>
+        </select>
+        <div class="input-group">
+            <div class="input-group-addon">toolbar</div>
+            <select class="form-control" name="search_line" id="search_line">
+                <option value="0">a</option>
+                <option value="2">b</option>
+                <option value="3" disabled>c</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="input-group date form_date ">
+                <span class="input-group-addon">日期选择</span>
+                <input class="form-control" name="search_date" id="search_date" type="text">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+        <button type="button" id="search_btn" onclick="toolbar_search()" class="btn btn-default">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;查询
+        </button>
+    </div>
+
+</div>
+</div>
 <div class="container" style="padding-top: 20px">
+    <h2>单击或双击单元格，拖动行查看效果</h2>
     <div class="row">
-        <table id="tb_test"></table>
+        <table id="tb_test" data-use-row-attr-func="true" data-reorderable-rows="true"
+               data-reorderable-columns="true"></table>
     </div>
 </div>
 
 <script>
-
     $('#tb_test').bootstrapTable({
         url: 'bootstrap_table_edit',
         uniqueId: 'user_id',
@@ -30,7 +78,10 @@
         pagination: true,                   //是否显示分页（*）
         search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
         showRefresh: true,                  //是否显示刷新按钮
-        clickEdit: false,
+        toolbar: '#toolbar',
+        showExport: true,                     //是否显示导出
+        exportTypes: ['excel'],  //导出文件类型
+        //exportDataType: "basic",               //'basic', 'all', 'selected' 表示导出的模式是当前页、所有数据还是选中数据。
         columns: [{
             field: 'user_id',
             title: 'id',
@@ -73,7 +124,7 @@
             });
         },
         onClickCell: function (field, value, row, $element) {
-            console.log(''==false)
+            console.log('' == false)
             if (field == 'user_name') {
                 $element.attr('contenteditable', true);
                 $element.attr('style', 'color:red;border:2px solid');
@@ -93,11 +144,38 @@
         onLoadSuccess: function (result) {
             //console.log(result, result)
         },
-
         onLoadError: function (err) {
             console.log('err')
+        },
+        onReorderRowsDrag: function (table, row) {
+            //当选中行，拖拽时的哪行数据，并且可以获取这行数据的上一行数据和下一行数据
+            console.log('开始拖拽')
+            return false;
+        },
+        onReorderRowsDrop: function (table, row) {
+            //拖拽完成后的这条数据，并且可以获取这行数据的上一行数据和下一行数据
+            console.log('拖拽完成')
+            return false;
+        },
+        onReorderRow: function (newData) {
+            //当拖拽结束后，整个表格的数据
+            console.log('拖拽结束', newData)
+            return false;
         }
     });
+
+    function toolbar_search() {
+        var opt = {
+            url: "bootstrap_table_edit",
+            silent: true,
+            query: {
+                type: 1,
+                level: 2
+            }
+        };
+        $('#tb_test').bootstrapTable('refresh', opt)
+    }
+
 </script>
 
 </body>

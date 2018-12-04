@@ -47,10 +47,20 @@
 
     <!--bootstrap eModal-->
     <script src="/static/alert/bootstrap_eModal-master/dist/eModal.js"></script>
+    <!--Bootstrap中文网提到的Messenger组件-->
+    <link type="text/css" rel="stylesheet" href="/static/alert/messenger-master/build/css/messenger.css"/>
+    {#    12345#}
+    {#    <link type="text/css" rel="stylesheet" href="/static/alert/messenger-master/build/css/messenger-theme-ice.css"/>#}
+    {#    <link type="text/css" rel="stylesheet" href="/static/alert/messenger-master/build/css/messenger-theme-block.css"/>#}
+    {#    <link type="text/css" rel="stylesheet" href="/static/alert/messenger-master/build/css/messenger-theme-flat.css"/>#}
+    {#    <link type="text/css" rel="stylesheet" href="/static/alert/messenger-master/build/css/messenger-theme-future.css"/>#}
+    <link type="text/css" rel="stylesheet" href="/static/alert/messenger-master/build/css/messenger-theme-air.css"/>
+    <script src="/static/alert/messenger-master/build/js/messenger.js"></script>
 
-    <!--bootstrap eModal-->
+    <!--validate-->
     <script src="/static/formvalidate/jquery-validation-1.17.0/dist/jquery.validate.js"></script>
     <script src="/static/formvalidate/jquery-validation-1.17.0/dist/localization/messages_zh.js"></script>
+
 
     <!--Simple Ajax Uploader 文件上传-->
     <script src="/static/fileupload/Simple-Ajax-Uploader-master/SimpleAjaxUploader.js"></script>
@@ -74,6 +84,7 @@
     <script src="/static/tree/zTree_v3-master/js/jquery.ztree.core.js"></script>
     <script src="/static/tree/zTree_v3-master/js/jquery.ztree.excheck.js"></script>
     <script src="/static/tree/zTree_v3-master/js/jquery.ztree.exedit.js"></script>
+
     <style type="text/css">
         .panel-body.minHieht {
             min-height: 100px;
@@ -338,6 +349,14 @@
                     <button type="button" class="btn btn-success" onclick="bs_eMoadl(4)">BS eModal prompt弹窗</button>
                     <button type="button" class="btn btn-success" onclick="bs_eMoadl(5)">BS eModal iframe弹窗</button>
                     <button type="button" class="btn btn-success" onclick="bs_eMoadl(6)">BS eModal弹窗</button>
+                    <br><br>
+                    <button type="button" class="btn btn-success" onclick="messenger(1)">Bootstrap中文网提到的Messenger组件
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="messenger(2)">Messenger</button>
+                    <button type="button" class="btn btn-success" onclick="messenger(3)">Messenger</button>
+                    <button type="button" class="btn btn-success" onclick="messenger(4)">Messenger</button>
+                    <button type="button" class="btn btn-success" onclick="messenger(5)">Messenger
+                    </button>
 
                 </div>
             </div>
@@ -823,7 +842,6 @@
         $.DialogByZ.Alert({Title: "提示", Content: "您要求稍后开通", BtnL: "确定"})
     }
 
-    //
     function alerts() {
 
         $.DialogByZ.Close();
@@ -833,6 +851,73 @@
         //location.href="http://www.baidu.com"
         // window.open("http://www.baidu.com")
         alert("取消");
+    }
+
+    Messenger.options = {
+        extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+        //12345
+        //必须和导入的css文件一一对应
+        theme: 'air' // ice block flat future air
+    }
+
+    function messenger(i) {
+        //更改样式，请更改引入的css文件
+        switch (i) {
+            case 1:
+                Messenger().post("请求成功!")
+                break;
+            case 2:
+                Messenger().post({
+                    message: "请求失败",//提示信息
+                    type: 'error',//消息类型。error、info、success
+                    hideAfter: 1,//多长时间消失
+                    showCloseButton: true,//是否显示关闭按钮
+                    hideOnNavigate: true //是否隐藏导航
+                });
+
+                break;
+            case 3:
+                var msg;
+                msg = Messenger().post({
+                    message: '正在加载数据...',
+                    type: 'info',
+                    hideAfter: 2,//多长时间消失
+                    actions: {
+                        cancel: {
+                            label: '取消',
+                            action: function () {
+                                return msg.update({
+                                    message: '已取消！',
+                                    type: 'success',
+                                    actions: false
+                                });
+                            }
+                        }
+                    }
+                });
+
+                break;
+            case 4:
+                var i;
+                i = 0;
+                Messenger().run({
+                    errorMessage: 'Error destroying alien planet',
+                    successMessage: 'Alien planet destroyed!',
+                    action: function (opts) {
+                        if (++i < 3) {
+                            return opts.error({
+                                status: 500,
+                                readyState: 0,
+                                responseText: 0
+                            });
+                        } else {
+                            return opts.success();
+                        }
+                    }
+                });
+
+                break;
+        }
     }
 
     function date_operator(i) {
