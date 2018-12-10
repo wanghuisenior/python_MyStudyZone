@@ -7,12 +7,12 @@
     <title>jquery-confirm | 功能强大的jQuery对话框和确认框插件 </title>
 
     <link rel="stylesheet" href="http://libs.baidu.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/alert/jqueryConfirm/css/jquery-confirm.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/alert/3jqueryConfirm/css/jquery-confirm.css"/>
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
 
     <script src="http://www.jq22.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://libs.baidu.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/alert/jqueryConfirm/js/jquery-confirm.js"></script>
+    <script type="text/javascript" src="/static/alert/3jqueryConfirm/js/jquery-confirm.js"></script>
 
 
     <style type="text/css">
@@ -649,7 +649,7 @@ $.confirm({
                 请求完成后 将会执行<code>contentLoaded</code> 回调函数，参数： Data, Status & Xhr object.
             </p>
             <button class="btn btn-primary example18-1">Load from load_from_ajax.txt</button>
-            <a class="btn btn-default" href="/static/alert/jqueryConfirm/load_from_ajax.txt" target="new"><i
+            <a class="btn btn-default" href="/static/alert/3jqueryConfirm/load_from_ajax.txt" target="new"><i
                     class="fa fa-external-link"></i> view text.txt</a>
             <div class="space10"></div>
             <pre class="prettyprint linenums"><code>$.confirm({
@@ -678,7 +678,7 @@ $.confirm({
                 $('.example18-1').on('click', function () {
                     $.confirm({
                         title: 'Title',
-                        content: 'url:/static/alert/jqueryConfirm/load_from_ajax.txt',
+                        content: 'url:/static/alert/3jqueryConfirm/load_from_ajax.txt',
                         animation: 'top',
                         columnClass: 'col-md-6 col-md-offset-3',
                         closeAnimation: 'top'
@@ -687,7 +687,7 @@ $.confirm({
                 $('.example18-1-1').on('click', function () {
                     $.confirm({
                         title: 'Title',
-                        content: 'url:/static/alert/jqueryConfirm/load_from_ajax.txt',
+                        content: 'url:/static/alert/3jqueryConfirm/load_from_ajax.txt',
                         contentLoaded: function (data, status, xhr) {
                             var self = this;
                             setTimeout(function () {
@@ -710,7 +710,7 @@ $.confirm({
                 在这个例子中，请求一个JSON对象，并且其中的一部分被设置为内容。
             </p>
             <button class="btn btn-primary example18-2">Load from bower.json</button>
-            <a class="btn btn-default" href="/static/alert/jqueryConfirm/bower.json" target="new"><i class="fa fa-external-link"></i> view
+            <a class="btn btn-default" href="/static/alert/3jqueryConfirm/bower.json" target="new"><i class="fa fa-external-link"></i> view
                 bower.json</a>
             <div class="space10"></div>
             <script type="text/javascript">
@@ -722,7 +722,7 @@ $.confirm({
                             var jc = this;
 
                             return $.ajax({
-                                url: '/static/alert/jqueryConfirm/bower.json',
+                                url: '/static/alert/3jqueryConfirm/bower.json',
                                 dataType: 'json',
                                 method: 'get'
                             }).done(function (response) {

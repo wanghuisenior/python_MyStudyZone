@@ -15,18 +15,18 @@
 <script type="text/javascript">
     $(function () {
         $("#alert").click(function () {
-            alert("Hello world!", "welcome to my world :)", function () {
+            alert("请求成功!", "请继续操作 :)", function () {
                 //after click the confirm button, will run this callback function
             }, {type: 'success', confirmButtonText: 'OK'});
         });
         $("#confirm").click(function () {
-            confirm("Are you sure?", "You will not be able to recover this imaginary file!", function (isConfirm) {
+            confirm("确认删除吗?", "此操作不可恢复!", function (isConfirm) {
                 if (isConfirm) {
                     //after click the confirm
                 } else {
                     //after click the cancel
                 }
-            }, {confirmButtonText: 'Yes, delete it!', cancelButtonText: 'No, cancel plx!', width: 400});
+            }, {confirmButtonText: '确认!', cancelButtonText: '取消!', width: 400});
         });
     });
 </script>

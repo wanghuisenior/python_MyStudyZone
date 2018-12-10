@@ -1,9 +1,0 @@
-/altura.ico
-/node_modules
-/bower_components/
-/bin/
-/lib/
-/.vscode
-/obj/
-*.csproj
-*.user
