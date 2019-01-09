@@ -30,7 +30,8 @@ size = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH) + 0.5), int(cap.get(cv2.CAP_PROP_F
 # 获取摄像头返回的宽和高
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 # 确定保存视频的格式
-name = './' + time.strftime("%Y%m%d_%H_%M_%S", time.localtime(time.time())) + '.avi'
+# name = './' + time.strftime("%Y%m%d_%H_%M_%S", time.localtime(time.time())) + '.avi'
+name = 'test.avi'
 video = cv2.VideoWriter(name, fourcc, 5, size)
 ''' cv.VideoWriter参数（视频存放路径，视频存放格式，fps帧率，视频宽高）
     注意点1：OpenCV只支持avi的格式，而且生成的视频文件不能大于2GB，而且不能添加音频
@@ -132,7 +133,7 @@ while (True):
 					if key == ord('2'):
 						img[n_eyetag[0, 0]:n_eyetag[0, 1], n_eyetag[0, 2]:n_eyetag[0, 3]] = img_ex
 
-			# video.write(img)  # 写入视频文件，此处不写入也能实时显示
+		video.write(img)  # 写入视频文件，此处不写入也能实时显示
 	title = '实时'.encode("gbk").decode(errors="ignore")
 	cv2.imshow(title, img)
 	# 显示图片，标题名字为video
