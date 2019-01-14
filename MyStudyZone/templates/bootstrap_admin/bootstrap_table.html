@@ -6,6 +6,7 @@
     {% include 'bootstrap_admin/static_files.html' %}
     <script src="/static/bootstrap-table/extensions/resizable/bootstrap-table-resizable.js"></script>
     <script src="/static/colResizable-1.6/colResizable-1.6.js"></script>
+    <script src="/static/jquery.mark/abc/jquery.mark.min.js" charset="UTF-8"></script>
 
     <style>
         .toast-center-center {
@@ -23,6 +24,12 @@
             padding: 0 0 0 40px;
         }
 
+        span.match {
+            /**高亮显示**/
+            background: yellow;
+            color: black;
+        }
+
     </style>
     <script type="text/javascript">
         toastr.options.positionClass = 'toast-center-center';
@@ -33,7 +40,7 @@
     </script>
 </head>
 <body>
-<div class="panel-body" style="padding-bottom:0px;">
+<div class="panel-body context" style="padding-bottom:0px;">
     <div class="panel panel-default">
         <div class="panel-heading">查询条件
         </div>
@@ -53,7 +60,7 @@
                     </div>
                     <label class="control-label col-md-1" for="txt_search_statu">状态</label>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="txt_search_statu">
+                        <input type="text" class="form-control" id="txt_search_statu" placeholder="高亮测试" name="keyword">
                     </div>
                     <div class="col-md-3" style="text-align:left;">
                         <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询
@@ -74,7 +81,8 @@
         <button id="btn_delete" type="button" class="btn btn-default">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
         </button>
-        <input type="text" class="form-control" style="margin-left:20px; padding:0 0 0 40px;width: 200px;" aria-hidden="true">
+        <input type="text" class="form-control" style="margin-left:20px; padding:0 0 0 40px;width: 200px;"
+               aria-hidden="true">
     </div>
     <table id="table_user"></table><!-- 用户列表，表格-->
     <!-- 用户详情模态框（可进行添加或者修改） -->
@@ -491,6 +499,26 @@
             if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         return fmt;
     }
+</script>
+<script type="text/javascript">
+    $(function () {
+        var mark = function () {
+            // Read the keyword
+            var keyword = $("input[name='keyword']").val();
+            console.log(keyword)
+            // Determine selected options
+            var options = {
+                "className": "match"
+            };
+
+            // Mark the keyword inside the context
+            $(".context").removeMark();
+            $(".context").mark(keyword, options);
+        };
+
+        $("input[name='keyword']").on("keyup", mark);
+        $("input[type='checkbox']").on("change", mark);
+    });
 </script>
 </body>
 </html>
