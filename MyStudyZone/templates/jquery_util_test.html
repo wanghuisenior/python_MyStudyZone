@@ -944,7 +944,8 @@
                 moment().startOf('week') // 这周的第一天
                 moment().endOf('week')// 这周的最后一天
                 //======》创建moment对象
-                var t = moment("2018-10-31") // 1995-12-25
+                var t = moment("2018-10-31");
+                console.log(t.fromNow())
                 console.log(t.format('YYYY-MM-DD HH:mm:ss'), '前一个月', t.subtract(1, 'months').format('YYYY-MM-DD HH:mm:ss'))
                 //查询
                 // 早于

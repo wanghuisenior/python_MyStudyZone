@@ -14,6 +14,15 @@
             margin-top: -100px;
             margin-left: -150px;
         }
+
+        input {
+            width: 260px;
+            border: 1px solid #e2e2e2;
+            height: 30px;
+            float: left;
+            padding: 0 0 0 40px;
+        }
+
     </style>
     <script type="text/javascript">
         toastr.options.positionClass = 'toast-center-center';
@@ -29,7 +38,8 @@
         <div class="panel-heading">查询条件
         </div>
         <div class="panel-heading">
-            <button type="button" class="btn btn-danger" onclick="window.location.href='{% url 'create_random_users' %}'">随机制造100条数据
+            <button type="button" class="btn btn-danger"
+                    onclick="window.location.href='{% url 'create_random_users' %}'">随机制造100条数据
             </button>
             <h4>列宽可拖动</h4>
         </div>
@@ -64,6 +74,7 @@
         <button id="btn_delete" type="button" class="btn btn-default">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
         </button>
+        <input type="text" class="form-control" style="margin-left:20px; padding:0 0 0 40px;width: 200px;" aria-hidden="true">
     </div>
     <table id="table_user"></table><!-- 用户列表，表格-->
     <!-- 用户详情模态框（可进行添加或者修改） -->

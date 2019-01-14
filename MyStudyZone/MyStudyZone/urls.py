@@ -49,5 +49,6 @@ urlpatterns = [
 	# DataTables测试
 	path('jquery_datatables_test', default_views.jquery_datatables_test, name='jquery_datatables_test'),
 	path('jquery_datatables_getdata', default_views.jquery_datatables_getdata, name='jquery_datatables_getdata'),
+	path('search_style', default_views.search_style, name='search_style'),
 
 ]

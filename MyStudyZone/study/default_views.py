@@ -166,3 +166,7 @@ def jquery_datatables_getdata(request):
 	return_data['data'] = data_list
 	print('在' < '给')
 	return HttpResponse(json.dumps(return_data, cls=LazyEncoder))
+
+
+def search_style(request):
+	return render(request, 'search_style.html')
