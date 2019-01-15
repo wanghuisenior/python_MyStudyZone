@@ -6,8 +6,7 @@
     {% include 'bootstrap_admin/static_files.html' %}
     <script src="/static/bootstrap-table/extensions/resizable/bootstrap-table-resizable.js"></script>
     <script src="/static/colResizable-1.6/colResizable-1.6.js"></script>
-    <script src="/static/jquery.mark/abc/jquery.mark.min.js" charset="UTF-8"></script>
-
+    <script src="/static/jquery.mark/jquery.mark.js" charset="UTF-8"></script>
     <style>
         .toast-center-center {
             top: 50%;
@@ -16,20 +15,11 @@
             margin-left: -150px;
         }
 
-        input {
-            width: 260px;
-            border: 1px solid #e2e2e2;
-            height: 30px;
-            float: left;
-            padding: 0 0 0 40px;
-        }
-
         span.match {
             /**高亮显示**/
             background: yellow;
             color: black;
         }
-
     </style>
     <script type="text/javascript">
         toastr.options.positionClass = 'toast-center-center';
@@ -81,8 +71,6 @@
         <button id="btn_delete" type="button" class="btn btn-default">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
         </button>
-        <input type="text" class="form-control" style="margin-left:20px; padding:0 0 0 40px;width: 200px;"
-               aria-hidden="true">
     </div>
     <table id="table_user"></table><!-- 用户列表，表格-->
     <!-- 用户详情模态框（可进行添加或者修改） -->
@@ -225,17 +213,20 @@
                     */
                     align: 'center',
                     valign: 'middle',
+                    width: 120
 
                 }, {
                     field: "user_tel",
                     title: '电话',
                     align: 'center',
                     valign: 'middle',
+                    width: 120
                 }, {
                     field: "user_email",
                     title: '邮箱',
                     align: 'center',
                     valign: 'middle',
+                    width: 200
                 }, {
                     field: "image",
                     title: '图片',
@@ -246,6 +237,7 @@
                     },
                     align: 'center',
                     valign: 'middle',
+                    width: 120
                 }, {
                     field: "create_time",
                     title: '创建时间',
@@ -254,6 +246,7 @@
                     },
                     align: 'center',
                     valign: 'middle',
+                    width: 120
                 }, {
                     field: "user_info",
                     title: '备注',
