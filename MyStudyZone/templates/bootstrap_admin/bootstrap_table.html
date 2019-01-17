@@ -6,7 +6,8 @@
     {% include 'bootstrap_admin/static_files.html' %}
     <script src="/static/bootstrap-table/extensions/resizable/bootstrap-table-resizable.js"></script>
     <script src="/static/colResizable-1.6/colResizable-1.6.js"></script>
-    <script src="/static/jquery.mark/jquery.mark.js" charset="UTF-8"></script>
+{#    <script src="/static/jquery.mark/jquery.mark.js" charset="UTF-8"></script>#}
+    <script src="/static/jquery.mark/dist/mark.js" charset="UTF-8"></script>
     <style>
         .toast-center-center {
             top: 50%;
@@ -16,6 +17,12 @@
         }
 
         span.match {
+            /**高亮显示**/
+            background: yellow;
+            color: black;
+        }
+
+        .test {
             /**高亮显示**/
             background: yellow;
             color: black;
@@ -39,8 +46,10 @@
                     onclick="window.location.href='{% url 'create_random_users' %}'">随机制造100条数据
             </button>
             <h4>列宽可拖动</h4>
+
         </div>
         <div class="panel-body">
+
             <form class="form-horizontal">
                 <div class="form-group" style="margin-top:15px">
                     <label class="control-label col-md-2" for="input_text_user_name">用户名模糊查询</label>
@@ -55,6 +64,17 @@
                     <div class="col-md-3" style="text-align:left;">
                         <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询
                         </button>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top:15px;">
+                    <div class="col-md-3" style="text-align:right;">
+                        <input type="checkbox" name="opt[]" value="separateWordSearch" checked>同时查询多个字符
+                    </div>
+                    <div class="col-md-3">
+                        <input type="checkbox" name="opt[]" value="diacritics" checked> 符号区分
+                    </div>
+                    <div class="col-md-3">
+                        <input type="checkbox" name="opt[]" value="debug"> debug
                     </div>
                 </div>
             </form>
@@ -280,6 +300,20 @@
                 },
                 onLoadSuccess: function (data) { //加载成功时执行
                     //console.log(data)
+                    let instance = new Mark($('.context').get()).mark(['邮箱', 'foxmail'], {
+                        'diacritics': false,
+                        'separateWordSearch': false,
+                        "className": "test",
+                        'done': function () {
+                            console.log($('.context')[0])
+                            console.log($('.context').get())
+                            // otherwise "ret =" will not be executed
+                            toastr.success('高亮完成')
+                            setTimeout(function () {
+                                instance.unmark()//
+                            }, 2000);
+                        }
+                    });
                 },
                 onLoadError: function (res) { //加载失败时执行
                     alert('表格数据加载失败')
@@ -496,22 +530,30 @@
 <script type="text/javascript">
     $(function () {
         var mark = function () {
+            //这里使用的js是  非github  dist文件加的js 应该是老版本
             // Read the keyword
             var keyword = $("input[name='keyword']").val();
-            console.log(keyword)
+            //console.log(keyword)
             // Determine selected options
             var options = {
-                "className": "match"
+                "className": "match",
+                "separateWordSearch": true,//同时高亮显示多个词语（空格分隔）
+                "diacritics": true//是否匹配变音符号
             };
+            $("input[name='opt[]']").each(function () {
+                options[$(this).val()] = $(this).is(":checked");
+            });
 
             // Mark the keyword inside the context
             $(".context").removeMark();
+            console.log(options)
             $(".context").mark(keyword, options);
         };
 
         $("input[name='keyword']").on("keyup", mark);
         $("input[type='checkbox']").on("change", mark);
     });
+
 </script>
 </body>
 </html>
