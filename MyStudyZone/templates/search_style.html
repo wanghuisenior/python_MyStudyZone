@@ -7,8 +7,16 @@
     <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
     <link href="/static/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <link href="/static/Waves-master/custom/waves_custom.css" rel="stylesheet" type="text/css">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
     <script src="/static/Waves-master/custom/waves_custom.js"></script>
 
+    <!-- 按钮加载中动画 ladda-->
+    <link rel="stylesheet" href="/static/loading/ladda-bootstrap-master/demo1/ladda.min.css">
+    <link rel="stylesheet" href="/static/loading/ladda-bootstrap-master/demo1/demo.css">
+
+    <script src="/static/loading/ladda-bootstrap-master/demo1/spin.min.js"></script>
+    <script src="/static/loading/ladda-bootstrap-master/demo1/ladda.min.js"></script>
     <style>
         body {
             background: #fff;
@@ -170,8 +178,176 @@
 </ul>
 <br>
 <br>
-<button type="button" class="btn btn-success">无效果</button>
-<button type="button" class="btn btn-default waves-effect waves-red waves-ripple">waves效果
+<button type="button" class="btn btn-lg btn-success">无效果</button>
+<button type="button" class="btn btn-lg btn-info waves-effect waves-red waves-ripple">waves效果
 </button>
+<button type="button" class="btn btn-success btn-lg ladda-button" id="loadingButton" data-style="expand-right"
+        onclick="showLoading()">Ladda加载中
+</button>
+<div id="main_demo">
+    <article class="examples" style="margin-top:0px;">
+        <section class="button-demo">
+            <h3>expand-left</h3>
+            <button class="ladda-button" data-color="green" data-style="expand-left"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 0px;"></div>
+            </button>
+        </section>
+        <section class="button-demo">
+            <h3>expand-right</h3>
+            <button class="ladda-button" data-color="green" data-style="expand-right"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 0px;"></div>
+            </button>
+        </section>
+        <section class="button-demo">
+            <h3>expand-up</h3>
+            <button class="ladda-button" data-color="green" data-style="expand-up"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 0px;"></div>
+            </button>
+        </section>
+        <section class="button-demo">
+            <h3>expand-down</h3>
+            <button class="ladda-button" data-color="green" data-style="expand-down"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 0px;"></div>
+            </button>
+        </section>
+        <section class="button-demo">
+            <h3>contract</h3>
+            <button class="ladda-button" data-color="red" data-style="contract"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 0px;"></div>
+            </button>
+        </section>
+        <section class="button-demo">
+            <h3>contract-overlay</h3>
+            <button class="ladda-button" data-color="red" data-style="contract-overlay" style="z-index: 10;"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 0px;"></div>
+            </button>
+        </section>
+        <section class="button-demo">
+            <h3>zoom-in</h3>
+            <button class="ladda-button" data-color="red" data-style="zoom-in"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 0px;"></div>
+            </button>
+        </section>
+        <section class="button-demo">
+            <h3>zoom-out</h3>
+            <button class="ladda-button" data-color="red" data-style="zoom-out"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
+        </section>
+        <section class="button-demo">
+            <h3>slide-left</h3>
+            <button class="ladda-button" data-color="blue" data-style="slide-left"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
+        </section>
+        <section class="button-demo">
+            <h3>slide-right</h3>
+            <button class="ladda-button" data-color="blue" data-style="slide-right"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
+        </section>
+        <section class="button-demo">
+            <h3>slide-up</h3>
+            <button class="ladda-button" data-color="blue" data-style="slide-up"><span class="ladda-label">Submit</span><span
+                    class="ladda-spinner"></span></button>
+        </section>
+        <section class="button-demo">
+            <h3>slide-down</h3>
+            <button class="ladda-button" data-color="blue" data-style="slide-down"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
+        </section>
+        <h3 id="progress">Built-in progress bar</h3>
+        <section class="progress-demo">
+            <h3>expand-right</h3>
+            <button class="ladda-button" data-color="purple" data-style="expand-right"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 132px;"></div>
+            </button>
+        </section>
+        <section class="progress-demo">
+            <h3>contract</h3>
+            <button class="ladda-button" data-color="purple" data-style="contract"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 52px;"></div>
+            </button>
+        </section>
+        <h3 id="sizes">Sizes</h3>
+        <section class="progress-demo">
+            <h3>Extra Small</h3>
+            <button class="ladda-button" data-color="mint" data-style="expand-right" data-size="xs"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 89px;"></div>
+            </button>
+        </section>
+        <section class="progress-demo">
+            <h3>Small</h3>
+            <button class="ladda-button" data-color="mint" data-style="expand-right" data-size="s"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 103px;"></div>
+            </button>
+        </section>
+        <section class="progress-demo">
+            <h3>Large</h3>
+            <button class="ladda-button" data-color="mint" data-style="expand-right" data-size="l"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 143px;"></div>
+            </button>
+        </section>
+        <section class="progress-demo">
+            <h3>Extra Large</h3>
+            <button class="ladda-button" data-color="mint" data-style="expand-right" data-size="xl"><span
+                    class="ladda-label">Submit</span><span class="ladda-spinner"></span>
+                <div class="ladda-progress" style="width: 160px;"></div>
+            </button>
+        </section>
+    </article>
+</div>
+<script>
+
+    // Bind normal buttons
+    Ladda.bind('.button-demo button', {timeout: 2000});
+
+    // Bind progress buttons and simulate loading progress
+    Ladda.bind('.progress-demo button', {
+        callback: function (instance) {
+            var progress = 0;
+            var interval = setInterval(function () {
+                progress = Math.min(progress + Math.random() * 0.1, 1);
+                instance.setProgress(progress);
+
+                if (progress === 1) {
+                    instance.stop();
+                    clearInterval(interval);
+                }
+            }, 200);
+        }
+    });
+
+    // You can control loading explicitly using the JavaScript API
+    // as outlined below:
+
+    // var l = Ladda.create( document.querySelector( 'button' ) );
+    // l.start();
+    // l.stop();
+    // l.toggle();
+    // l.isLoading();
+    // l.setProgress( 0-1 );
+
+</script>
+<script>
+    function showLoading() {
+        var loadingBtn = Ladda.create(document.querySelector('#loadingButton'));
+        loadingBtn.start();
+        loadingBtn.setProgress(0.8);
+        //ajax调用完毕后停止
+        setTimeout(function () {
+            loadingBtn.stop()
+        }, 2000)
+    }
+</script>
 </body>
 </html>
