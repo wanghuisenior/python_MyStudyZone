@@ -79,7 +79,7 @@ def create_or_update_user(request):
     user_id = request.POST.get('user_id')
     user_name = request.POST.get('user_name')
     user_tel = request.POST.get('user_tel')
-    user_email = request.POST.get('user_email_header') + '@' + request.POST.get('user_email_footer')
+    user_email = request.POST.get('user_email_header','') + '@' + request.POST.get('user_email_footer','')
     user_info = request.POST.get('user_info')
     ############################
     # 获取到上传的图片文件

@@ -302,18 +302,17 @@
                 },
                 onLoadSuccess: function (data) { //加载成功时执行
                     //console.log(data)
-                    let instance = new Mark($('.context').get()).mark(['邮箱', 'foxmail'], {
+                    let instance = new Mark($('.context').get()).mark(['邮箱', '@'], {
                         'diacritics': false,
                         'separateWordSearch': false,
                         "className": "test",
                         'done': function () {
                             console.log($('.context')[0])
                             console.log($('.context').get())
-                            // otherwise "ret =" will not be executed
                             toastr.success('高亮完成')
                             setTimeout(function () {
                                 instance.unmark()//
-                            }, 2000);
+                            }, 3000);
                         }
                     });
                 },
@@ -499,7 +498,6 @@
             return item;
         },
         /**
-         *
          * displayText: function (item) {
             console.log(item)
             return item[1];
