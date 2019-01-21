@@ -7,8 +7,10 @@
 """
 import json
 import time
+from datetime import datetime
 
 import faker
+from django.contrib.sessions.models import Session
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -16,7 +18,7 @@ from django.shortcuts import render
 from study import models
 from study.models import User
 from study.utils.LazyEncoder import LazyEncoder
-
+from dwebsocket.decorators import accept_websocket
 
 def index(request):
 	return render(request, 'index.html')
@@ -170,3 +172,37 @@ def jquery_datatables_getdata(request):
 
 def search_style(request):
 	return render(request, 'search_style.html')
+
+
+def wx_login(request):
+	return render(request, 'wx_login.html')
+
+
+def get_all_login_user():
+	SQL = """
+              SELECT  * FROM `django_session` WHERE expire_date >= NOW() GROUP BY session_data; 
+              """
+	# 根据session值是否重复判断用户是否在线  不太完善
+	# sessions = Session.objects.filter(expire_date__gte=datetime.now())
+	sessions = Session.objects.all()
+	user_list = []
+	# 获取session中的用户id
+	for session in sessions:
+		data = session.get_decoded()
+		print(data)
+		user_list.append(data.get('_auth_user_id', None))
+	print(user_list, 66666666)
+	return user_list
+
+
+@accept_websocket
+def get_user_list(request):
+	if request.is_websocket():
+		message = request.websocket.wait()
+		print(message)
+		while True:
+			if message:
+				user_list = get_all_login_user()
+				# request.websocket.send(str(len(user_list)))
+				request.websocket.send(str(11))
+				time.sleep(10)

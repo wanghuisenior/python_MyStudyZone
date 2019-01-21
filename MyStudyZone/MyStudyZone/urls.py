@@ -50,5 +50,7 @@ urlpatterns = [
 	path('jquery_datatables_test', default_views.jquery_datatables_test, name='jquery_datatables_test'),
 	path('jquery_datatables_getdata', default_views.jquery_datatables_getdata, name='jquery_datatables_getdata'),
 	path('search_style', default_views.search_style, name='search_style'),
+	path('wx_login', default_views.wx_login, name='wx_login'),
+	path('get_user_list', default_views.get_user_list, name='get_user_list'),
 
 ]

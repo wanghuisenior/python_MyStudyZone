@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="/static/jquery-qrcode-0.14.0/jquery-qrcode-0.14.0.js"></script>
+    <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+</head>
+<body style="text-align: center">
+<h2>扫码登录实现</h2>
+<div style="border: 1px red solid;height: 300px;">
+    qrcode实现二维码
+    <div id="qrcodeCanvas"></div>
+</div>
+<div style="border: 1px red solid;height: 300px;">
+    微信官方二维码
+    <div id="login_container"></div>
+</div>
+<div class="col-md-offset-1" style="display: inline-block;line-height: 48px;color:orange">
+    当前在线人数： <span id="online_number">0</span>
+</div>
+
+<script>
+    $(document).ready(function () {
+        //微信官方扫码登录插件
+        var obj = new WxLogin({
+            id: "login_container",    //div的id
+            appid: "wx1d286f97cd91f0f2",
+            scope: "snsapi_login", //固定
+            redirect_uri: "www.baidu.com",        //回调地址
+            state: "",　　　　　　　　　//参数，可带可不带
+            style: "",　　　　　　　　　//样式  提供"black"、"white"可选，默认为黑色文字描述
+            href: ""                 //自定义样式链接，第三方可根据实际需求覆盖默认样式。
+        });
+        //使用qrcode生成二维码
+        jQuery('#qrcodeCanvas').qrcode({
+            width: 300,
+            height: 300,
+            text: "http://www.baidu.com"
+        });
+    });
+
+    // 实时获取当前在线用户人数
+    var socket = new WebSocket("ws:" + window.location.host + "/get_user_list");
+    socket.onopen = function () {
+        console.log('WebSocket open');//成功连接上Websocket
+        socket.send('adasdasda。。。。');//发送数据到服务端
+    };
+    socket.onmessage = function (e) {
+        console.log(e.data)
+        $('#online_number').text(e.data)
+    };
+    socket.onclose = function (e) {
+        console.log(e);
+        socket.close(); //关闭TCP连接
+    };
+    if (socket.readyState == WebSocket.OPEN) socket.onopen();
+
+</script>
+</body>
+</html>
