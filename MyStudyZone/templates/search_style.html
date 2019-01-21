@@ -181,8 +181,10 @@
 <button type="button" class="btn btn-lg btn-success">无效果</button>
 <button type="button" class="btn btn-lg btn-info waves-effect waves-red waves-ripple">waves效果
 </button>
-<button type="button" class="btn btn-success btn-lg ladda-button" id="loadingButton" data-style="expand-right"
-        onclick="showLoading()">Ladda加载中
+<br>
+<br>
+<button type="button" class="ladda-button" id="loadingButton" data-style="expand-right"
+        onclick="showLoading()">Ladda加载中带进度条
 </button>
 <div id="main_demo">
     <article class="examples" style="margin-top:0px;">
@@ -342,7 +344,7 @@
     function showLoading() {
         var loadingBtn = Ladda.create(document.querySelector('#loadingButton'));
         loadingBtn.start();
-        loadingBtn.setProgress(0.8);
+        loadingBtn.setProgress(0.4);
         //ajax调用完毕后停止
         setTimeout(function () {
             loadingBtn.stop()
