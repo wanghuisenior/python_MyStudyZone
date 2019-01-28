@@ -32,14 +32,16 @@
     <script src="/static/jquery/dragtable-2.0.12/jquery.dragtable.js"></script>
     -->
 </head>
-<body>
-<div id="toolbar" class="btn-group">
-    <div class="form-inline">
+<body style="height: 1800px;">
+<div class="form-inline" id="toolbar">
+    <div class="form-group form-group-sm">
         <select id="sel_exportoption" class="form-control">
             <option value="">Export Basic</option>
             <option value="all">Export All</option>
             <option value="selected">Export Selected</option>
         </select>
+    </div>
+    <div class="form-group form-group-sm">
         <div class="input-group">
             <div class="input-group-addon">toolbar</div>
             <select class="form-control" name="search_line" id="search_line">
@@ -48,22 +50,25 @@
                 <option value="3" disabled>c</option>
             </select>
         </div>
-        <div class="form-group">
-            <div class="input-group date form_date ">
-                <span class="input-group-addon">日期选择</span>
-                <input class="form-control" name="search_date" id="search_date" type="text">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>
-        </div>
-        <button type="button" id="search_btn" onclick="toolbar_search()" class="btn btn-default">
-            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;查询
-        </button>
     </div>
+    <div class="form-group form-group-sm">
+        <div class="input-group date form_date ">
+            <span class="input-group-addon">日期选择</span>
+            <input class="form-control" name="search_date" id="search_date" type="text">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        </div>
+    </div>
+    <button type="button" id="search_btn" onclick="toolbar_search()" class="btn btn-sm btn-default">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;查询
+    </button>
+</div>
 
-</div>
-</div>
 <div class="container" style="padding-top: 20px">
-    <h2>单击或双击单元格，拖动行查看效果</h2>
+    <h2>行内编辑两种实现方式</h2>
+    <div class="row">
+        <table id="table1" class="table table-condensed"></table>
+    </div>
+    <h2>表格行内排序</h2>
     <div class="row">
         <table id="tb_test" data-use-row-attr-func="true" data-reorderable-rows="true"
                data-reorderable-columns="true"></table>
@@ -81,66 +86,37 @@
         toolbar: '#toolbar',
         showExport: true,                     //是否显示导出
         exportTypes: ['excel'],  //导出文件类型
+        showColumns: true,
         //exportDataType: "basic",               //'basic', 'all', 'selected' 表示导出的模式是当前页、所有数据还是选中数据。
-        columns: [{
-            field: 'user_id',
-            title: 'id',
-            visible: false
-        }, {
-            field: 'user_name',
-            title: '用户名'
-        }, {
-            field: 'user_tel',
-            title: '电话'
-        }, {
-            field: 'user_email',
-            title: '邮箱'
-        },],
-        onDblClickCell: function (field, value, row, $element) {
-            if (field == 'user_tel') {
-                $element[0].innerHTML = "<input id='inputCell' type='text'  name='inputCell' value='" + value + "'>";
-            }
-            $("#inputCell").focus();
-            $("#inputCell").blur(function () {
-                var newValue = $("#inputCell").val();
-                row[field] = newValue;
-                $(this).remove();
-                $('#tb_test').bootstrapTable('updateCell', {//
-                    index: $element[0].parentElement.rowIndex - 1,
-                    field: field,
-                    value: newValue
-                });
-                if (value != newValue) {
-                    $.post("update_user_info", row, function (result) {
-                        if (result == 200) {
-                            toastr.success('修改成功！', '', {timeOut: 800})
-                        } else if (result == 404) {
-                            toastr.error('失败,指标不存在！')
-                        } else if (result == 0) {
-                            toastr.error('未知异常！')
-                        }
-                    });
+        columns: [
+            {
+                field: 'Number',
+                title: '序号',
+                align: 'center',
+                width: 20,
+                formatter: function (value, row, index) {
+                    return index + 1;
+                    //var pageSize = $('#parent_table').bootstrapTable('getOptions').pageSize;//通过表的#id 可以得到每页多少条
+                    //var pageNumber = $('#parent_table').bootstrapTable('getOptions').pageNumber;//通过表的#id 可以得到当前第几页
+                    //return pageSize * (pageNumber - 1) + index + 1;//返回每条的序号： 每页条数 * （当前页 - 1 ）+ 序号
                 }
-            });
-        },
-        onClickCell: function (field, value, row, $element) {
-            console.log('' == false)
-            if (field == 'user_name') {
-                $element.attr('contenteditable', true);
-                $element.attr('style', 'color:red;border:2px solid');
-                $element.focus();
-                $element.blur(function () {
-                    let index = $element.parent().data('index');
-                    let tdValue = $element.html();
-                    console.log(index, field, tdValue);
-                    $('#tb_test').bootstrapTable('updateCell', {//
-                        index: index,
-                        field: field,
-                        value: tdValue,
-                    });
-                })
-            }
-        },
+            },
+            {
+                field: 'user_id',
+                title: 'id',
+                visible: false
+            },
+            {
+                field: 'user_name',
+                title: '用户名'
+            }, {
+                field: 'user_tel',
+                title: '电话'
+            }, {
+                field: 'user_email',
+                title: '邮箱'
+            },],
+
         onLoadSuccess: function (result) {
             //console.log(result, result)
         },
@@ -176,6 +152,117 @@
         $('#tb_test').bootstrapTable('refresh', opt)
     }
 
+    $('#table1').bootstrapTable({
+        url: 'bootstrap_table_edit',
+        uniqueId: 'user_id',
+        height: 400,
+        striped: true,                      //是否显示行间隔色
+        pagination: true,                   //是否显示分页（*）
+        search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        showRefresh: true,                  //是否显示刷新按钮
+        pageSize: 5,                       //每页的记录行数（*）
+        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+        showExport: true,                     //是否显示导出
+        exportTypes: ['excel'],  //导出文件类型
+        //exportDataType: "basic",               //'basic', 'all', 'selected' 表示导出的模式是当前页、所有数据还是选中数据。
+        columns: [{
+            field: 'user_id',
+            title: 'id',
+            visible: false
+        }, {
+            field: 'user_name',
+            title: '用户名'
+        }, {
+            field: 'user_tel',
+            title: '电话',
+            //formatter: editCol
+        }, {
+            field: 'user_email',
+            title: '邮箱(单击单元格查看)'
+        }, {
+            field: 'user_info',
+            title: '备注(双击单元格查看)'
+        }, {
+            field: 'create_time',
+            title: '创建时间'
+        },],
+        onClickCell: function (field, value, row, $element) {
+            if (field === 'user_email') {
+                $element.attr('contenteditable', true);
+                $element.attr('style', 'border:2px solid;');
+                $element.focus();
+                $element.blur(function () {
+                    let index = $element.parent().data('index');
+                    let newValue = $element.html();
+                    console.log(index, field, newValue);
+                    $('#table1').bootstrapTable('updateCell', {//更新到表格
+                        index: index,
+                        field: field,
+                        value: newValue,
+                    });
+                    if (value !== newValue) {
+                        //更新到数据库
+                    }
+                })
+            }
+        },
+        onDblClickCell: function (field, value, row, $element) {
+            if (field === 'user_info') {
+                $element[0].innerHTML = "<input id='inputCell' type='text'  name='inputCell' value='" + value + "'>";
+                //$("#inputCell").focus();
+                var tObj = document.getElementById("inputCell");
+                var sPos = tObj.value.length;
+                setCaretPosition(tObj, sPos);
+                $("#inputCell").blur(function () {
+                    var newValue = $("#inputCell").val();
+                    row[field] = newValue;
+                    $(this).remove();
+                    $('#table1').bootstrapTable('updateCell', {//
+                        index: $element[0].parentElement.rowIndex - 1,
+                        field: field,
+                        value: newValue
+                    });
+                    if (value !== newValue) {
+                        $.post("target_update", row, function (result) {
+                            //use toastr to display a toast for info, success, warning or error
+                            if (result === 200) {
+                                toastr.success('修改成功！', '', {timeOut: 800})
+                            } else if (result === 404) {
+                                toastr.error('失败,指标不存在！')
+                            } else if (result === 0) {
+                                toastr.error('未知异常！')
+                            }
+                        });
+                    }
+                });
+            }
+        },
+        onLoadSuccess: function (result) {
+            console.log('result', result)
+        },
+        onLoadError: function (err) {
+            console.log('err')
+        },
+    });
+
+    function editCol(value, row, index, key) {
+        return "<div><input type=\"text\" value=\"" + value + "\" onchange='reloadRowData($(this), " + JSON.stringify(row) + ", \"" + key + "\", " + index + ")' /></div>";
+    }
+
+
+    function setCaretPosition(tObj, sPos) {
+        //将光标移动至input末尾
+        if (tObj.setSelectionRange) {
+            setTimeout(function () {
+                tObj.setSelectionRange(sPos, sPos);
+                tObj.focus();
+            }, 0);
+        } else if (tObj.createTextRange) {
+            var rng = tObj.createTextRange();
+            rng.move('character', sPos);
+            rng.select();
+        }
+    }
 </script>
 
 </body>

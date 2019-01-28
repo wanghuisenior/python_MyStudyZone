@@ -9,14 +9,17 @@
     <script type="text/javascript" src="/static/formvalidate/bootstrapValidator/js/bootstrapValidator.js"></script>
     <style>
         body {
-            padding: 20px
+            padding: 20px;
+            height: 1100px;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="panel page-header">
-            <button class="btn btn-primary" onclick="window.open('{% url 'bootstrap_validator' %}'); target='blank'">在新标签页中打开bootstrap_validator DEMO</button>
+        <button class="btn btn-primary" onclick="window.open('{% url 'bootstrap_validator' %}'); target='blank'">
+            在新标签页中打开bootstrap_validator DEMO
+        </button>
     </div>
     <div class="row">
 
@@ -317,7 +320,8 @@
                         callback: {
                             message: '答案错了',
                             callback: function (value, validator) {
-                                var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
+                                var items = $('#captchaOperation').html().split(' '),
+                                    sum = parseInt(items[0]) + parseInt(items[2]);
                                 return value == sum;
                             }
                         }
