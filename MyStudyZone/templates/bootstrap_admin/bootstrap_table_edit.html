@@ -33,6 +33,18 @@
     -->
 </head>
 <body style="height: 1800px;">
+<div id="toolbar_table1" class="btn-group">
+    <button id="btn_add" type="button" class="btn btn-sm btn-default">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+    </button>
+    <button id="btn_edit" type="button" class="btn btn-sm btn-default">
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+    </button>
+    <button id="btn_delete" type="button" class="btn btn-sm btn-default">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+    </button>
+</div>
+
 <div class="form-inline" id="toolbar">
     <div class="form-group form-group-sm">
         <select id="sel_exportoption" class="form-control">
@@ -76,81 +88,6 @@
 </div>
 
 <script>
-    $('#tb_test').bootstrapTable({
-        url: 'bootstrap_table_edit',
-        uniqueId: 'user_id',
-        striped: true,                      //是否显示行间隔色
-        pagination: true,                   //是否显示分页（*）
-        search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
-        showRefresh: true,                  //是否显示刷新按钮
-        toolbar: '#toolbar',
-        showExport: true,                     //是否显示导出
-        exportTypes: ['excel'],  //导出文件类型
-        showColumns: true,
-        //exportDataType: "basic",               //'basic', 'all', 'selected' 表示导出的模式是当前页、所有数据还是选中数据。
-        columns: [
-            {
-                field: 'Number',
-                title: '序号',
-                align: 'center',
-                width: 20,
-                formatter: function (value, row, index) {
-                    return index + 1;
-                    //var pageSize = $('#parent_table').bootstrapTable('getOptions').pageSize;//通过表的#id 可以得到每页多少条
-                    //var pageNumber = $('#parent_table').bootstrapTable('getOptions').pageNumber;//通过表的#id 可以得到当前第几页
-                    //return pageSize * (pageNumber - 1) + index + 1;//返回每条的序号： 每页条数 * （当前页 - 1 ）+ 序号
-                }
-            },
-            {
-                field: 'user_id',
-                title: 'id',
-                visible: false
-            },
-            {
-                field: 'user_name',
-                title: '用户名'
-            }, {
-                field: 'user_tel',
-                title: '电话'
-            }, {
-                field: 'user_email',
-                title: '邮箱'
-            },],
-
-        onLoadSuccess: function (result) {
-            //console.log(result, result)
-        },
-        onLoadError: function (err) {
-            console.log('err')
-        },
-        onReorderRowsDrag: function (table, row) {
-            //当选中行，拖拽时的哪行数据，并且可以获取这行数据的上一行数据和下一行数据
-            console.log('开始拖拽')
-            return false;
-        },
-        onReorderRowsDrop: function (table, row) {
-            //拖拽完成后的这条数据，并且可以获取这行数据的上一行数据和下一行数据
-            console.log('拖拽完成')
-            return false;
-        },
-        onReorderRow: function (newData) {
-            //当拖拽结束后，整个表格的数据
-            console.log('拖拽结束', newData)
-            return false;
-        }
-    });
-
-    function toolbar_search() {
-        var opt = {
-            url: "bootstrap_table_edit",
-            silent: true,
-            query: {
-                type: 1,
-                level: 2
-            }
-        };
-        $('#tb_test').bootstrapTable('refresh', opt)
-    }
 
     $('#table1').bootstrapTable({
         url: 'bootstrap_table_edit',
@@ -163,6 +100,7 @@
         pageSize: 5,                       //每页的记录行数（*）
         pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
         showExport: true,                     //是否显示导出
+        toolbar: '#toolbar_table1',
         exportTypes: ['excel'],  //导出文件类型
         //exportDataType: "basic",               //'basic', 'all', 'selected' 表示导出的模式是当前页、所有数据还是选中数据。
         columns: [{
@@ -244,6 +182,33 @@
             console.log('err')
         },
     });
+    $('#btn_add').click(function () {
+        //点击添加按钮，在表格末尾添加一行
+        //跳转到最后一页
+        let pages = $('#table1').bootstrapTable('getOptions').totalPages;
+        //在最后一行后面添加一行
+        let index = $('#table1').bootstrapTable('getOptions').totalRows;
+        $('#table1').bootstrapTable('selectPage', pages).bootstrapTable('insertRow', {
+            index: index,
+            row: {
+                'user_name': '<input type="text" placeholder="用户名">',
+                'user_tel': '<input type="text" placeholder="用户名">',
+                'user_email': '<input type="text" placeholder="用户名">',
+                'user_info': '<input type="text" placeholder="用户名">',
+                'create_time': '<button class="btn btn-sm btn-info">保存</button>',
+            }
+        });
+    });
+
+    function addRow(insertIndex, rowObj) {
+        var insertRow = rowObj;
+        $.each(insertRow, function (name, value) {
+            insertRow[name] = '';
+        });
+
+        var params = {index: insertIndex + 1, row: insertRow};
+        $('#dbtableDefTb').bootstrapTable('insertRow', params);
+    }
 
     function editCol(value, row, index, key) {
         return "<div><input type=\"text\" value=\"" + value + "\" onchange='reloadRowData($(this), " + JSON.stringify(row) + ", \"" + key + "\", " + index + ")' /></div>";
@@ -263,6 +228,83 @@
             rng.select();
         }
     }
+
+    $('#tb_test').bootstrapTable({
+        url: 'bootstrap_table_edit',
+        uniqueId: 'user_id',
+        striped: true,                      //是否显示行间隔色
+        pagination: true,                   //是否显示分页（*）
+        search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        showRefresh: true,                  //是否显示刷新按钮
+        toolbar: '#toolbar',
+        showExport: true,                     //是否显示导出
+        exportTypes: ['excel'],  //导出文件类型
+        showColumns: true,
+        //exportDataType: "basic",               //'basic', 'all', 'selected' 表示导出的模式是当前页、所有数据还是选中数据。
+        columns: [
+            {
+                field: 'Number',
+                title: '序号',
+                align: 'center',
+                width: 20,
+                formatter: function (value, row, index) {
+                    return index + 1;
+                    //var pageSize = $('#parent_table').bootstrapTable('getOptions').pageSize;//通过表的#id 可以得到每页多少条
+                    //var pageNumber = $('#parent_table').bootstrapTable('getOptions').pageNumber;//通过表的#id 可以得到当前第几页
+                    //return pageSize * (pageNumber - 1) + index + 1;//返回每条的序号： 每页条数 * （当前页 - 1 ）+ 序号
+                }
+            },
+            {
+                field: 'user_id',
+                title: 'id',
+                visible: false
+            },
+            {
+                field: 'user_name',
+                title: '用户名'
+            }, {
+                field: 'user_tel',
+                title: '电话'
+            }, {
+                field: 'user_email',
+                title: '邮箱'
+            },],
+
+        onLoadSuccess: function (result) {
+            //console.log(result, result)
+        },
+        onLoadError: function (err) {
+            console.log('err')
+        },
+        onReorderRowsDrag: function (table, row) {
+            //当选中行，拖拽时的哪行数据，并且可以获取这行数据的上一行数据和下一行数据
+            console.log('开始拖拽')
+            return false;
+        },
+        onReorderRowsDrop: function (table, row) {
+            //拖拽完成后的这条数据，并且可以获取这行数据的上一行数据和下一行数据
+            console.log('拖拽完成')
+            return false;
+        },
+        onReorderRow: function (newData) {
+            //当拖拽结束后，整个表格的数据
+            console.log('拖拽结束', newData)
+            return false;
+        }
+    });
+
+    function toolbar_search() {
+        var opt = {
+            url: "bootstrap_table_edit",
+            silent: true,
+            query: {
+                type: 1,
+                level: 2
+            }
+        };
+        $('#tb_test').bootstrapTable('refresh', opt)
+    }
+
 </script>
 
 </body>
