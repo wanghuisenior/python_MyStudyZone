@@ -12,20 +12,20 @@
  pip install pyuserinput
 """
 import configparser
-import os
 import random
 import time
 
 from pymouse import PyMouse
 
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+EXECUTE_TIME = 10  # 执行次数
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+TIME_HUOSHAN = 6  # 火山  +10秒 随机
+TIME_JUREN = 100  # 巨人 +10秒 随机
+TIME_MOLI = 111  # 魔力 +10秒 随机
 mouse = PyMouse()
-# x_dim, y_dim = mouse.screen_size()
-# print('屏幕大小', x_dim, y_dim)
-# print('鼠标现在所在位置', mouse.position())
-# print('屏幕正中央位置', int(x_dim / 2), int(y_dim / 2))
-# mouse.move(int(x_dim / 2), int(y_dim / 2))  # 鼠标移动到屏幕正中央
-# mouse.click(int(x_dim / 2), int(y_dim / 2))
-
 config_file_name = 'play.txt'
 config = configparser.ConfigParser()
 config.read(config_file_name)
@@ -86,20 +86,27 @@ if not config.has_section('get_prop'):
 config.write(open(config_file_name, 'w', encoding='utf8'))
 ###########################
 flag = input('请输入 1:自动火山 2: 自动巨人 3: 自动魔力\n')
-if flag: flag = int(flag)
+try:
+	flag = int(flag)
+	if not (flag == 1 or flag == 2 or flag == 3):
+		print('数据有误，请输入合法的整数')
+		exit(0)
+except ValueError:
+	print('数据有误，请输入合法的整数')
+	exit(0)
 get_prop_left = eval(config['get_prop']['left'])
 get_prop_right = eval(config['get_prop']['right'])
 start_again_left = eval(config['start_again']['left'])
 start_again_right = eval(config['start_again']['right'])
 confirm_left = eval(config['confirm']['left'])
 confirm_right = eval(config['confirm']['right'])
-count = int(input('请输入执行次数：'))
-for i in range(count):  # 这里填入执行次数
+for i in range(EXECUTE_TIME):  # 这里填入执行次数
+	sleep_time = TIME_HUOSHAN if flag == 1 else TIME_JUREN if flag == 2 else TIME_MOLI if flag == 3 else print('无效数据')
+	sleep_time = sleep_time + random.randint(0, 10)
 	print('\r开始执行第%s次任务...' % (i + 1))
 	print('\r点击[再来一次]按钮', end='', flush=True)
 	mouse.click(start_again_left[0] + random.randint(0, start_again_right[0] - start_again_left[0]),
 				start_again_left[1] - 5 + random.randint(0, 5))
-	sleep_time = 60 if flag == 1 else 120 if flag == 2 else 100 if flag == 3 else 0
 	for x in range(sleep_time, -1, -1):
 		print('\r倒计时{0}'.format(x), end='', flush=True)
 		time.sleep(1)
