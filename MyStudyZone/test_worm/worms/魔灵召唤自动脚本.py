@@ -19,10 +19,10 @@ from pymouse import PyMouse
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-EXECUTE_TIME = 20  # 执行次数
+# EXECUTE_TIME = 20  # 执行次数
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-TIME_HUOSHAN = 70  # 火山  +10秒 随机
+TIME_HUOSHAN = 80  # 火山  +10秒 随机
 TIME_JUREN = 100  # 巨人 +10秒 随机
 TIME_MOLI = 111  # 魔力 +10秒 随机
 mouse = PyMouse()
@@ -94,16 +94,17 @@ try:
 except ValueError:
 	print('数据有误，请输入合法的整数')
 	exit(0)
+execute_time = int(input('请输入执行次数\n'))
 ready_left = eval(config['ready']['left'])
 ready_top = eval(config['ready']['top'])
 start_again_left = eval(config['start_again']['left'])
 start_again_right = eval(config['start_again']['right'])
 confirm_left = eval(config['confirm']['left'])
 confirm_right = eval(config['confirm']['right'])
-for i in range(EXECUTE_TIME):  # 这里填入执行次数
+for i in range(execute_time):
 	sleep_time = TIME_HUOSHAN if flag == 1 else TIME_JUREN if flag == 2 else TIME_MOLI if flag == 3 else print('无效数据')
 	sleep_time = sleep_time + random.randint(0, 10)
-	print('\r开始执行第%s次任务...' % (i + 1))
+	print('\r开始执行第%s次任务...共需执行%s次' % (i + 1, execute_time))
 	print('\r点击[再来一次]按钮', end='', flush=True)
 	mouse.click(start_again_left[0] + random.randint(0, start_again_right[0] - start_again_left[0]),
 				start_again_left[1] - 5 + random.randint(0, 10))
