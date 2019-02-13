@@ -19,14 +19,14 @@ from pymouse import PyMouse
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-EXECUTE_TIME = 10  # 执行次数
+EXECUTE_TIME = 20  # 执行次数
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-TIME_HUOSHAN = 6  # 火山  +10秒 随机
+TIME_HUOSHAN = 70  # 火山  +10秒 随机
 TIME_JUREN = 100  # 巨人 +10秒 随机
 TIME_MOLI = 111  # 魔力 +10秒 随机
 mouse = PyMouse()
-config_file_name = 'play.txt'
+config_file_name = 'E:/魔灵召唤/play.txt'
 config = configparser.ConfigParser()
 config.read(config_file_name)
 if not config.has_section('start_again'):
@@ -65,24 +65,24 @@ if not config.has_section('confirm'):
 		if x == 0:
 			print('\r成功记录鼠标位置...', mouse.position())
 			config.set('confirm', 'right', str(mouse.position()))
-if not config.has_section('get_prop'):
-	print('检测到未配置【获得道具】按钮位置，即将开始进行配置...')
+if not config.has_section('ready'):
+	print('检测到未配置【战斗准备】按钮位置，即将开始进行配置...')
 	time.sleep(2)
-	config.add_section('get_prop')
-	print('请将鼠标移至【获得道具】按钮左侧...')
+	config.add_section('ready')
+	print('请将鼠标移至【战斗准备】按钮左侧...')
 	for x in range(5, -1, -1):
 		print('\r倒计时{0}'.format(x), end='', flush=True)
 		time.sleep(1)
 		if x == 0:
 			print('\r成功记录鼠标位置...', mouse.position())
-			config.set('get_prop', 'left', str(mouse.position()))
-	print('请将鼠标移至【获得道具】按钮右侧...')
+			config.set('ready', 'left', str(mouse.position()))
+	print('请将鼠标移至【战斗准备】按钮上方...')
 	for x in range(5, -1, -1):
 		print('\r倒计时{0}'.format(x), end='', flush=True)
 		time.sleep(1)
 		if x == 0:
 			print('\r成功记录鼠标位置...', mouse.position())
-			config.set('get_prop', 'right', str(mouse.position()))
+			config.set('ready', 'top', str(mouse.position()))
 config.write(open(config_file_name, 'w', encoding='utf8'))
 ###########################
 flag = input('请输入 1:自动火山 2: 自动巨人 3: 自动魔力\n')
@@ -94,8 +94,8 @@ try:
 except ValueError:
 	print('数据有误，请输入合法的整数')
 	exit(0)
-get_prop_left = eval(config['get_prop']['left'])
-get_prop_right = eval(config['get_prop']['right'])
+ready_left = eval(config['ready']['left'])
+ready_top = eval(config['ready']['top'])
 start_again_left = eval(config['start_again']['left'])
 start_again_right = eval(config['start_again']['right'])
 confirm_left = eval(config['confirm']['left'])
@@ -106,24 +106,25 @@ for i in range(EXECUTE_TIME):  # 这里填入执行次数
 	print('\r开始执行第%s次任务...' % (i + 1))
 	print('\r点击[再来一次]按钮', end='', flush=True)
 	mouse.click(start_again_left[0] + random.randint(0, start_again_right[0] - start_again_left[0]),
-				start_again_left[1] - 5 + random.randint(0, 5))
+				start_again_left[1] - 5 + random.randint(0, 10))
 	for x in range(sleep_time, -1, -1):
 		print('\r倒计时{0}'.format(x), end='', flush=True)
 		time.sleep(1)
 	# 倒计时结束，点击两下屏幕，获取结果
+	confirm_btn_center_x = (confirm_left[0] + confirm_right[0]) // 2
 	print('\r点击[空白处]显示宝箱', end='', flush=True)
-	mouse.click(confirm_left[0] + random.randint(0, confirm_right[0] - confirm_left[0]),
-				confirm_left[1] - 5 + random.randint(0, 5))
-	time.sleep(2)
+	mouse.click(confirm_btn_center_x - 5 + random.randint(0, ready_left[0] - confirm_btn_center_x),
+				ready_top[1] + 20 - random.randint(0, 40))
+	time.sleep(3)
 	print('\r点击[空白处]打开宝箱', end='', flush=True)
-	mouse.click(confirm_left[0] + random.randint(0, confirm_right[0] - confirm_left[0]),
-				confirm_left[1] - 5 + random.randint(0, 5))
-	time.sleep(2)
+	mouse.click(confirm_btn_center_x - 5 + random.randint(0, ready_left[0] - confirm_btn_center_x),
+				ready_top[1] + 20 - random.randint(0, 40))
+	time.sleep(3)
 	print('\r点击[确认]按钮', end='', flush=True)
-	mouse.click(confirm_left[0], confirm_left[1])
-	time.sleep(2)
+	mouse.click(confirm_btn_center_x - 5 + random.randint(0, ready_left[0] - confirm_btn_center_x),
+				ready_top[1] + 20 - random.randint(0, 40))
+	time.sleep(3)
 	print('\r点击[获得道具]按钮', end='', flush=True)
-	mouse.click(get_prop_left[0] + random.randint(0, get_prop_right[0] - get_prop_left[0]),
-				get_prop_left[1] - 5 + random.randint(0, 5))
-	time.sleep(2)
+	mouse.click(ready_left[0] - random.randint(5, 15), ready_left[1])
+	time.sleep(3)
 print('\r任务执行完毕')
