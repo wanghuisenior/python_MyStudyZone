@@ -1,0 +1,18 @@
+[start_again]
+left = (674, 252)
+right = (875, 254)
+
+[confirm]
+left = (897, 278)
+right = (897, 278)
+
+[ready]
+left = (924, 357)
+top = (961, 318)
+
+[screen]
+left_x = 455
+right_x = 1160
+top_y = 195
+bottom_y = 640
+
