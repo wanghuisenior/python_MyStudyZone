@@ -24,7 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "gulp-cli": "^2.0.1",
-    "jquery": ">=1.7.2",
+    "jquery": ">=3.5.0",
     "lz-string": "^1.4.4",
     "uglify-save-license": "^0.4.1"
   },
